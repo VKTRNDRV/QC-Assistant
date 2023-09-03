@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Users List</title>
+</head>
+<body>
+<h1>Users List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the users and display them in the table -->
+    <tr th:each="user : ${users}">
+        <td th:text="${user.username}">Username</td>
+        <td>
+            <!-- Create a link to view user details by sending a GET request to /users/{id} -->
+            <a th:href="@{'/users/' + ${user.id}}" th:text="'Edit'">View Details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
