@@ -1,6 +1,6 @@
 package com.example.qcassistant.repository;
 
-import com.example.qcassistant.domain.entity.UserEntity;
+import com.example.qcassistant.domain.entity.auth.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

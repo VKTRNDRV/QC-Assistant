@@ -2,8 +2,9 @@ package com.example.qcassistant.service;
 
 import com.example.qcassistant.domain.dto.UserDisplayDto;
 import com.example.qcassistant.domain.dto.UserRegistrationDto;
-import com.example.qcassistant.domain.entity.RoleEntity;
-import com.example.qcassistant.domain.entity.UserEntity;
+import com.example.qcassistant.domain.dto.UserRoleEditDto;
+import com.example.qcassistant.domain.entity.auth.RoleEntity;
+import com.example.qcassistant.domain.entity.auth.UserEntity;
 import com.example.qcassistant.domain.enums.RoleEnum;
 import com.example.qcassistant.exception.ExistingUsernameException;
 import com.example.qcassistant.exception.UnconfirmedPasswordException;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -46,6 +48,33 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public UserDisplayDto displayUser(Long id){
+        return this.userRepository.findById(id)
+                .map(u -> this.modelMapper.map(u, UserDisplayDto.class))
+                .orElseThrow();
+    }
+
+    public void editUserRoles(UserRoleEditDto userRoleEditDto){
+        UserEntity user = this.userRepository
+                .findUserEntityByUsername(userRoleEditDto.getUsername())
+                .orElseThrow();
+
+        List<RoleEntity> roles = new ArrayList<>();
+        roles.add(this.roleRepository
+                .findRoleEntityByRole(RoleEnum.USER).get());
+        if(userRoleEditDto.getRoleLevel().equals(RoleEnum.MODERATOR.name())){
+            roles.add(this.roleRepository.
+                    findRoleEntityByRole(RoleEnum.MODERATOR).get());
+        }
+        if(userRoleEditDto.getRoleLevel().equals(RoleEnum.ADMINISTRATOR.name())){
+            roles.add(this.roleRepository.
+                    findRoleEntityByRole(RoleEnum.MODERATOR).get());
+            roles.add(this.roleRepository.
+                    findRoleEntityByRole(RoleEnum.ADMINISTRATOR).get());
+        }
+        user.setRoles(roles);
+        this.userRepository.save(user);
+    }
 
     public void registerUser(UserRegistrationDto registrationDTO,
                              Consumer<Authentication> successfulLoginProcessor){

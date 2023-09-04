@@ -1,10 +1,13 @@
 package com.example.qcassistant.web;
 
 import com.example.qcassistant.domain.dto.UserDisplayDto;
+import com.example.qcassistant.domain.dto.UserRoleEditDto;
 import com.example.qcassistant.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -22,5 +25,19 @@ public class UserController {
         List<UserDisplayDto> users = this.userService.getAllUsers();
         model.addAttribute("users", users);
         return "users-all";
+    }
+
+    @GetMapping("/users/{id}")
+    public String getEditUserRoles(@PathVariable Long id, Model model){
+        UserDisplayDto user = this.userService.displayUser(id);
+        model.addAttribute("user", user);
+        return "users-edit";
+    }
+
+    @PostMapping("/users/{id}")
+    public String editUserRoles(@PathVariable Long id,
+                                UserRoleEditDto userRoleEditDto){
+        this.userService.editUserRoles(userRoleEditDto);
+        return "redirect:/";
     }
 }

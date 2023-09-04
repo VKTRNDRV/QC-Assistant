@@ -1,8 +1,8 @@
 package com.example.qcassistant.service;
 
 import com.example.qcassistant.domain.UserDetailsImpl;
-import com.example.qcassistant.domain.entity.RoleEntity;
-import com.example.qcassistant.domain.entity.UserEntity;
+import com.example.qcassistant.domain.entity.auth.RoleEntity;
+import com.example.qcassistant.domain.entity.auth.UserEntity;
 import com.example.qcassistant.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

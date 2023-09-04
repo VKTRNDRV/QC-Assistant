@@ -1,6 +1,6 @@
 package com.example.qcassistant.repository;
 
-import com.example.qcassistant.domain.entity.RoleEntity;
+import com.example.qcassistant.domain.entity.auth.RoleEntity;
 import com.example.qcassistant.domain.enums.RoleEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
