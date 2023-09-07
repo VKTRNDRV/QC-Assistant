@@ -1,9 +1,33 @@
 package com.example.qcassistant.domain.entity.study.environment;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.example.qcassistant.domain.entity.app.MedidataApp;
+import com.example.qcassistant.util.TrinaryBoolean;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "medidata_environments")
 public class MedidataEnvironment extends BaseEnvironment{
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "is_legacy")
+    private TrinaryBoolean isLegacy;
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "medidata_environments_patient_apps",
+            joinColumns = { @JoinColumn(name = "environment_id") },
+            inverseJoinColumns = { @JoinColumn(name = "app_id") }
+    )
+    private List<MedidataApp> patientApps;
+
+
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "medidata_environments_site_apps",
+            joinColumns = { @JoinColumn(name = "environment_id") },
+            inverseJoinColumns = { @JoinColumn(name = "app_id") }
+    )
+    private List<MedidataApp> siteApps;
 }

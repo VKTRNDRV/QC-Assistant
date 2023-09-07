@@ -2,7 +2,7 @@ package com.example.qcassistant.config;
 
 import com.example.qcassistant.domain.enums.RoleEnum;
 import com.example.qcassistant.repository.UserRepository;
-import com.example.qcassistant.service.UserDetailsServiceImpl;
+import com.example.qcassistant.service.auth.UserDetailsServiceImpl;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,11 +26,17 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .permitAll()
-                .requestMatchers("/login", "/register", "/login-error", "/register-error")
+                .requestMatchers(
+                        "/login", "/register", "/login-error", "/register-error"
+                )
                 .permitAll()
-                .requestMatchers("/add-study-medidata", "/edit-study-medidata")
+                .requestMatchers(
+                        "/languages/edit/**", "/languages/add/**", "/destinations/edit/**", "/destinations/add/**",
+                        "/medidata/add-study/**", "/medidata/edit-study/**", "/medidata/add-sponsor/**", "/medidata/edit-sponsor/**",
+                        "/medidata/add-device/**", "/medidata/edit-device/**"
+                )
                 .hasRole(RoleEnum.MODERATOR.name())
-                .requestMatchers("/users")
+                .requestMatchers("/users/**")
                 .hasRole(RoleEnum.ADMINISTRATOR.name())
                 .anyRequest().authenticated()
                 )

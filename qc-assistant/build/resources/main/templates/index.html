@@ -38,14 +38,28 @@
                     <a class="nav-link" href="/users">Users</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-bs-toggle="dropdown" aria-expanded="false">Medidata</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="destinations-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                        <li><a class="dropdown-item" href="#">View/Edit Destinations</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="destinations/add">Add Destination</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/languages">View/Edit Languages</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/languages/add">Add Language</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="medidata-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Medidata</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown04">
                         <li><a class="dropdown-item" href="#">Generate Order Notes</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">View/Edit Studies</a></li>
-                        <li><a class="dropdown-item" href="#">View/Edit Sponsors</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/add-study">Add Study</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">View/Edit Sponsors</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="#">Add Sponsor</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">View/Edit Devices</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/add-study">Add Device</a></li>
                     </ul>
                 </li>
             </ul>

@@ -1,6 +1,8 @@
 package com.example.qcassistant.domain.entity.destination;
 
 import com.example.qcassistant.domain.entity.BaseEntity;
+import com.example.qcassistant.domain.enums.PlugType;
+import com.example.qcassistant.domain.enums.SimType;
 import com.example.qcassistant.util.TrinaryBoolean;
 import jakarta.persistence.*;
 
@@ -22,6 +24,17 @@ public class Destination extends BaseEntity {
     )
     private List<Language> languages;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "plug_type")
+    private PlugType plugType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sim_type")
+    private SimType simType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "requires_special_model")
+    private TrinaryBoolean requiresSpecialModels;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "requires_unused_devices")
@@ -30,41 +43,4 @@ public class Destination extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "requires_invoice")
     private TrinaryBoolean requiresInvoice;
-
-
-    public String getName() {
-        return name;
-    }
-
-    public Destination setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public List<Language> getLanguages() {
-        return languages;
-    }
-
-    public Destination setLanguages(List<Language> languages) {
-        this.languages = languages;
-        return this;
-    }
-
-    public TrinaryBoolean getRequiresUnusedDevices() {
-        return requiresUnusedDevices;
-    }
-
-    public Destination setRequiresUnusedDevices(TrinaryBoolean requiresUnusedDevices) {
-        this.requiresUnusedDevices = requiresUnusedDevices;
-        return this;
-    }
-
-    public TrinaryBoolean getRequiresInvoice() {
-        return requiresInvoice;
-    }
-
-    public Destination setRequiresInvoice(TrinaryBoolean requiresInvoice) {
-        this.requiresInvoice = requiresInvoice;
-        return this;
-    }
 }

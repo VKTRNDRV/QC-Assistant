@@ -1,10 +1,21 @@
 package com.example.qcassistant.domain.entity.study.environment;
 
 import com.example.qcassistant.domain.entity.BaseEntity;
+import com.example.qcassistant.util.TrinaryBoolean;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class BaseEnvironment extends BaseEntity {
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "is_site_patient_separated")
+    private TrinaryBoolean isSitePatientSeparated;
 
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "is_destination_separated")
+    private TrinaryBoolean isDestinationSeparated;
 }

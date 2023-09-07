@@ -17,8 +17,21 @@ public class MedidataStudy extends BaseStudy{
     @JoinColumn(name = "environment_id")
     private MedidataEnvironment environment;
 
-    @Column(name = "folder_url")
-    private String folderURL;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "contains_translated_labels")
+    private TrinaryBoolean containsTranslatedLabels;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "contains_translated_docs")
+    private TrinaryBoolean containsTranslatedDocs;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "contains_editable_welcome_letter")
+    private TrinaryBoolean containsEditableWelcomeLetter;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "is_patient_device_ipad")
+    private TrinaryBoolean isPatientDeviceIpad;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "includes_headphones_styluses")

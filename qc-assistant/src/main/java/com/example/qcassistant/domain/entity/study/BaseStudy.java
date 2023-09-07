@@ -9,4 +9,7 @@ public abstract class BaseStudy extends BaseEntity {
 
     @Column(unique = true)
     private String name;
+
+    @Column(name = "folder_url")
+    private String folderURL;
 }

@@ -24,6 +24,10 @@ public class UserEntity extends BaseEntity {
     )
     private List<RoleEntity> roles;
 
+    public UserEntity() {
+
+    }
+
 
     public String getUsername() {
         return username;
