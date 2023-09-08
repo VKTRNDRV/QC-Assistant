@@ -43,4 +43,68 @@ public class Destination extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "requires_invoice")
     private TrinaryBoolean requiresInvoice;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public Destination setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public Destination setLanguages(List<Language> languages) {
+        this.languages = languages;
+        return this;
+    }
+
+    public PlugType getPlugType() {
+        return plugType;
+    }
+
+    public Destination setPlugType(PlugType plugType) {
+        this.plugType = plugType;
+        return this;
+    }
+
+    public SimType getSimType() {
+        return simType;
+    }
+
+    public Destination setSimType(SimType simType) {
+        this.simType = simType;
+        return this;
+    }
+
+    public TrinaryBoolean getRequiresSpecialModels() {
+        return requiresSpecialModels;
+    }
+
+    public Destination setRequiresSpecialModels(TrinaryBoolean requiresSpecialModels) {
+        this.requiresSpecialModels = requiresSpecialModels;
+        return this;
+    }
+
+    public TrinaryBoolean getRequiresUnusedDevices() {
+        return requiresUnusedDevices;
+    }
+
+    public Destination setRequiresUnusedDevices(TrinaryBoolean requiresUnusedDevices) {
+        this.requiresUnusedDevices = requiresUnusedDevices;
+        return this;
+    }
+
+    public TrinaryBoolean getRequiresInvoice() {
+        return requiresInvoice;
+    }
+
+    public Destination setRequiresInvoice(TrinaryBoolean requiresInvoice) {
+        this.requiresInvoice = requiresInvoice;
+        return this;
+    }
 }

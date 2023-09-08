@@ -15,9 +15,6 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
 
-
-
-    <!-- Custom styles for this template -->
     <link href="navbar.css" rel="stylesheet">
 </head>
 <body>
@@ -40,7 +37,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="destinations-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                        <li><a class="dropdown-item" href="#">View/Edit Destinations</a></li>
+                        <li><a class="dropdown-item" href="/destinations">View/Edit Destinations</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="destinations/add">Add Destination</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/languages">View/Edit Languages</a></li>

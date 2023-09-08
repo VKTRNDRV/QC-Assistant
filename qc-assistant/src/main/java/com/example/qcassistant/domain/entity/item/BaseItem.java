@@ -1,4 +1,4 @@
-package com.example.qcassistant.domain.entity.lineItem;
+package com.example.qcassistant.domain.entity.item;
 
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.enums.ItemType;

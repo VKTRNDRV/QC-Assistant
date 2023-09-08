@@ -1,6 +1,6 @@
-package com.example.qcassistant.domain.entity.lineItem.shell;
+package com.example.qcassistant.domain.entity.item.shell;
 
-import com.example.qcassistant.domain.entity.lineItem.BaseItem;
+import com.example.qcassistant.domain.entity.item.BaseItem;
 import com.example.qcassistant.domain.enums.ConnectorType;
 import com.example.qcassistant.domain.enums.OperatingSystem;
 import com.example.qcassistant.domain.enums.ShellType;
