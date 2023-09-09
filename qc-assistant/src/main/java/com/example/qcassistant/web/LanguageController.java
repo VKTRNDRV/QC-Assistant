@@ -5,14 +5,12 @@ import com.example.qcassistant.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/languages")
 public class LanguageController {
 
     private LanguageService languageService;
@@ -22,20 +20,20 @@ public class LanguageController {
         this.languageService = languageService;
     }
 
-    @GetMapping("/languages")
+    @GetMapping("/all")
     public String getLanguages(Model model){
         List<LanguageDto> languages = this.languageService.getAllLanguages();
         model.addAttribute("languages", languages);
         return "languages-all";
     }
 
-    @GetMapping("/languages/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String getEditLanguage(@PathVariable Long id, Model model){
         model.addAttribute("language", this.languageService.getLanguageById(id));
         return "languages-edit";
     }
 
-    @PostMapping("/languages/edit")
+    @PostMapping("/edit")
     public String editLanguage(@ModelAttribute LanguageDto languageDto, Model model){
         try {
             this.languageService.editLanguage(languageDto);
@@ -49,12 +47,12 @@ public class LanguageController {
     }
 
 
-    @GetMapping("/languages/add")
+    @GetMapping("/add")
     public String getAddLanguage(){
         return "languages-add";
     }
 
-    @PostMapping("languages/add")
+    @PostMapping("/add")
     public String addLanguage(@ModelAttribute LanguageDto languageDto, Model model){
         try {
             this.languageService.addLanguage(languageDto);

@@ -33,7 +33,7 @@ public class SecurityConfiguration {
                 .requestMatchers(
                         "/languages/edit/**", "/languages/add/**", "/destinations/edit/**", "/destinations/add/**",
                         "/medidata/add-study/**", "/medidata/edit-study/**", "/medidata/add-sponsor/**", "/medidata/edit-sponsor/**",
-                        "/medidata/add-device/**", "/medidata/edit-device/**"
+                        "/medidata/apps/add/**", "/medidata/apps/edit/**"
                 )
                 .hasRole(RoleEnum.MODERATOR.name())
                 .requestMatchers("/users/**")

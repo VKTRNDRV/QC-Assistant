@@ -1,4 +1,4 @@
-package com.example.qcassistant.repository;
+package com.example.qcassistant.repository.study;
 
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import org.springframework.data.jpa.repository.JpaRepository;

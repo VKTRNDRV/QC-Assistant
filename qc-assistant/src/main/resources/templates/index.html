@@ -37,10 +37,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="destinations-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown04">
-                        <li><a class="dropdown-item" href="/destinations">View/Edit Destinations</a></li>
+                        <li><a class="dropdown-item" href="/destinations/all">View/Edit Destinations</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="destinations/add">Add Destination</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/languages">View/Edit Languages</a></li>
+                        <li><a class="dropdown-item" href="/languages/all">View/Edit Languages</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/languages/add">Add Language</a></li>
                     </ul>
                 </li>
@@ -55,8 +55,8 @@
                         <li><a class="dropdown-item" href="#">View/Edit Sponsors</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="#">Add Sponsor</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">View/Edit Devices</a></li>
-                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/add-study">Add Device</a></li>
+                        <li><a class="dropdown-item" href="/medidata/apps">View/Edit Apps</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/apps/add">Add App</a></li>
                     </ul>
                 </li>
             </ul>

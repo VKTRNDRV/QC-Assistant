@@ -10,10 +10,30 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class BaseApp extends BaseEntity {
 
-    @Column
+    @Column(nullable = false,
+            unique = true)
     private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "requires_camera")
     private TrinaryBoolean requiresCamera;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public BaseApp setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public TrinaryBoolean getRequiresCamera() {
+        return requiresCamera;
+    }
+
+    public BaseApp setRequiresCamera(TrinaryBoolean requiresCamera) {
+        this.requiresCamera = requiresCamera;
+        return this;
+    }
 }
