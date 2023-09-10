@@ -30,4 +30,33 @@ public class MedidataEnvironment extends BaseEnvironment{
             inverseJoinColumns = { @JoinColumn(name = "app_id") }
     )
     private List<MedidataApp> siteApps;
+
+
+
+    public TrinaryBoolean getIsLegacy() {
+        return isLegacy;
+    }
+
+    public MedidataEnvironment setIsLegacy(TrinaryBoolean isLegacy) {
+        this.isLegacy = isLegacy;
+        return this;
+    }
+
+    public List<MedidataApp> getPatientApps() {
+        return patientApps;
+    }
+
+    public MedidataEnvironment setPatientApps(List<MedidataApp> patientApps) {
+        this.patientApps = patientApps;
+        return this;
+    }
+
+    public List<MedidataApp> getSiteApps() {
+        return siteApps;
+    }
+
+    public MedidataEnvironment setSiteApps(List<MedidataApp> siteApps) {
+        this.siteApps = siteApps;
+        return this;
+    }
 }

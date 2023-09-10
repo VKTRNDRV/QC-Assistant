@@ -33,18 +33,17 @@ public class MedidataAppService {
 
     private void validateNewApp(MedidataAppAddDto appAddDto) {
         String name = appAddDto.getName();
-        if(name == null || name.trim().isEmpty()){
-            throw new RuntimeException("Name cannot be blank");
-        }
-        if(this.appRepository.findFirstByName(name).isPresent()){
-            throw new RuntimeException("App \"" + name + "\" already present");
-        }
+        validateNameNotBlank(name);
+        validateUniqueName(name);
     }
 
     private void validateEditApp(MedidataAppEditDto appEditDto){
         String name = appEditDto.getName();
-        if(name == null || name.trim().isEmpty()){
-            throw new RuntimeException("Name cannot be blank");
+        validateNameNotBlank(name);
+        if(!this.appRepository.findById(appEditDto.getId()).get()
+                .getName().trim()
+                .equals(name)){
+            validateUniqueName(name);
         }
     }
 
@@ -67,5 +66,17 @@ public class MedidataAppService {
         MedidataApp editedApp = this.modelMapper
                 .map(editDto, MedidataApp.class);
         this.appRepository.save(editedApp);
+    }
+
+    private void validateNameNotBlank(String name){
+        if(name == null || name.trim().isEmpty()){
+            throw new RuntimeException("Name cannot be null");
+        }
+    }
+
+    private void validateUniqueName(String name){
+        if(this.appRepository.findFirstByName(name).isPresent()){
+            throw new RuntimeException("App \"" + name + "\" already present");
+        }
     }
 }

@@ -1,8 +1,8 @@
 package com.example.qcassistant.service;
 
-import com.example.qcassistant.domain.dto.DestinationAddDto;
-import com.example.qcassistant.domain.dto.DestinationDisplayDto;
-import com.example.qcassistant.domain.dto.DestinationEditDto;
+import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
+import com.example.qcassistant.domain.dto.destination.DestinationDisplayDto;
+import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.repository.DestinationRepository;
@@ -55,8 +55,11 @@ public class DestinationService {
                 editDto.getSelectedLanguages().size() == 0){
             throw new RuntimeException("No languages selected");
         }
-        if(editDto.getName().trim().isEmpty()){
-            throw new RuntimeException("Name cannot be blank");
+        validateNameNotBlank(editDto.getName());
+        if(!this.destinationRepository.findById(editDto.getId())
+                .get().getName()
+                .equals(editDto.getName())){
+            validateUniqueName(editDto.getName());
         }
     }
 
@@ -65,14 +68,8 @@ public class DestinationService {
                 addDto.getSelectedLanguages().size() == 0){
             throw new RuntimeException("No languages selected");
         }
-        if(addDto.getName().trim().isEmpty()){
-           throw new RuntimeException("Name cannot be blank");
-        }
-        if(this.destinationRepository.findFirstByName(
-                addDto.getName()).isPresent()){
-            throw new RuntimeException(
-                    "Destination " + addDto.getName() + " already present");
-        }
+        validateNameNotBlank(addDto.getName());
+        validateUniqueName(addDto.getName());
     }
 
     public List<DestinationDisplayDto> displayDestinations(){
@@ -98,10 +95,23 @@ public class DestinationService {
         return this.modelMapper.map(destination, DestinationEditDto.class);
     }
 
-    public void updateDestination(DestinationEditDto editDto) {
+    public void editDestination(DestinationEditDto editDto) {
         validateEditDestination(editDto);
         Destination destination = this.modelMapper.map(editDto, Destination.class);
         destination.setLanguages(getLanguagesByName(editDto.getSelectedLanguages()));
         this.destinationRepository.save(destination);
+    }
+
+
+    private void validateNameNotBlank(String name){
+        if(name == null || name.trim().isEmpty()){
+            throw new RuntimeException("Name cannot be null");
+        }
+    }
+
+    private void validateUniqueName(String name){
+        if(this.destinationRepository.findFirstByName(name).isPresent()){
+            throw new RuntimeException("Destination \"" + name + "\" already present");
+        }
     }
 }

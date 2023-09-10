@@ -36,4 +36,68 @@ public class MedidataStudy extends BaseStudy{
     @Enumerated(EnumType.STRING)
     @Column(name = "includes_headphones_styluses")
     private TrinaryBoolean includesHeadphonesStyluses;
+
+
+    public MedidataSponsor getSponsor() {
+        return sponsor;
+    }
+
+    public MedidataStudy setSponsor(MedidataSponsor sponsor) {
+        this.sponsor = sponsor;
+        return this;
+    }
+
+    public MedidataEnvironment getEnvironment() {
+        return environment;
+    }
+
+    public MedidataStudy setEnvironment(MedidataEnvironment environment) {
+        this.environment = environment;
+        return this;
+    }
+
+    public TrinaryBoolean getContainsTranslatedLabels() {
+        return containsTranslatedLabels;
+    }
+
+    public MedidataStudy setContainsTranslatedLabels(TrinaryBoolean containsTranslatedLabels) {
+        this.containsTranslatedLabels = containsTranslatedLabels;
+        return this;
+    }
+
+    public TrinaryBoolean getContainsTranslatedDocs() {
+        return containsTranslatedDocs;
+    }
+
+    public MedidataStudy setContainsTranslatedDocs(TrinaryBoolean containsTranslatedDocs) {
+        this.containsTranslatedDocs = containsTranslatedDocs;
+        return this;
+    }
+
+    public TrinaryBoolean getContainsEditableWelcomeLetter() {
+        return containsEditableWelcomeLetter;
+    }
+
+    public MedidataStudy setContainsEditableWelcomeLetter(TrinaryBoolean containsEditableWelcomeLetter) {
+        this.containsEditableWelcomeLetter = containsEditableWelcomeLetter;
+        return this;
+    }
+
+    public TrinaryBoolean getIsPatientDeviceIpad() {
+        return isPatientDeviceIpad;
+    }
+
+    public MedidataStudy setIsPatientDeviceIpad(TrinaryBoolean isPatientDeviceIpad) {
+        this.isPatientDeviceIpad = isPatientDeviceIpad;
+        return this;
+    }
+
+    public TrinaryBoolean getIncludesHeadphonesStyluses() {
+        return includesHeadphonesStyluses;
+    }
+
+    public MedidataStudy setIncludesHeadphonesStyluses(TrinaryBoolean includesHeadphonesStyluses) {
+        this.includesHeadphonesStyluses = includesHeadphonesStyluses;
+        return this;
+    }
 }

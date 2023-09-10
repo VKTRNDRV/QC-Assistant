@@ -18,4 +18,22 @@ public abstract class BaseSponsor extends BaseEntity {
     @Column(name = "are_study_names_similar")
     private TrinaryBoolean areStudyNamesSimilar;
 
+
+    public String getName() {
+        return name;
+    }
+
+    public BaseSponsor setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public TrinaryBoolean getAreStudyNamesSimilar() {
+        return areStudyNamesSimilar;
+    }
+
+    public BaseSponsor setAreStudyNamesSimilar(TrinaryBoolean areStudyNamesSimilar) {
+        this.areStudyNamesSimilar = areStudyNamesSimilar;
+        return this;
+    }
 }

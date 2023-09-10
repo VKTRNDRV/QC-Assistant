@@ -1,7 +1,7 @@
 package com.example.qcassistant.web;
 
-import com.example.qcassistant.domain.dto.DestinationAddDto;
-import com.example.qcassistant.domain.dto.DestinationEditDto;
+import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
+import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.LanguageService;
 import org.springframework.stereotype.Controller;
@@ -65,7 +65,7 @@ public class DestinationController {
     @PostMapping("/edit")
     public String editDestination(@ModelAttribute DestinationEditDto editDto, Model model){
         try {
-            this.destinationService.updateDestination(editDto);
+            this.destinationService.editDestination(editDto);
         }catch (RuntimeException exc){
             model.addAttribute("allLanguages",
                     this.languageService.getAllLanguages());

@@ -1,7 +1,7 @@
 package com.example.qcassistant.config;
 
 import com.example.qcassistant.domain.enums.RoleEnum;
-import com.example.qcassistant.repository.UserRepository;
+import com.example.qcassistant.repository.auth.UserRepository;
 import com.example.qcassistant.service.auth.UserDetailsServiceImpl;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                 .permitAll()
                 .requestMatchers(
                         "/languages/edit/**", "/languages/add/**", "/destinations/edit/**", "/destinations/add/**",
-                        "/medidata/add-study/**", "/medidata/edit-study/**", "/medidata/add-sponsor/**", "/medidata/edit-sponsor/**",
+                        "/medidata/studies/add/**", "/medidata/studies/edit/**", "/medidata/sponsors/add/**", "/medidata/sponsors/edit/**",
                         "/medidata/apps/add/**", "/medidata/apps/edit/**"
                 )
                 .hasRole(RoleEnum.MODERATOR.name())

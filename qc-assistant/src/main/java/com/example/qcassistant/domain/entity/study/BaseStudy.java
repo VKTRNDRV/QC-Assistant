@@ -12,4 +12,23 @@ public abstract class BaseStudy extends BaseEntity {
 
     @Column(name = "folder_url")
     private String folderURL;
+
+
+    public String getName() {
+        return name;
+    }
+
+    public BaseStudy setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getFolderURL() {
+        return folderURL;
+    }
+
+    public BaseStudy setFolderURL(String folderURL) {
+        this.folderURL = folderURL;
+        return this;
+    }
 }

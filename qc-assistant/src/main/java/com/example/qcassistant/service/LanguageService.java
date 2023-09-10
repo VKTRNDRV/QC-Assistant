@@ -2,7 +2,6 @@ package com.example.qcassistant.service;
 
 import com.example.qcassistant.domain.dto.LanguageDto;
 import com.example.qcassistant.domain.entity.destination.Language;
-import com.example.qcassistant.exception.ExistingUsernameException;
 import com.example.qcassistant.repository.LanguageRepository;
 import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
@@ -51,25 +50,39 @@ public class LanguageService {
     }
 
     public void editLanguage(LanguageDto languageDto){
-        validateLanguageDto(languageDto);
+        validateEditLanguage(languageDto);
         Language language = this.modelMapper.map(languageDto, Language.class);
         this.languageRepository.save(language);
+    }
+
+    private void validateEditLanguage(LanguageDto languageDto) {
+        validateNameNotBlank(languageDto.getName());
+        if(!this.languageRepository.findById(languageDto.getId()).get().getName()
+                .equals(languageDto.getName())){
+            validateUniqueName(languageDto.getName());
+        }
     }
 
     public void addLanguage(LanguageDto languageDto){
-        validateLanguageDto(languageDto);
+        validateAddLanguage(languageDto);
         Language language = this.modelMapper.map(languageDto, Language.class);
         this.languageRepository.save(language);
     }
 
-    private void validateLanguageDto(LanguageDto languageDto) {
-        if(languageDto.getName().trim().isEmpty()){
-            throw new RuntimeException("Language Name cannot be blank");
+    private void validateAddLanguage(LanguageDto languageDto) {
+        validateNameNotBlank(languageDto.getName());
+        validateUniqueName(languageDto.getName());
+    }
+
+    private void validateNameNotBlank(String name){
+        if(name == null || name.trim().isEmpty()){
+            throw new RuntimeException("Name cannot be null");
         }
-        if(this.languageRepository.findFirstByName(
-                languageDto.getName()).isPresent()){
-            throw new RuntimeException(
-                    "Language " + languageDto.getName() + " already present");
+    }
+
+    private void validateUniqueName(String name){
+        if(this.languageRepository.findFirstByName(name).isPresent()){
+            throw new RuntimeException("Language \"" + name + "\" already present");
         }
     }
 }

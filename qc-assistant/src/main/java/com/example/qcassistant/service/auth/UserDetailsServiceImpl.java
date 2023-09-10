@@ -3,7 +3,7 @@ package com.example.qcassistant.service.auth;
 import com.example.qcassistant.domain.UserDetailsImpl;
 import com.example.qcassistant.domain.entity.auth.RoleEntity;
 import com.example.qcassistant.domain.entity.auth.UserEntity;
-import com.example.qcassistant.repository.UserRepository;
+import com.example.qcassistant.repository.auth.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

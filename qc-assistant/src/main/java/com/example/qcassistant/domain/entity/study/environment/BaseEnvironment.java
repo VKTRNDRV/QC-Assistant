@@ -18,4 +18,23 @@ public abstract class BaseEnvironment extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "is_destination_separated")
     private TrinaryBoolean isDestinationSeparated;
+
+
+    public TrinaryBoolean getIsSitePatientSeparated() {
+        return isSitePatientSeparated;
+    }
+
+    public BaseEnvironment setIsSitePatientSeparated(TrinaryBoolean isSitePatientSeparated) {
+        this.isSitePatientSeparated = isSitePatientSeparated;
+        return this;
+    }
+
+    public TrinaryBoolean getIsDestinationSeparated() {
+        return isDestinationSeparated;
+    }
+
+    public BaseEnvironment setIsDestinationSeparated(TrinaryBoolean isDestinationSeparated) {
+        this.isDestinationSeparated = isDestinationSeparated;
+        return this;
+    }
 }

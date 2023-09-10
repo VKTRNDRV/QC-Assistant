@@ -1,4 +1,4 @@
-package com.example.qcassistant.web.medidata;
+package com.example.qcassistant.web.app;
 
 import com.example.qcassistant.domain.dto.app.MedidataAppAddDto;
 import com.example.qcassistant.domain.dto.app.MedidataAppEditDto;

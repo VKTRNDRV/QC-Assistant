@@ -49,11 +49,11 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdown04">
                         <li><a class="dropdown-item" href="#">Generate Order Notes</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">View/Edit Studies</a></li>
-                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/add-study">Add Study</a></li>
+                        <li><a class="dropdown-item" href="/medidata/studies">View/Edit Studies</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/studies/add">Add Study</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">View/Edit Sponsors</a></li>
-                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="#">Add Sponsor</a></li>
+                        <li><a class="dropdown-item" href="/medidata/sponsors">View/Edit Sponsors</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/sponsors/add">Add Sponsor</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/medidata/apps">View/Edit Apps</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/apps/add">Add App</a></li>

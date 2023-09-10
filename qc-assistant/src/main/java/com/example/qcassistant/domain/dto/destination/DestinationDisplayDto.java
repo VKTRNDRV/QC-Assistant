@@ -1,4 +1,4 @@
-package com.example.qcassistant.domain.dto;
+package com.example.qcassistant.domain.dto.destination;
 
 public class DestinationDisplayDto {
 

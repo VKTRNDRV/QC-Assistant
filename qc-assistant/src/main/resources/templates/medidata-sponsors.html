@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Medidata Apps</title>
+    <title>Sponsors - Medidata</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,25 +23,26 @@
     </div>
 </nav>
 
-<div class="container-md">
+<div class="container-sm">
     <table class="table table-striped table-hover">
         <thead>
         <tr>
             <th>Name:</th>
-            <th>Requires Camera:</th>
+            <th>Are Study/Group names similar:</th>
             <th>Edit:</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="app : ${apps}">
-            <td th:text="${app.name}"></td>
-            <td th:text="${app.requiresCamera}"></td>
+        <tr th:each="s : ${sponsors}">
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.areStudyNamesSimilar}"></td>
             <td>
-                <a th:href="@{'/medidata/apps/edit/' + ${app.id}}" >Edit</a>
+                <a th:href="@{'/medidata/sponsors/edit/' + ${s.id}}" >Edit</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
+
 </body>
 </html>
