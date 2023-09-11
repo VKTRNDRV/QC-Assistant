@@ -2,7 +2,7 @@ package com.example.qcassistant.domain.enums;
 
 public enum ItemType {
 
-    SHELL,
+    DEVICE,
     SIM,
     MEDICAL_DEVICE,
     DOCUMENT,
