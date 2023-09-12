@@ -2,11 +2,12 @@ package com.example.qcassistant.regex;
 
 public class MedidataOrderInputRegex {
 
-    private static final String CLIENT = "Organization Medidata";
+    public static final String CLIENT_VALIDATION_REGEX = "Organization Medidata";
 
-    private static final String STUDY = "Study\\s+(?<name>[a-zA-Z0-9]+)\\s+Site";
+    public static final String STUDY_REGEX = "Study\\s+(?<studyName>[a-zA-Z0-9]+)\\s+Site";
+    public static final String STUDY_GROUP = "studyName";
 
-    private static final String SHIPPING_INSTRUCTIONS = "Shipping Instructions:(?<shippingInstructions>.+)Order Term Comments";
-
-    private static final String ORDER_TERM_COMMENTS = "Order Term Comments:(?<orderTermComments>.+)Oline";
+    public static final String DOCUMENT_REGEX = "Medidata Custom Study Document 55982-DNI (?<copiesCount>[0-9]{1,3}).";
+    public static final String DOC_COPIES_COUNT_GROUP = "copiesCount";
+    public static final String DOC_SHORTNAME = "Document";
 }

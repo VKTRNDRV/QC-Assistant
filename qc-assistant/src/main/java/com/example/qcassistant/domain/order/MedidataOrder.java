@@ -9,6 +9,8 @@ public class MedidataOrder extends ClinicalOrder{
 
     private MedidataSponsor sponsor;
 
+    private DocumentRepository documentRepository;
+
 
     public MedidataStudy getStudy() {
         return study;
@@ -25,6 +27,15 @@ public class MedidataOrder extends ClinicalOrder{
 
     public MedidataOrder setSponsor(MedidataSponsor sponsor) {
         this.sponsor = sponsor;
+        return this;
+    }
+
+    public DocumentRepository getDocumentRepository() {
+        return documentRepository;
+    }
+
+    public MedidataOrder setDocumentRepository(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
         return this;
     }
 }

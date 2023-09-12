@@ -114,4 +114,15 @@ public class DestinationService {
             throw new RuntimeException("Destination \"" + name + "\" already present");
         }
     }
+
+    public List<Destination> getEntities(){
+        return this.destinationRepository
+                .findAllByNameNot("UNKNOWN");
+    }
+
+    public Destination getUnknownDestinationEntity() {
+        return this.destinationRepository
+                .findFirstByName("UNKNOWN")
+                .get();
+    }
 }

@@ -1,23 +1,27 @@
 package com.example.qcassistant.domain.item;
 
-import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.enums.ItemType;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.MappedSuperclass;
+import com.example.qcassistant.exception.OrderParsingException;
 
-public abstract class BaseItem {
-    private String name;
+public class BaseItem {
+    private String shortName;
 
     private ItemType itemType;
 
-    public String getName() {
-        return name;
+    public BaseItem(String name, ItemType itemType){
+        setShortName(name);
+        setItemType(itemType);
     }
 
-    public BaseItem setName(String name) {
-        this.name = name;
+    public String getName() {
+        return shortName;
+    }
+
+    public BaseItem setShortName(String shortName) {
+        if(shortName == null || shortName.trim().isEmpty()){
+            throw new OrderParsingException("Item name cannot be blank");
+        }
+        this.shortName = shortName.trim();
         return this;
     }
 

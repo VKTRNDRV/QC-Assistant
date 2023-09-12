@@ -14,8 +14,14 @@ public abstract class BaseDevice extends BaseItem implements Device{
     private String serial;
 
 
-    public BaseDevice(){
-        super.setItemType(ItemType.DEVICE);
+    public BaseDevice(String shortName, OperatingSystem operatingSystem,
+                      ConnectorType connectorType, ShellType shellType, String serial){
+        super(shortName, ItemType.DEVICE);
+    }
+
+    @Override
+    public String getName(){
+        return super.getName();
     }
 
 

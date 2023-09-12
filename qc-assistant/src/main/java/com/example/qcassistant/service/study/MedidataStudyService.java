@@ -160,4 +160,15 @@ public class MedidataStudyService {
         editDto.setManualFields(study);
         return editDto;
     }
+
+    public List<MedidataStudy> getEntities() {
+        return this.studyRepository
+                .findAllByNameNot("UNKNOWN");
+    }
+
+    public MedidataStudy getUnknownStudy() {
+        return this.studyRepository
+                .findFirstByName("UNKNOWN")
+                .get();
+    }
 }

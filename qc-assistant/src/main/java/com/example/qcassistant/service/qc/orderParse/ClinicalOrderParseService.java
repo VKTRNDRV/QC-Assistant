@@ -2,12 +2,18 @@ package com.example.qcassistant.service.qc.orderParse;
 
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
+import com.example.qcassistant.exception.OrderParsingException;
+import com.example.qcassistant.regex.OrderInputRegex;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public abstract class ClinicalOrderParseService {
@@ -21,13 +27,44 @@ public abstract class ClinicalOrderParseService {
         this.languageService = languageService;
     }
 
-    protected Destination getDestination(String shippingInstructions){
+    protected Destination getDestination(SegmentedOrderInput segmentedInput){
+        Pattern namePattern;
+        Matcher matcher;
+        List<Destination> destinations = this
+                .destinationService.getEntities();
+        for(Destination destination : destinations){
+            namePattern = Pattern.compile(destination.getName());
+            matcher = namePattern.matcher(segmentedInput
+                    .getShippingInstructions());
+            if(matcher.find()){
+                return destination;
+            }
+        }
 
-        return null;
+        // check order term comments just in case
+        for(Destination destination : destinations){
+            namePattern = Pattern.compile(destination.getName());
+            matcher = namePattern.matcher(segmentedInput.getOrderTermComments());
+            if(matcher.find()){
+                return destination;
+            }
+        }
+
+       return this.destinationService.getUnknownDestinationEntity();
     }
 
-    protected Collection<Language> getRequestedLanguages(String orderTermComments){
+    protected Collection<Language> getRequestedLanguages(SegmentedOrderInput segmentedInput){
+        Pattern namePattern;
+        Matcher matcher;
+        Collection<Language> languages = new ArrayList<>();
+        for(Language language : this.languageService.getEntities()){
+            namePattern = Pattern.compile(language.getName());
+            matcher = namePattern.matcher(segmentedInput.getOrderTermComments());
+            if(matcher.find()){
+                languages.add(language);
+            }
+        }
 
-        return null;
+        return languages;
     }
 }

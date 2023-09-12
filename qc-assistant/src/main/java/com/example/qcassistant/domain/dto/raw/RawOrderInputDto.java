@@ -13,4 +13,12 @@ public class RawOrderInputDto {
         this.rawText = rawText;
         return this;
     }
+
+    public String getParsedRawText() {
+        if (rawText == null) {
+            return null;
+        }
+
+        return rawText.replace("\n", " ");
+    }
 }

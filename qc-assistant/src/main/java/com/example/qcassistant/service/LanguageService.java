@@ -85,4 +85,8 @@ public class LanguageService {
             throw new RuntimeException("Language \"" + name + "\" already present");
         }
     }
+
+    public List<Language> getEntities() {
+        return this.languageRepository.findAll();
+    }
 }
