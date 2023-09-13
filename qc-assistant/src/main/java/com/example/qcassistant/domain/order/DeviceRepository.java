@@ -12,4 +12,8 @@ public class DeviceRepository {
     public DeviceRepository(){
         this.devices = new ArrayList<>();
     }
+
+    public void addDevice(Device device){
+        this.devices.add(device);
+    }
 }

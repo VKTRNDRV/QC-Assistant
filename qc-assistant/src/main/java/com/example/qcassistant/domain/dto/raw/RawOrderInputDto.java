@@ -19,6 +19,8 @@ public class RawOrderInputDto {
             return null;
         }
 
-        return rawText.replace("\n", " ");
+        return rawText
+                .replace("\n", " ")
+                .replace("\r", " ");
     }
 }

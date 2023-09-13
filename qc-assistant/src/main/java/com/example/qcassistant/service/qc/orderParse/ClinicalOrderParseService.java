@@ -50,7 +50,8 @@ public abstract class ClinicalOrderParseService {
             }
         }
 
-       return this.destinationService.getUnknownDestinationEntity();
+        // return unknown destination
+        return this.destinationService.getUnknownDestinationEntity();
     }
 
     protected Collection<Language> getRequestedLanguages(SegmentedOrderInput segmentedInput){

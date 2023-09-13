@@ -17,6 +17,10 @@ public abstract class BaseDevice extends BaseItem implements Device{
     public BaseDevice(String shortName, OperatingSystem operatingSystem,
                       ConnectorType connectorType, ShellType shellType, String serial){
         super(shortName, ItemType.DEVICE);
+        setOperatingSystem(operatingSystem);
+        setConnectorType(connectorType);
+        setShellType(shellType);
+        setSerial(serial);
     }
 
     @Override

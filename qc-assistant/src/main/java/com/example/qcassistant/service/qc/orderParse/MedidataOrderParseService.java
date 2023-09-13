@@ -5,7 +5,15 @@ import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
+import com.example.qcassistant.domain.item.device.Device;
+import com.example.qcassistant.domain.item.device.android.phone.AndroidPhone;
+import com.example.qcassistant.domain.item.device.android.phone.MedidataAndroidPhone;
+import com.example.qcassistant.domain.item.device.ios.ipad.IPad;
+import com.example.qcassistant.domain.item.device.ios.ipad.MedidataIPad;
+import com.example.qcassistant.domain.item.device.ios.iphone.IPhone;
+import com.example.qcassistant.domain.item.device.ios.iphone.MedidataIPhone;
 import com.example.qcassistant.domain.item.document.Document;
+import com.example.qcassistant.domain.order.DeviceRepository;
 import com.example.qcassistant.domain.order.DocumentRepository;
 import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.exception.OrderParsingException;
@@ -16,6 +24,7 @@ import com.example.qcassistant.service.study.MedidataStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,16 +51,13 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
 
         validateInput(segmentedInput);
 
-        Destination destination = super.getDestination(segmentedInput);
-
         Collection<Language> requestedLanguages = super
                 .getRequestedLanguages(segmentedInput);
-
+        Destination destination = super.getDestination(segmentedInput);
         MedidataStudy study = this.getStudy(segmentedInput);
-
         MedidataSponsor sponsor = study.getSponsor();
-
         DocumentRepository documents = this.getDocuments(segmentedInput);
+        DeviceRepository deviceRepository = this.getDevices(segmentedInput);
 
         MedidataOrder order = new MedidataOrder();
         order.setStudy(study)
@@ -60,19 +66,95 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
                 .setOrderTermComments(segmentedInput
                         .getOrderTermComments())
                 .setDestination(destination)
-                .setRequestedLanguages(requestedLanguages);
+                .setRequestedLanguages(requestedLanguages)
+                .setDeviceRepository(deviceRepository);
         return order;
+    }
+
+    private DeviceRepository getDevices(SegmentedOrderInput segmentedInput) {
+        DeviceRepository devices = new DeviceRepository();
+        String items = segmentedInput.getItemList();
+        this.getIPhones(items).forEach(devices::addDevice);
+        this.getIPads(items).forEach(devices::addDevice);
+        this.getAndroidPhones(items).forEach(devices::addDevice);
+
+        return devices;
+    }
+
+    private Collection<Device> getAndroidPhones(String items) {
+        Collection<Device> phones = new ArrayList<>();
+        Pattern pattern;
+        Matcher matcher;
+        for(MedidataAndroidPhone phoneConst : MedidataAndroidPhone.values()){
+            pattern = Pattern.compile(phoneConst.getRegexPattern());
+            matcher = pattern.matcher(items);
+            while (matcher.find()){
+                String serial = matcher.group(MedidataIPhone.SERIAL_GROUP_NAME);
+                phones.add(new AndroidPhone(
+                        phoneConst.getShortName(),
+                        phoneConst.getConnectorType(),
+                        serial));
+            }
+        }
+
+        return phones;
+    }
+
+    private Collection<IPad> getIPads(String items) {
+        Collection<IPad> iPads = new ArrayList<>();
+        Pattern pattern;
+        Matcher matcher;
+        for(MedidataIPad iPadConst : MedidataIPad.values()){
+            pattern = Pattern.compile(iPadConst.getRegexPattern());
+            matcher = pattern.matcher(items);
+            while (matcher.find()){
+                String serial = matcher.group(MedidataIPhone.SERIAL_GROUP_NAME);
+                iPads.add(new IPad(
+                        iPadConst.getShortName(),
+                        iPadConst.getConnectorType(),
+                        serial));
+            }
+        }
+
+        return iPads;
+    }
+
+    private Collection<IPhone> getIPhones(String items) {
+        Collection<IPhone> iPhones = new ArrayList<>();
+        Pattern pattern;
+        Matcher matcher;
+        for(MedidataIPhone iPhoneConst : MedidataIPhone.values()){
+            pattern = Pattern.compile(iPhoneConst.getRegexPattern());
+            matcher = pattern.matcher(items);
+            while (matcher.find()){
+                String serial = matcher.group(MedidataIPhone.SERIAL_GROUP_NAME);
+                iPhones.add(new IPhone(
+                        iPhoneConst.getShortName(),
+                        iPhoneConst.getConnectorType(),
+                        serial));
+            }
+        }
+
+        return iPhones;
     }
 
     private DocumentRepository getDocuments(SegmentedOrderInput segmentedInput) {
         DocumentRepository documents = new DocumentRepository();
+        String items = segmentedInput.getItemList();
         Pattern pattern = Pattern.compile(MedidataOrderInputRegex.DOCUMENT_REGEX);
-        Matcher matcher = pattern.matcher(segmentedInput.getItemList());
+        Matcher matcher = pattern.matcher(items);
         while (matcher.find()){
             Integer docCount = Integer.parseInt(matcher.group(
                             MedidataOrderInputRegex.DOC_COPIES_COUNT_GROUP));
             documents.addDocument(new Document(
                     MedidataOrderInputRegex.DOC_SHORTNAME, docCount));
+        }
+
+        pattern = Pattern.compile(MedidataOrderInputRegex.WELCOME_LETTER_REGEX);
+        matcher = pattern.matcher(items);
+        if(matcher.find()){
+            documents.addDocument(new Document(
+                    MedidataOrderInputRegex.WELCOME_LETTER_SHORTNAME, 1));
         }
 
         return documents;
