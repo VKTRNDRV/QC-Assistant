@@ -1,7 +1,7 @@
 package com.example.qcassistant.domain.item.device.ios.ipad;
 
-import com.example.qcassistant.domain.enums.ConnectorType;
-import com.example.qcassistant.domain.enums.ShellType;
+import com.example.qcassistant.domain.enums.item.ConnectorType;
+import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.item.device.ios.IOSDevice;
 
 public class IPad extends IOSDevice {

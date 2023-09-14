@@ -1,10 +1,10 @@
 package com.example.qcassistant.domain.item.device;
 
-import com.example.qcassistant.domain.enums.ItemType;
+import com.example.qcassistant.domain.enums.item.ItemType;
 import com.example.qcassistant.domain.item.BaseItem;
-import com.example.qcassistant.domain.enums.ConnectorType;
-import com.example.qcassistant.domain.enums.OperatingSystem;
-import com.example.qcassistant.domain.enums.ShellType;
+import com.example.qcassistant.domain.enums.item.ConnectorType;
+import com.example.qcassistant.domain.enums.item.OperatingSystem;
+import com.example.qcassistant.domain.enums.item.ShellType;
 
 public abstract class BaseDevice extends BaseItem implements Device{
 
@@ -24,8 +24,8 @@ public abstract class BaseDevice extends BaseItem implements Device{
     }
 
     @Override
-    public String getName(){
-        return super.getName();
+    public String getShortName(){
+        return super.getShortName();
     }
 
 

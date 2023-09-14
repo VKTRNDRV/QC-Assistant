@@ -1,8 +1,7 @@
-package com.example.qcassistant.service.qc.orderParse;
+package com.example.qcassistant.service.orderParse;
 
 import com.example.qcassistant.exception.OrderParsingException;
 import com.example.qcassistant.regex.OrderInputRegex;
-import org.springframework.security.core.parameters.P;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

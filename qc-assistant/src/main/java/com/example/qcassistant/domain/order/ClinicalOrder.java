@@ -2,10 +2,13 @@ package com.example.qcassistant.domain.order;
 
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
+import com.example.qcassistant.domain.enums.OrderType;
 
 import java.util.Collection;
 
 public abstract class ClinicalOrder {
+
+    private OrderType orderType;
 
     private Destination destination;
 
@@ -15,6 +18,7 @@ public abstract class ClinicalOrder {
 
     private DeviceRepository deviceRepository;
 
+    private AccessoryRepository accessoryRepository;
 
 
     public Destination getDestination() {
@@ -50,6 +54,24 @@ public abstract class ClinicalOrder {
 
     public ClinicalOrder setDeviceRepository(DeviceRepository deviceRepository) {
         this.deviceRepository = deviceRepository;
+        return this;
+    }
+
+    public OrderType getOrderType() {
+        return orderType;
+    }
+
+    public ClinicalOrder setOrderType(OrderType orderType) {
+        this.orderType = orderType;
+        return this;
+    }
+
+    public AccessoryRepository getAccessoryRepository() {
+        return accessoryRepository;
+    }
+
+    public ClinicalOrder setAccessoryRepository(AccessoryRepository accessoryRepository) {
+        this.accessoryRepository = accessoryRepository;
         return this;
     }
 }

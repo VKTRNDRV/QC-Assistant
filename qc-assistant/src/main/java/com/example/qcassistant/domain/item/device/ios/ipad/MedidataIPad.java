@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.item.device.ios.ipad;
 
-import com.example.qcassistant.domain.enums.ConnectorType;
+import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum MedidataIPad {
     SIXTH_GEN("Medidata\\s*Apple\\s*iPad\\s*6th Gen.{0,16}\\s*Tablet Shell\\s*(?<serial>[A-Z0-9]{12})",

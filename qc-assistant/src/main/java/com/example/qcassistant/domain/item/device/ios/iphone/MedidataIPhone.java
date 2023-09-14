@@ -1,9 +1,6 @@
 package com.example.qcassistant.domain.item.device.ios.iphone;
 
-import com.example.qcassistant.domain.enums.ConnectorType;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum MedidataIPhone {
 

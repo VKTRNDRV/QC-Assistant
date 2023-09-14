@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.item.document;
 
-import com.example.qcassistant.domain.enums.ItemType;
+import com.example.qcassistant.domain.enums.item.ItemType;
 import com.example.qcassistant.domain.item.BaseItem;
 
 public class Document extends BaseItem {

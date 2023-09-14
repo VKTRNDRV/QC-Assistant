@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.item;
 
-import com.example.qcassistant.domain.enums.ItemType;
+import com.example.qcassistant.domain.enums.item.ItemType;
 import com.example.qcassistant.exception.OrderParsingException;
 
 public class BaseItem {
@@ -8,12 +8,12 @@ public class BaseItem {
 
     private ItemType itemType;
 
-    public BaseItem(String name, ItemType itemType){
-        setShortName(name);
+    public BaseItem(String shortName, ItemType itemType){
+        setShortName(shortName);
         setItemType(itemType);
     }
 
-    public String getName() {
+    public String getShortName() {
         return shortName;
     }
 

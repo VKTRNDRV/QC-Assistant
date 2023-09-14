@@ -1,9 +1,8 @@
-package com.example.qcassistant.service.qc.orderParse;
+package com.example.qcassistant.service.orderParse;
 
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
-import com.example.qcassistant.exception.OrderParsingException;
-import com.example.qcassistant.regex.OrderInputRegex;
+import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +66,20 @@ public abstract class ClinicalOrderParseService {
         }
 
         return languages;
+    }
+
+    protected OrderType getOrderType(SegmentedOrderInput segmentedInput) {
+        Pattern pattern = Pattern.compile(OrderType.UAT.name());
+        Matcher matcher = pattern.matcher(segmentedInput.getBasicInfo());
+        if(matcher.find()){
+            return OrderType.UAT;
+        }
+
+        matcher = pattern.matcher(segmentedInput.getOrderTermComments());
+        if(matcher.find()){
+            return OrderType.UAT;
+        }
+
+        return OrderType.PROD;
     }
 }

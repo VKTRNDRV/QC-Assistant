@@ -2,7 +2,7 @@ package com.example.qcassistant.service.qc;
 
 import com.example.qcassistant.domain.dto.raw.RawOrderInputDto;
 import com.example.qcassistant.domain.order.MedidataOrder;
-import com.example.qcassistant.service.qc.orderParse.MedidataOrderParseService;
+import com.example.qcassistant.service.orderParse.MedidataOrderParseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

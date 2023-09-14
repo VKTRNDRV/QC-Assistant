@@ -2,14 +2,14 @@ package com.example.qcassistant.domain.order;
 
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
+import com.example.qcassistant.domain.enums.item.SimType;
 
 public class MedidataOrder extends ClinicalOrder{
-
     private MedidataStudy study;
-
     private MedidataSponsor sponsor;
-
+    private SimType simType;
     private DocumentRepository documentRepository;
+
 
 
     public MedidataStudy getStudy() {
@@ -36,6 +36,15 @@ public class MedidataOrder extends ClinicalOrder{
 
     public MedidataOrder setDocumentRepository(DocumentRepository documentRepository) {
         this.documentRepository = documentRepository;
+        return this;
+    }
+
+    public SimType getSimType() {
+        return simType;
+    }
+
+    public MedidataOrder setSimType(SimType simType) {
+        this.simType = simType;
         return this;
     }
 }

@@ -1,8 +1,8 @@
 package com.example.qcassistant.domain.entity.destination;
 
 import com.example.qcassistant.domain.entity.BaseEntity;
-import com.example.qcassistant.domain.enums.PlugType;
-import com.example.qcassistant.domain.enums.SimType;
+import com.example.qcassistant.domain.enums.item.PlugType;
+import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.util.TrinaryBoolean;
 import jakarta.persistence.*;
 

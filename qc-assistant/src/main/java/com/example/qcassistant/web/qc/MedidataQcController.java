@@ -3,7 +3,6 @@ package com.example.qcassistant.web.qc;
 import com.example.qcassistant.domain.dto.raw.RawOrderInputDto;
 import com.example.qcassistant.exception.OrderParsingException;
 import com.example.qcassistant.service.qc.MedidataQcService;
-import com.example.qcassistant.service.qc.orderParse.MedidataOrderParseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

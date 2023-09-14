@@ -1,10 +1,14 @@
-package com.example.qcassistant.service.qc.orderParse;
+package com.example.qcassistant.service.orderParse;
 
 import com.example.qcassistant.domain.dto.raw.RawOrderInputDto;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
+import com.example.qcassistant.domain.enums.OrderType;
+import com.example.qcassistant.domain.enums.item.SimType;
+import com.example.qcassistant.domain.item.accessory.Accessory;
+import com.example.qcassistant.domain.item.accessory.MedidataAccessory;
 import com.example.qcassistant.domain.item.device.Device;
 import com.example.qcassistant.domain.item.device.android.phone.AndroidPhone;
 import com.example.qcassistant.domain.item.device.android.phone.MedidataAndroidPhone;
@@ -13,6 +17,8 @@ import com.example.qcassistant.domain.item.device.ios.ipad.MedidataIPad;
 import com.example.qcassistant.domain.item.device.ios.iphone.IPhone;
 import com.example.qcassistant.domain.item.device.ios.iphone.MedidataIPhone;
 import com.example.qcassistant.domain.item.document.Document;
+import com.example.qcassistant.domain.item.sim.MedidataSIM;
+import com.example.qcassistant.domain.order.AccessoryRepository;
 import com.example.qcassistant.domain.order.DeviceRepository;
 import com.example.qcassistant.domain.order.DocumentRepository;
 import com.example.qcassistant.domain.order.MedidataOrder;
@@ -22,6 +28,7 @@ import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.LanguageService;
 import com.example.qcassistant.service.study.MedidataStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,24 +58,62 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
 
         validateInput(segmentedInput);
 
+        OrderType orderType = super.getOrderType(segmentedInput);
         Collection<Language> requestedLanguages = super
                 .getRequestedLanguages(segmentedInput);
         Destination destination = super.getDestination(segmentedInput);
         MedidataStudy study = this.getStudy(segmentedInput);
         MedidataSponsor sponsor = study.getSponsor();
         DocumentRepository documents = this.getDocuments(segmentedInput);
-        DeviceRepository deviceRepository = this.getDevices(segmentedInput);
+        SimType includedSimsType = this.getIncludedSimsType(segmentedInput);
+        DeviceRepository devices = this.getDevices(segmentedInput);
+        AccessoryRepository accessories = this.getAccessories(segmentedInput);
 
         MedidataOrder order = new MedidataOrder();
         order.setStudy(study)
                 .setSponsor(sponsor)
+                .setSimType(includedSimsType)
                 .setDocumentRepository(documents)
                 .setOrderTermComments(segmentedInput
                         .getOrderTermComments())
                 .setDestination(destination)
                 .setRequestedLanguages(requestedLanguages)
-                .setDeviceRepository(deviceRepository);
+                .setDeviceRepository(devices)
+                .setAccessoryRepository(accessories)
+                .setOrderType(orderType);
         return order;
+    }
+
+    private AccessoryRepository getAccessories(SegmentedOrderInput segmentedInput) {
+        AccessoryRepository accessories = new AccessoryRepository();
+        String items = segmentedInput.getItemList();
+        Pattern pattern;
+        Matcher matcher;
+        for(MedidataAccessory accessoryConst : MedidataAccessory.values()){
+            pattern = Pattern.compile(accessoryConst.getRegexPattern());
+            matcher = pattern.matcher(items);
+            while (matcher.find()){
+                accessories.addAccessory(new Accessory(
+                        accessoryConst.getShortName()));
+            }
+        }
+
+        return accessories;
+    }
+
+    private SimType getIncludedSimsType(SegmentedOrderInput segmentedInput) {
+        String items = segmentedInput.getItemList();
+        Pattern pattern;
+        Matcher matcher;
+        for(MedidataSIM simConst : MedidataSIM.values()){
+            pattern = Pattern.compile(simConst.getRegexPattern());
+            matcher = pattern.matcher(items);
+            if(matcher.find()){
+                return simConst.getSimType();
+            }
+        }
+
+        return SimType.NONE;
     }
 
     private DeviceRepository getDevices(SegmentedOrderInput segmentedInput) {

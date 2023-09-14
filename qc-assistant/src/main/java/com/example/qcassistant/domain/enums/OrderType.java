@@ -1,6 +1,7 @@
 package com.example.qcassistant.domain.enums;
 
-public enum PlugType {
+public enum OrderType {
 
-    A, C, I, G,
+    PROD,
+    UAT;
 }

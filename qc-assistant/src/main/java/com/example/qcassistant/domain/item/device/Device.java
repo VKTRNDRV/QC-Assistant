@@ -1,8 +1,8 @@
 package com.example.qcassistant.domain.item.device;
 
-import com.example.qcassistant.domain.enums.ConnectorType;
-import com.example.qcassistant.domain.enums.OperatingSystem;
-import com.example.qcassistant.domain.enums.ShellType;
+import com.example.qcassistant.domain.enums.item.ConnectorType;
+import com.example.qcassistant.domain.enums.item.OperatingSystem;
+import com.example.qcassistant.domain.enums.item.ShellType;
 
 public interface Device {
 
@@ -14,5 +14,5 @@ public interface Device {
 
     String getSerial();
 
-    String getName();
+    String getShortName();
 }

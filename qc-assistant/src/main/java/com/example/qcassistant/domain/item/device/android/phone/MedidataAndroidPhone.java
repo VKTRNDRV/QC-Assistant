@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.item.device.android.phone;
 
-import com.example.qcassistant.domain.enums.ConnectorType;
+import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum MedidataAndroidPhone {
 
