@@ -9,16 +9,12 @@ import java.util.Collection;
 public abstract class ClinicalOrder {
 
     private OrderType orderType;
-
     private Destination destination;
-
     private Collection<Language> requestedLanguages;
-
     private String orderTermComments;
-
     private DeviceRepository deviceRepository;
-
     private AccessoryRepository accessoryRepository;
+
 
 
     public Destination getDestination() {

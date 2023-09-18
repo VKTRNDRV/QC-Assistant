@@ -40,7 +40,6 @@ import java.util.regex.Pattern;
 public class MedidataOrderParseService extends ClinicalOrderParseService {
 
     private MedidataStudyService studyService;
-    private DestinationService destinationService;
 
     @Autowired
     public MedidataOrderParseService(MedidataStudyService studyService,
