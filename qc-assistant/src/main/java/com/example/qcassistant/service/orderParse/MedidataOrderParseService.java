@@ -205,7 +205,11 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
     }
 
     private void validateInput(SegmentedOrderInput segmentedOrderInput) {
+        super.validateOrderType(segmentedOrderInput);
+        this.validateClient(segmentedOrderInput);
+    }
 
+    private void validateClient(SegmentedOrderInput segmentedOrderInput) {
         Pattern pattern = Pattern.compile(MedidataOrderInputRegex
                 .CLIENT_VALIDATION_REGEX);
         Matcher matcher = pattern.matcher(

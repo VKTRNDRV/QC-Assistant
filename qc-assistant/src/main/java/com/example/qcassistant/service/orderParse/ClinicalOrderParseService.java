@@ -3,6 +3,8 @@ package com.example.qcassistant.service.orderParse;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.domain.enums.OrderType;
+import com.example.qcassistant.exception.OrderParsingException;
+import com.example.qcassistant.regex.OrderInputRegex;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +83,24 @@ public abstract class ClinicalOrderParseService {
         }
 
         return OrderType.PROD;
+    }
+
+    protected void validateOrderType(SegmentedOrderInput segmentedOrderInput) {
+        Pattern pattern = Pattern.compile(
+                OrderInputRegex.NEW_HIRE_ORDER_REGEX);
+        Matcher matcher = pattern.matcher(
+                segmentedOrderInput.getBasicInfo());
+        if(matcher.find()){
+            return;
+        }
+
+        pattern = Pattern.compile(
+                OrderInputRegex.ADVANCED_SEND_ORDER_REGEX);
+        matcher = pattern.matcher(
+                segmentedOrderInput.getBasicInfo());
+        if(!matcher.find()){
+            throw new OrderParsingException(
+                    "Order Type not New Hire/Advanced Send");
+        }
     }
 }

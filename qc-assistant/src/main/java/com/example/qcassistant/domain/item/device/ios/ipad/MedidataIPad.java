@@ -9,6 +9,10 @@ public enum MedidataIPad {
 
     AIR_2("Medidata\\s*Apple\\s*iPad\\s*Air\\s*2.{0,16}\\s*Tablet\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
             "iPad Air 2",
+            ConnectorType.LIGHTNING),
+
+    MINI("Medidata\\s*Apple\\s*iPad\\s*Mini\\s*.{0,16}\\s*Tablet\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+            "iPad Mini",
             ConnectorType.LIGHTNING);
 
     private String regexPattern;

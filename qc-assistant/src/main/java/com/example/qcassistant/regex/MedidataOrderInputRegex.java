@@ -4,6 +4,9 @@ public class MedidataOrderInputRegex {
 
     public static final String CLIENT_VALIDATION_REGEX = "Organization\\s*Medidata";
 
+
+    public static final String MULTI_USER = "Multi-User";
+
     public static final String STUDY_REGEX = "Study\\s*(?<studyName>.+)\\s*Site";
     public static final String STUDY_GROUP = "studyName";
 

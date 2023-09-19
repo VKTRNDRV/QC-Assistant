@@ -16,4 +16,14 @@ public class AccessoryRepository {
     public void addAccessory(Accessory accessory){
         this.accessories.add(accessory);
     }
+
+    public boolean containsAccessory(String shortName){
+        for(Accessory accessory : accessories){
+            if(accessory.getShortName().equals(shortName)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

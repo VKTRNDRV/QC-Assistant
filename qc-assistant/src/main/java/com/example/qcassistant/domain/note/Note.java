@@ -7,7 +7,10 @@ public class Note {
     private Severity severity;
     private String text;
 
-
+    public Note(Severity severity, String text){
+        setSeverity(severity);
+        setText(text);
+    }
 
     public Severity getSeverity() {
         return severity;

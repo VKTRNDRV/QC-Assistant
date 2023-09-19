@@ -44,6 +44,7 @@ public class Destination extends BaseEntity {
     @Column(name = "requires_invoice")
     private TrinaryBoolean requiresInvoice;
 
+    private static final String UNKNOWN = "UNKNOWN";
 
     public String getName() {
         return name;
@@ -106,5 +107,9 @@ public class Destination extends BaseEntity {
     public Destination setRequiresInvoice(TrinaryBoolean requiresInvoice) {
         this.requiresInvoice = requiresInvoice;
         return this;
+    }
+
+    public boolean isUnknown() {
+        return this.name.equals(UNKNOWN);
     }
 }

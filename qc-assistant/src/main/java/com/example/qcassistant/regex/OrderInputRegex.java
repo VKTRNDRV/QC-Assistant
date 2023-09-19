@@ -2,6 +2,10 @@ package com.example.qcassistant.regex;
 
 public class OrderInputRegex {
 
+    public static final String NEW_HIRE_ORDER_REGEX = "Horizon\\s*Order\\s*Type\\s*New\\s*Hire";
+
+    public static final String ADVANCED_SEND_ORDER_REGEX = "Horizon\\s*Order\\s*Type\\s*Advanced\\s*Send";
+
     public static final String BASIC_INFO_REGEX = "(?<basicInfo>.+)Shipping Instructions:";
     public static final String BASIC_INFO_GROUP = "basicInfo";
 

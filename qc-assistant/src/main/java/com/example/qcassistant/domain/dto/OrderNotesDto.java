@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.dto;
 
-import com.example.qcassistant.domain.dto.device.DeviceNameSerialDto;
+import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
 import com.example.qcassistant.domain.item.device.Device;
 import com.example.qcassistant.domain.note.Note;
 
@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class OrderNotesDto {
 
-    private Collection<DeviceNameSerialDto> devices;
+    private Collection<ItemNameSerialDto> items;
     private Collection<Note> shellCheckNotes;
     private Collection<Note> documentationNotes;
     private Collection<Note> iosNotes;
@@ -18,7 +18,7 @@ public class OrderNotesDto {
 
 
     public OrderNotesDto() {
-        this.devices = new ArrayList<>();
+        this.items = new ArrayList<>();
         this.shellCheckNotes = new ArrayList<>();
         this.documentationNotes = new ArrayList<>();
         this.iosNotes = new ArrayList<>();
@@ -26,12 +26,12 @@ public class OrderNotesDto {
         this.windowsNotes = new ArrayList<>();
     }
 
-    public Collection<DeviceNameSerialDto> getDevices() {
-        return devices;
+    public Collection<ItemNameSerialDto> getItems() {
+        return items;
     }
 
-    public OrderNotesDto setDevices(Collection<DeviceNameSerialDto> devices) {
-        this.devices = devices;
+    public OrderNotesDto setItems(Collection<ItemNameSerialDto> items) {
+        this.items = items;
         return this;
     }
 
@@ -81,7 +81,7 @@ public class OrderNotesDto {
     }
 
     public void addDevice(Device device){
-        this.devices.add(new DeviceNameSerialDto()
+        this.items.add(new ItemNameSerialDto()
                 .setShortName(device.getShortName())
                 .setSerial(device.getSerial()));
     }

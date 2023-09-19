@@ -1,6 +1,6 @@
-package com.example.qcassistant.domain.dto.device;
+package com.example.qcassistant.domain.dto.item;
 
-public class DeviceNameSerialDto {
+public class ItemNameSerialDto {
 
     private String shortName;
     private String serial;
@@ -11,7 +11,7 @@ public class DeviceNameSerialDto {
         return shortName;
     }
 
-    public DeviceNameSerialDto setShortName(String shortName) {
+    public ItemNameSerialDto setShortName(String shortName) {
         this.shortName = shortName;
         return this;
     }
@@ -20,7 +20,7 @@ public class DeviceNameSerialDto {
         return serial;
     }
 
-    public DeviceNameSerialDto setSerial(String serial) {
+    public ItemNameSerialDto setSerial(String serial) {
         this.serial = serial;
         return this;
     }

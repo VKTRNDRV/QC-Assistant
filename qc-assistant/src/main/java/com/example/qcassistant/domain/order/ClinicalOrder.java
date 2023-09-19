@@ -8,12 +8,12 @@ import java.util.Collection;
 
 public abstract class ClinicalOrder {
 
-    private OrderType orderType;
-    private Destination destination;
-    private Collection<Language> requestedLanguages;
-    private String orderTermComments;
-    private DeviceRepository deviceRepository;
-    private AccessoryRepository accessoryRepository;
+    protected OrderType orderType;
+    protected Destination destination;
+    protected Collection<Language> requestedLanguages;
+    protected String orderTermComments;
+    protected DeviceRepository deviceRepository;
+    protected AccessoryRepository accessoryRepository;
 
 
 
