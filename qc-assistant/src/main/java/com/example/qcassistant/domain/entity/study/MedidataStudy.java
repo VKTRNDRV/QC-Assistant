@@ -1,5 +1,6 @@
 package com.example.qcassistant.domain.entity.study;
 
+import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.util.TrinaryBoolean;
@@ -99,5 +100,15 @@ public class MedidataStudy extends BaseStudy{
     public MedidataStudy setIncludesHeadphonesStyluses(TrinaryBoolean includesHeadphonesStyluses) {
         this.includesHeadphonesStyluses = includesHeadphonesStyluses;
         return this;
+    }
+
+    public boolean containsSiteApp(String appName) {
+        for(MedidataApp app : environment.getSiteApps()){
+            if(app.getName().equals(appName)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

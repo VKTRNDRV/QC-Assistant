@@ -112,4 +112,14 @@ public class Destination extends BaseEntity {
     public boolean isUnknown() {
         return this.name.equals(UNKNOWN);
     }
+
+    public boolean isEnglishSpeaking() {
+        for(Language language : languages){
+            if(language.getName().equals(Language.ENGLISH)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

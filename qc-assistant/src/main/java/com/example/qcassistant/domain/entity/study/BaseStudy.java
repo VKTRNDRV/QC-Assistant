@@ -14,6 +14,8 @@ public abstract class BaseStudy extends BaseEntity {
     private String folderURL;
 
 
+    private static final String UNKNOWN = "UNKNOWN";
+
     public String getName() {
         return name;
     }
@@ -30,5 +32,9 @@ public abstract class BaseStudy extends BaseEntity {
     public BaseStudy setFolderURL(String folderURL) {
         this.folderURL = folderURL;
         return this;
+    }
+
+    public boolean isUnknown() {
+        return name.equals(UNKNOWN);
     }
 }

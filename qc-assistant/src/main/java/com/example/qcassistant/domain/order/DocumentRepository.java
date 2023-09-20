@@ -1,6 +1,7 @@
 package com.example.qcassistant.domain.order;
 
 import com.example.qcassistant.domain.item.document.Document;
+import com.example.qcassistant.regex.MedidataOrderInputRegex;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,5 +26,26 @@ public class DocumentRepository {
 
     public void addDocument(Document document){
         this.documents.add(document);
+    }
+
+    public boolean areMultipleCopiesRequested() {
+        for(Document document : documents){
+            if(document.getCopiesCount() > 1){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean areUserGuidesRequested() {
+        for(Document document : documents){
+            if(!document.getShortName().equals(
+                    MedidataOrderInputRegex.WELCOME_LETTER_SHORTNAME)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -26,4 +26,29 @@ public class NoteText {
     public static final String VERIFY_UNUSED_DEVICES = "Verify devices are unused (Destination requires unused devices)";
     public static final String VERIFY_CE_MARKS = "Verify CE Marks visible/accessible on devices (Turkey)";
     public static final String VERIFY_BOX_SERIALS = "(If devices in boxes) Verify serials on boxes match their respective device";
+
+
+
+    public static final String INCLUDE_ABBVIE_DOC = "Verify Device Decontamination Document is included (sponsor Abbvie)";
+    public static final String VERIFY_WELCOME_LETTER = "Verify Welcome Letter fields are populated properly (if necessary at all)";
+    public static final String SEPARATE_BUILD_DOCS = "Verify all devices have separate build docs";
+    public static final String MULTIPLE_DOCS_REQ = "Multiple Documents requested";
+    public static final String CHECK_FOR_TRANSLATED_DOCS = "Check Study folder for Translated Documents";
+    public static final String STUDY_CONTAINS_TRANSLATED_DOCS = "Study marked as containing Translated Documents";
+    public static final String CONFIRM_DOCS_PRINTED = "Confirm all requested documents are printed";
+    public static final String CONFIRM_CORRECT_EDGE = "Verify all docs are printed on the correct edge (short/long)";
+    public static final String CONFIRM_TRANSLATED_DOCS_LANG = "Confirm any translated docs are printed in the correct language";
+    public static final String INCLUDE_PATIENT_CLOUD_INSERTS = "Verify P. Cloud Insert(s) included for every Site Device w/ the app installed";
+    public static final String INCLUDE_RAVE_ECONSENT_INSERTS = "Verify Rave eConsent Insert(s) included for every Site Device w/ the app installed";
+    public static final String PATIENT_CLOUD_INSERT_UNKNOWN = "If Patient Cloud present on Site Devices - include Insert(s)";
+    public static final String RAVE_ECONSENT_INSERT_UNKNOWN = "If Rave eConsent present on Site Devices - include Insert(s)";
+
+
+    public static final String CONFIRM_SITE_PATIENT_LABELS = "Confirm 'Site Use' on Site labels and 'Patient use' on Patient labels";
+    public static final String CONFIRM_LABEL_DETAILS = "Verify Site Number (If present) and correct Destination on labels";
+    public static final String VERIFY_PATIENT_IPAD_LABEL = "Verify Patient Label used on iPad Patient Device";
+    public static final String CHECK_FOR_TRANSLATED_LABELS = "Check Study folder for translated labels";
+    public static final String CONTAINS_TRANSLATED_LABELS = "Study contains translated labels";
+    public static final String VERIFY_LABEL_TYPE = "(If transl. labels required) Verify correct label type used (Site/Patient)";
+    public static final String CONFIRM_NO_PRINTING_ERRORS = "Verify no printing errors on the labels (e.g. text overflowing)";
 }

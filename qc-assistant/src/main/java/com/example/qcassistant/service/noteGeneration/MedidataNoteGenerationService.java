@@ -1,12 +1,15 @@
 package com.example.qcassistant.service.noteGeneration;
 
 import com.example.qcassistant.domain.dto.OrderNotesDto;
+import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.domain.entity.destination.Destination;
+import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.PlugType;
 import com.example.qcassistant.domain.item.accessory.MedidataAccessory;
 import com.example.qcassistant.domain.note.Note;
 import com.example.qcassistant.domain.note.noteText.NoteText;
+import com.example.qcassistant.domain.order.AccessoryRepository;
 import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.util.TrinaryBoolean;
 import org.modelmapper.ModelMapper;
@@ -22,6 +25,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
     private static final int LARGE_ORDER_COUNT = 10;
     private static final String ISRAEL = "Israel";
     private static final String TURKEY = "Turkey";
+    private static final String ABBVIE = "Abbvie";
 
     @Autowired
     public MedidataNoteGenerationService(ModelMapper modelMapper) {
@@ -31,14 +35,135 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
     public OrderNotesDto generateNotes(MedidataOrder order) {
         OrderNotesDto notes = new OrderNotesDto();
         notes.setItems(super.mapDevices(order));
-        Collection<Note> shellCheckNotes = this.generateShellCheckNotes(order);
+        Collection<Note> shellCheckNotes = this.genShellCheckNotes(order);
+        Collection<Note> documentationNotes = this.genDocumentationNotes(order);
         return notes;
     }
 
-    private Collection<Note> generateShellCheckNotes(MedidataOrder order) {
+    private Collection<Note> genShellCheckNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         notes.addAll(this.genShellCheckAccessoryNotes(order));
         notes.addAll(this.genShellCheckDeviceNotes(order));
+        return notes;
+    }
+
+    private Collection<Note> genDocumentationNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        notes.addAll(this.genDocsNotes(order));
+        notes.addAll(this.genLabelsNotes(order));
+
+        //TODO: check order comments for 'spec. instr.', 'NOTE:, etc.'
+        return notes;
+    }
+
+    private Collection<? extends Note> genLabelsNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        MedidataStudy study = order.getStudy();
+
+        notes.add(new Note(Severity.LOW, NoteText.CONFIRM_LABEL_DETAILS));
+        notes.add(new Note(Severity.LOW, NoteText.CONFIRM_NO_PRINTING_ERRORS));
+
+
+        if(order.containsSiteDevices() && order.containsPatientDevices()){
+            notes.add(new Note(Severity.LOW, NoteText.CONFIRM_SITE_PATIENT_LABELS));
+        }
+
+        if(study.getIsPatientDeviceIpad().equals(TrinaryBoolean.TRUE) &&
+                order.containsPatientDevices()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_PATIENT_IPAD_LABEL));
+        }
+
+        if(!study.getContainsTranslatedLabels().equals(
+                TrinaryBoolean.FALSE) && !order.isEnglishRequested()){
+            notes.addAll(this.genTranslatedLabelsNotes(order));
+        }
+
+        return notes;
+    }
+
+    private Collection<? extends Note> genTranslatedLabelsNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        notes.add(new Note(Severity.LOW, NoteText.VERIFY_LABEL_TYPE));
+
+        switch (order.getStudy().getContainsTranslatedLabels()){
+            case UNKNOWN:
+                notes.add(new Note(Severity.MEDIUM, NoteText.CHECK_FOR_TRANSLATED_LABELS));
+                break;
+            case TRUE:
+                notes.add(new Note(Severity.MEDIUM, NoteText.CONTAINS_TRANSLATED_LABELS));
+                break;
+        }
+
+        return notes;
+    }
+
+    private Collection<? extends Note> genDocsNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+
+        notes.add(new Note(Severity.LOW, NoteText.SEPARATE_BUILD_DOCS));
+
+        if(order.getSponsor().getName().equals(ABBVIE)){
+            notes.add(new Note(Severity.MEDIUM, NoteText.INCLUDE_ABBVIE_DOC));
+        }
+
+        if(!order.getStudy().getContainsEditableWelcomeLetter()
+                .equals(TrinaryBoolean.FALSE)){
+            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_WELCOME_LETTER));
+        }
+
+        if(order.getDocumentRepository()
+                .areMultipleCopiesRequested()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.MULTIPLE_DOCS_REQ));
+        }
+
+        if(order.getDocumentRepository().areUserGuidesRequested()){
+            notes.add(new Note(Severity.LOW, NoteText.CONFIRM_DOCS_PRINTED));
+            notes.add(new Note(Severity.LOW, NoteText.CONFIRM_CORRECT_EDGE));
+            if(!order.isEnglishRequested()){
+                notes.addAll(this.genTranslatedDocNotes(order));
+            }
+        }
+
+        if(order.containsSiteDevices()){
+            notes.addAll(this.genCartonInsertsNotes(order));
+        }
+
+        return notes;
+    }
+
+    private Collection<? extends Note> genCartonInsertsNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        MedidataStudy study = order.getStudy();
+        if(study.isUnknown()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.PATIENT_CLOUD_INSERT_UNKNOWN));
+            notes.add(new Note(Severity.LOW, NoteText.RAVE_ECONSENT_INSERT_UNKNOWN));
+        }else{
+            if(study.containsSiteApp(MedidataApp.PATIENT_CLOUD)){
+                notes.add(new Note(Severity.MEDIUM, NoteText.INCLUDE_PATIENT_CLOUD_INSERTS));
+            }
+
+            if(study.containsSiteApp(MedidataApp.RAVE_ECONSENT)){
+                notes.add(new Note(Severity.MEDIUM, NoteText.INCLUDE_RAVE_ECONSENT_INSERTS));
+            }
+        }
+
+        return notes;
+    }
+
+    private Collection<? extends Note> genTranslatedDocNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        switch (order.getStudy().getContainsTranslatedDocs()){
+            case UNKNOWN:
+                notes.add(new Note(Severity.MEDIUM, NoteText.CHECK_FOR_TRANSLATED_DOCS));
+                break;
+            case TRUE:
+                notes.add(new Note(Severity.MEDIUM, NoteText.STUDY_CONTAINS_TRANSLATED_DOCS));
+                notes.add(new Note(Severity.LOW, NoteText.CONFIRM_TRANSLATED_DOCS_LANG));
+                break;
+            default:
+                break;
+        }
+
         return notes;
     }
 
@@ -104,30 +229,39 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_AFW_CHARGERS));
         }
 
-        if(order.getStudy().getIncludesHeadphonesStyluses()
-                .equals(TrinaryBoolean.TRUE) &&
+        if(!order.getStudy().getIncludesHeadphonesStyluses()
+                .equals(TrinaryBoolean.FALSE) &&
                 order.containsSiteDevices()){
-            notes.addAll(this.generateStylusHeadphonesNotes(order));
+            notes.addAll(this
+                    .genStylusHeadphonesNotes(order));
         }
 
         return notes;
     }
 
-    private Collection<Note> generateStylusHeadphonesNotes(MedidataOrder order) {
+    private Collection<Note> genStylusHeadphonesNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
-
-        if(order.getAccessoryRepository().containsAccessory(
+        AccessoryRepository accessories = order.getAccessoryRepository();
+        if(accessories.containsAccessory(
                 MedidataAccessory.HEADPHONES.getShortName())){
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_HEADPHONES_PRESENT));
-        }else{
-            notes.add(new Note(Severity.HIGH, NoteText.HEADPHONES_NOT_DETECTED));
         }
 
-        if(order.getAccessoryRepository().containsAccessory(
+        if(accessories.containsAccessory(
                 MedidataAccessory.STYLUS.getShortName())){
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_STYLUS_PRESENT));
-        }else{
-            notes.add(new Note(Severity.HIGH, NoteText.STYLUSES_NOT_DETECTED));
+        }
+        if(order.getStudy().getIncludesHeadphonesStyluses()
+                .equals(TrinaryBoolean.TRUE)){
+            if(!accessories.containsAccessory(
+                    MedidataAccessory.HEADPHONES.getShortName())){
+                notes.add(new Note(Severity.HIGH, NoteText.HEADPHONES_NOT_DETECTED));
+            }
+
+            if(!accessories.containsAccessory(
+                    MedidataAccessory.STYLUS.getShortName())){
+                notes.add(new Note(Severity.HIGH, NoteText.STYLUSES_NOT_DETECTED));
+            }
         }
 
         return notes;

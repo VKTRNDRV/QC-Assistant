@@ -70,4 +70,12 @@ public abstract class ClinicalOrder {
         this.accessoryRepository = accessoryRepository;
         return this;
     }
+
+    public boolean containsPatientDevices(){
+        return deviceRepository.containsPhones();
+    }
+
+    public boolean containsSiteDevices(){
+        return deviceRepository.containsTablets();
+    }
 }

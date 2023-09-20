@@ -14,6 +14,9 @@ public class Language extends BaseEntity {
     private String name;
 
 
+
+    public static final String ENGLISH = "English";
+
     public String getName() {
         return name;
     }

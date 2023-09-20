@@ -1,11 +1,13 @@
 package com.example.qcassistant.domain.order;
 
+import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.domain.item.device.ios.ipad.MedidataIPad;
 import com.example.qcassistant.regex.MedidataOrderInputRegex;
 import com.example.qcassistant.util.TrinaryBoolean;
+import org.hibernate.validator.internal.IgnoreForbiddenApisErrors;
 
 public class MedidataOrder extends ClinicalOrder{
     private MedidataStudy study;
@@ -51,10 +53,17 @@ public class MedidataOrder extends ClinicalOrder{
         return this;
     }
 
+    @Override
     public boolean containsPatientDevices(){
-        return getDeviceRepository().containsPhones();
+        if(deviceRepository.containsDevice(MedidataIPad.MINI.getShortName())){
+            return true;
+        }else{
+            return super.containsPatientDevices();
+        }
     }
 
+
+    @Override
     public boolean containsSiteDevices() {
         if(study.getIsPatientDeviceIpad()
                 .equals(TrinaryBoolean.TRUE)){
@@ -69,6 +78,27 @@ public class MedidataOrder extends ClinicalOrder{
             }
 
             return false;
+        }
+    }
+
+    public boolean isEnglishRequested() {
+        if(requestedLanguages.size() > 1){
+            return false;
+        } else if(requestedLanguages.size() == 1){
+            for(Language lang : requestedLanguages){
+                if(lang.getName()
+                        .equals(Language.ENGLISH)){
+                    return true;
+                }
+            }
+
+            return false;
+        } else {
+            if(destination.isEnglishSpeaking()){
+                return true;
+            }else {
+                return false;
+            }
         }
     }
 }
