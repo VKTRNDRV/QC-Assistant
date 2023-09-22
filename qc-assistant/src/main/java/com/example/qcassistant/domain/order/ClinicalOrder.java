@@ -3,6 +3,7 @@ package com.example.qcassistant.domain.order;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.domain.enums.OrderType;
+import com.example.qcassistant.domain.item.device.Device;
 
 import java.util.Collection;
 
@@ -77,5 +78,9 @@ public abstract class ClinicalOrder {
 
     public boolean containsSiteDevices(){
         return deviceRepository.containsTablets();
+    }
+
+    public boolean containsIosDevices() {
+        return this.deviceRepository.containsIosDevices();
     }
 }

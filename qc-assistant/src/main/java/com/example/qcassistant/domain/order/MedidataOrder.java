@@ -55,18 +55,21 @@ public class MedidataOrder extends ClinicalOrder{
 
     @Override
     public boolean containsPatientDevices(){
-        if(deviceRepository.containsDevice(MedidataIPad.MINI.getShortName())){
-            return true;
+        if(study.getIsPatientDeviceIpad().equals(TrinaryBoolean.TRUE)){
+            return orderTermComments.contains(MedidataOrderInputRegex.SINGLE_USER);
         }else{
-            return super.containsPatientDevices();
+            if(deviceRepository.containsDevice(MedidataIPad.MINI.getShortName())){
+                return true;
+            }else{
+                return super.containsPatientDevices();
+            }
         }
     }
 
 
     @Override
     public boolean containsSiteDevices() {
-        if(study.getIsPatientDeviceIpad()
-                .equals(TrinaryBoolean.TRUE)){
+        if(study.getIsPatientDeviceIpad().equals(TrinaryBoolean.TRUE)){
             return orderTermComments.contains(
                     MedidataOrderInputRegex.MULTI_USER);
         }else {

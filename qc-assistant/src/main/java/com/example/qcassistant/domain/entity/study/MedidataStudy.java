@@ -111,4 +111,14 @@ public class MedidataStudy extends BaseStudy{
 
         return false;
     }
+
+    public boolean containsPatientApp(String appName) {
+        for(MedidataApp app : environment.getPatientApps()){
+            if(app.getName().equals(appName)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

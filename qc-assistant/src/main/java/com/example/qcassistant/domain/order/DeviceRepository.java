@@ -68,4 +68,14 @@ public class DeviceRepository {
     public int count(){
         return devices.size();
     }
+
+    public boolean containsIosDevices() {
+        for(Device device : devices){
+            if(device.getOperatingSystem().equals(OperatingSystem.IOS)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

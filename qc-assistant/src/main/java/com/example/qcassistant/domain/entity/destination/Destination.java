@@ -45,6 +45,7 @@ public class Destination extends BaseEntity {
     private TrinaryBoolean requiresInvoice;
 
     private static final String UNKNOWN = "UNKNOWN";
+    public static final String EGYPT = "Egypt";
 
     public String getName() {
         return name;
