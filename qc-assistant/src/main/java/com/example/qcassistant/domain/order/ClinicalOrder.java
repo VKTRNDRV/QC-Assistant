@@ -83,4 +83,47 @@ public abstract class ClinicalOrder {
     public boolean containsIosDevices() {
         return this.deviceRepository.containsIosDevices();
     }
+
+    public boolean isEnglishRequested() {
+        if(requestedLanguages.size() > 1) return false;
+        if(requestedLanguages.size() == 1){
+            for(Language lang : requestedLanguages){
+                if(lang.getName()
+                        .equals(Language.ENGLISH)){
+                    return true;
+                }
+            }
+
+            return false;
+        } else {
+            if(destination.isEnglishSpeaking()){
+                return true;
+            }else {
+                return false;
+            }
+        }
+    }
+
+    public boolean areMultipleLanguagesRequested() {
+        return requestedLanguages.size() > 1;
+    }
+
+    public boolean areNoLanguagesDetected() {
+        return requestedLanguages.isEmpty();
+    }
+
+    public boolean requestsUnusualLanguages() {
+        if(destination.isUnknown()) return false;
+        for(Language language : requestedLanguages){
+            if(!language.getName().equals(Language.ENGLISH)){
+                continue;
+            }
+
+            if(!destination.containsLanguage(language)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

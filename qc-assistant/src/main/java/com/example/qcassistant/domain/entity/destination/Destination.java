@@ -115,8 +115,21 @@ public class Destination extends BaseEntity {
     }
 
     public boolean isEnglishSpeaking() {
+        if(this.isUnknown()){
+            return false;
+        }
         for(Language language : languages){
             if(language.getName().equals(Language.ENGLISH)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean containsLanguage(Language language) {
+        for(Language destLanguages : languages){
+            if(destLanguages.getName().equals(language.getName())){
                 return true;
             }
         }

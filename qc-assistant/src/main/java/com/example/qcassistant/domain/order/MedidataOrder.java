@@ -83,25 +83,4 @@ public class MedidataOrder extends ClinicalOrder{
             return false;
         }
     }
-
-    public boolean isEnglishRequested() {
-        if(requestedLanguages.size() > 1){
-            return false;
-        } else if(requestedLanguages.size() == 1){
-            for(Language lang : requestedLanguages){
-                if(lang.getName()
-                        .equals(Language.ENGLISH)){
-                    return true;
-                }
-            }
-
-            return false;
-        } else {
-            if(destination.isEnglishSpeaking()){
-                return true;
-            }else {
-                return false;
-            }
-        }
-    }
 }

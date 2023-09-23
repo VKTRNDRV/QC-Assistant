@@ -4,22 +4,25 @@ import com.example.qcassistant.domain.dto.OrderNotesDto;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
+import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.PlugType;
+import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.domain.item.accessory.MedidataAccessory;
+import com.example.qcassistant.domain.item.device.ios.ipad.MedidataIPad;
 import com.example.qcassistant.domain.note.Note;
 import com.example.qcassistant.domain.note.noteText.NoteText;
 import com.example.qcassistant.domain.order.AccessoryRepository;
 import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.util.TrinaryBoolean;
-import org.aspectj.weaver.ast.Or;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class MedidataNoteGenerationService extends NoteGenerationService {
@@ -71,44 +74,161 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
     private Collection<? extends Note> genIosDeviceNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         MedidataStudy study = order.getStudy();
-//        if(!order.getSponsor().getAreStudyNamesSimilar().equals(TrinaryBoolean.FALSE)){
-//            notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_SIMILAR_STUDY_NAMES));
-//        }
 
+        notes.addAll(this.genHubLoggingNotes(order));
+        notes.addAll(this.genLanguageNotes(order));
 
-        if(order.containsSiteDevices() && study
-                .containsSiteApp(MedidataApp.PATIENT_CLOUD)){
-            notes.add(new Note(Severity.LOW, NoteText.VERIFY_P_CLOUD_MULTIUSER_MODE));
+        if(order.getOrderType().equals(OrderType.PROD)){
+            notes.addAll(this.genIosAppNotes(order));
+        }else{
+            notes.add(new Note(Severity.MEDIUM, NoteText.UAT_CHECK_APPS));
         }
 
-        if(study.getIsPatientDeviceIpad().equals(TrinaryBoolean.TRUE) &&
-                study.containsPatientApp(MedidataApp.PATIENT_CLOUD)){
-            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_P_CLOUD_SINGLEUSER_MODE_TABLET));
+        notes.addAll(this.genAirWatchNotes(order));
+
+        return notes;
+    }
+
+    private Collection<Note> genAirWatchNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        MedidataEnvironment environment = order.getStudy().getEnvironment();
+
+        notes.add(new Note(Severity.LOW, NoteText.VERIFY_NO_DECOM_TAG));
+
+        if(!order.getSponsor().getAreStudyNamesSimilar().equals(TrinaryBoolean.FALSE)){
+            notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_SIMILAR_STUDY_NAMES));
         }
 
-        switch (order.getSimType()){
+        if(order.getOrderType().equals(OrderType.PROD)){
+            if(environment.getIsLegacy().equals(TrinaryBoolean.TRUE)){
+                notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_RETROFIT_TAG));
+                if(order.getSimType().equals(SimType.NONE)){
+                    notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_LEGACY_APN_TAG));
+                }
+            }
+
+            TrinaryBoolean isSitePatientSeparated = environment.getIsSitePatientSeparated();
+            TrinaryBoolean isDestinationSeparated = environment.getIsDestinationSeparated();
+            if(!(isDestinationSeparated.equals(TrinaryBoolean.FALSE) &&
+                    isSitePatientSeparated.equals(TrinaryBoolean.FALSE))){
+
+                notes.add(new Note(Severity.MEDIUM, NoteText.CONFIRM_APPROPRIATE_GROUP));
+
+                if(isSitePatientSeparated.equals(TrinaryBoolean.TRUE)){
+                    notes.add(new Note(Severity.MEDIUM, NoteText.IS_SITE_PATIENT_SEPARATED));
+                }
+
+                if(isDestinationSeparated.equals(TrinaryBoolean.TRUE)){
+                    notes.add(new Note(Severity.MEDIUM, NoteText.IS_DESTINATION_SEPARATED));
+                }
+            }
+        }
+
+        return notes;
+    }
+
+    private Collection<Note> genIosAppNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        MedidataStudy study = order.getStudy();
+
+        if(order.containsSiteDevices()){
+            List<MedidataApp> siteApps = study.getEnvironment().getSiteApps();
+            if(siteApps.size() > 1){
+                notes.add(new Note(Severity.MEDIUM, String.format(
+                        NoteText.CONFIRM_SITE_APPS_INSTALLED,
+                        super.getAppNamesList(siteApps))));
+            }
+
+            if(study.containsSiteApp(MedidataApp.PATIENT_CLOUD)){
+                notes.add(new Note(Severity.LOW, NoteText.VERIFY_P_CLOUD_MULTIUSER_MODE));
+            }
+        }
+
+        if(order.containsPatientDevices()){
+            List<MedidataApp> patientApps = study.getEnvironment().getPatientApps();
+            if(patientApps.size() > 1){
+                notes.add(new Note(Severity.MEDIUM, String.format(
+                        NoteText.CONFIRM_PATIENT_APPS_INSTALLED,
+                        super.getAppNamesList(patientApps))));
+            }
+
+            if(study.containsPatientApp(MedidataApp.PATIENT_CLOUD)){
+                notes.add(new Note(Severity.LOW, NoteText.VERIFY_P_CLOUD_UPDATED));
+
+                if(study.getIsPatientDeviceIpad().equals(TrinaryBoolean.TRUE) || order
+                        .getDeviceRepository().containsDevice(MedidataIPad.MINI.getShortName())){
+                    notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_P_CLOUD_SINGLEUSER_MODE_TABLET));
+                }
+            }
+        }
+
+        notes.add(new Note(Severity.LOW, NoteText.VERIFY_APPS_GREEN_CHECK));
+
+        return notes;
+    }
+
+    private Collection<Note> genLanguageNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+
+        if(order.getDestination().isUnknown()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.UNKNOWN_DESTINATION));
+        }
+
+        if(order.areNoLanguagesDetected()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.NO_LANGUAGES_DETECTED));
+            return notes;
+        }
+
+        if(order.isEnglishRequested()){
+            Note note = new Note(Severity.MEDIUM, NoteText.ENGLISH_REQUESTED);
+            if(order.getDestination().isEnglishSpeaking()){
+                note.setSeverity(Severity.LOW);
+            }
+            notes.add(note);
+
+        }else{
+            if(order.areMultipleLanguagesRequested()){
+                notes.add(new Note(Severity.MEDIUM, NoteText.MULTIPLE_LANGS_REQUESTED));
+            }else {
+                notes.add(new Note(Severity.LOW, NoteText.CHANGE_DEVICE_LANGUAGE));
+            }
+
+            if(order.requestsUnusualLanguages()){
+                notes.add(new Note(Severity.HIGH, NoteText.UNUSUAL_LANGUAGES_REQUESTED));
+            }
+        }
+
+        return notes;
+    }
+
+    private Collection<Note> genHubLoggingNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        switch (order.getSimType()) {
             case VF_GLOBAL:
                 notes.add(new Note(Severity.LOW, NoteText.HUB_LOG_VF_GLOBAL));
+                if(!order.getStudy().getEnvironment().getIsLegacy().equals(TrinaryBoolean.TRUE)){
+                    notes.add(new Note(Severity.LOW, NoteText.VERIFY_VFGO_APN));
+                }
                 break;
             case SIMON_IOT:
                 notes.add(new Note(Severity.MEDIUM, NoteText.HUB_LOG_SIMON_IOT));
+                if(!order.getStudy().getEnvironment().getIsLegacy().equals(TrinaryBoolean.TRUE)){
+                    notes.add(new Note(Severity.LOW, NoteText.VERIFY_SIMON_APN));
+                }
             case NONE:
-                if(order.getDestination().getName().equals(Destination.EGYPT)){
+                if (order.getDestination().getName().equals(Destination.EGYPT)) {
                     notes.add(new Note(Severity.MEDIUM, NoteText.EGYPT_NO_SIM_HUB_LOG));
-                }else{
+                } else {
                     notes.add(new Note(Severity.MEDIUM, NoteText.HUB_LOG_NO_SIM));
                 }
                 break;
         }
 
-        //TODO: isSitePatientSeparated, isDestinationSeparated, (some PROD only), language(s), extra apps...
-
         return notes;
     }
 
 
-
-    private Collection<? extends Note> genLabelsNotes(MedidataOrder order) {
+    private Collection<Note> genLabelsNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         MedidataStudy study = order.getStudy();
 
@@ -133,7 +253,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         return notes;
     }
 
-    private Collection<? extends Note> genTranslatedLabelsNotes(MedidataOrder order) {
+    private Collection<Note> genTranslatedLabelsNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         notes.add(new Note(Severity.LOW, NoteText.VERIFY_LABEL_TYPE));
 
@@ -149,7 +269,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         return notes;
     }
 
-    private Collection<? extends Note> genDocsNotes(MedidataOrder order) {
+    private Collection<Note> genDocsNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
 
         notes.add(new Note(Severity.LOW, NoteText.SEPARATE_BUILD_DOCS));
@@ -183,7 +303,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         return notes;
     }
 
-    private Collection<? extends Note> genCartonInsertsNotes(MedidataOrder order) {
+    private Collection<Note> genCartonInsertsNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         MedidataStudy study = order.getStudy();
         if(study.isUnknown()){
@@ -202,7 +322,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         return notes;
     }
 
-    private Collection<? extends Note> genTranslatedDocNotes(MedidataOrder order) {
+    private Collection<Note> genTranslatedDocNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         switch (order.getStudy().getContainsTranslatedDocs()){
             case UNKNOWN:
@@ -219,13 +339,13 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         return notes;
     }
 
-    private Collection<? extends Note> genShellCheckDeviceNotes(MedidataOrder order) {
+    private Collection<Note> genShellCheckDeviceNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         notes.addAll(this.genSpecialDeviceReqNotes(order));
         return notes;
     }
 
-    private Collection<? extends Note> genSpecialDeviceReqNotes(MedidataOrder order) {
+    private Collection<Note> genSpecialDeviceReqNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         notes.add(new Note(Severity.LOW, NoteText.VERIFY_SERIALS));
         Destination destination = order.getDestination();
@@ -283,6 +403,11 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
 
         if(order.containsSiteDevices()){
             notes.addAll(this.genStylusHeadphonesNotes(order));
+
+            if(order.getStudy().getIsPatientDeviceIpad()
+                    .equals(TrinaryBoolean.TRUE)){
+                notes.add(new Note(Severity.LOW, NoteText.IPAD_PATIENT_DEVICE_CASE));
+            }
         }
 
         return notes;
