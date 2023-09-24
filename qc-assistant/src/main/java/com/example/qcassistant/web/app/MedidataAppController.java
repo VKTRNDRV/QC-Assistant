@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/medidata/apps")
@@ -36,7 +37,7 @@ public class MedidataAppController {
 
     @PostMapping("/add")
     public String addApp(@ModelAttribute MedidataAppAddDto appAddDto,
-                         Model model){
+                         Model model, RedirectAttributes redirectAttributes){
         try {
             this.appService.addApp(appAddDto);
         }catch (RuntimeException exception){
@@ -45,6 +46,7 @@ public class MedidataAppController {
             return "medidata-apps-add";
         }
 
+        redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/";
     }
 
@@ -58,7 +60,7 @@ public class MedidataAppController {
 
     @PostMapping("/edit")
     public String editApp(@ModelAttribute MedidataAppEditDto editDto,
-                          Model model){
+                          Model model, RedirectAttributes redirectAttributes){
         try {
             this.appService.editApp(editDto);
         }catch (RuntimeException exc){
@@ -67,6 +69,7 @@ public class MedidataAppController {
             return "medidata-apps-edit";
         }
 
+        redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/";
     }
 }

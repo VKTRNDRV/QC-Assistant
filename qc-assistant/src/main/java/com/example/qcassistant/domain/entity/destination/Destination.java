@@ -46,6 +46,8 @@ public class Destination extends BaseEntity {
 
     private static final String UNKNOWN = "UNKNOWN";
     public static final String EGYPT = "Egypt";
+    public static final String ISRAEL = "Israel";
+    public static final String TURKEY = "Turkey";
 
     public String getName() {
         return name;

@@ -10,6 +10,7 @@ public class NoteText {
     public static final String VERIFY_AFW_CHARGERS = "Verify correct connector type for Android chargers";
     public static final String VERIFY_CHARGER_COUNT = "Verify correct count of chargers";
     public static final String VERIFY_PLUG_TYPE = "Verify chargers of plug type %s are present";
+    public static final String VERIFY_UNKNOWN_PLUG_TYPE = "(Unknown Destination) Verify chargers are of appropriate Plug type";
 
 
 
@@ -86,4 +87,12 @@ public class NoteText {
     public static final String IS_SITE_PATIENT_SEPARATED = "Study's AW groups marked as Site-Patient separated";
     public static final String IS_DESTINATION_SEPARATED = "Study's AW groups marked as Destination separated";
     public static final String CONFIRM_APPROPRIATE_GROUP = "(If study has multiple groups) Confirm devices are located in the appropriate AW group";
+
+
+
+    public static final String VERIFY_AUTO_DOWNLOADS = "Verify 'Automatic Downloads' in Play Store Settings is 'ON' or 'Managed by Admin'";
+    public static final String VERIFY_SCREEN_LOCK_NONE = "Verify 'Screen Lock Type' set to 'None' in Settings";
+    public static final String VERIFY_S7_BATTERY = "Verify Galaxy S7 phones are sufficiently charged (battery falls quick)";
+    public static final String VERIFY_NO_DUPLICATES_AW = "Verify devices have NO duplicate enrollments in AirWatch";
+    public static final String CAREFUL_UAT_ENVIRONMENT = "Careful with the UAT AirWatch groups";
 }

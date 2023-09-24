@@ -87,7 +87,7 @@ public abstract class ClinicalOrderParseService {
 
     protected void validateOrderType(SegmentedOrderInput segmentedOrderInput) {
         Pattern pattern = Pattern.compile(
-                OrderInputRegex.NEW_HIRE_ORDER_REGEX);
+                OrderInputRegex.NEW_HIRE_REGEX);
         Matcher matcher = pattern.matcher(
                 segmentedOrderInput.getBasicInfo());
         if(matcher.find()){
@@ -95,12 +95,12 @@ public abstract class ClinicalOrderParseService {
         }
 
         pattern = Pattern.compile(
-                OrderInputRegex.ADVANCED_SEND_ORDER_REGEX);
+                OrderInputRegex.ADVANCE_SEND_REGEX);
         matcher = pattern.matcher(
                 segmentedOrderInput.getBasicInfo());
         if(!matcher.find()){
             throw new OrderParsingException(
-                    "Order Type not New Hire/Advanced Send");
+                    "Order Type NOT 'New Hire'/'Advance Send'");
         }
     }
 }

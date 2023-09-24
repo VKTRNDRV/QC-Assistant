@@ -3,10 +3,15 @@ package com.example.qcassistant.service;
 import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
 import com.example.qcassistant.domain.dto.destination.DestinationDisplayDto;
 import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
+import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
+import com.example.qcassistant.domain.enums.item.PlugType;
+import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.repository.DestinationRepository;
 import com.example.qcassistant.repository.LanguageRepository;
+import com.example.qcassistant.util.TrinaryBoolean;
+import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +35,24 @@ public class DestinationService {
         this.destinationRepository = destinationRepository;
         this.languageRepository = languageRepository;
         this.modelMapper = modelMapper;
+    }
+
+    @PostConstruct
+    public void initUnknown(){
+        if(this.destinationRepository.findFirstByName(
+                BaseEntity.UNKNOWN).isEmpty()){
+
+            Destination destination = new Destination()
+                    .setName(BaseEntity.UNKNOWN)
+                    .setLanguages(new ArrayList<>())
+                    .setSimType(SimType.NONE)
+                    .setPlugType(PlugType.C)
+                    .setRequiresInvoice(TrinaryBoolean.UNKNOWN)
+                    .setRequiresSpecialModels(TrinaryBoolean.UNKNOWN)
+                    .setRequiresUnusedDevices(TrinaryBoolean.UNKNOWN);
+
+            this.destinationRepository.save(destination);
+        }
     }
 
     public void addDestination(DestinationAddDto destinationAddDto) {
@@ -73,7 +96,7 @@ public class DestinationService {
     }
 
     public List<DestinationDisplayDto> displayDestinations(){
-        List<Destination> entities = this.destinationRepository.findAll();
+        List<Destination> entities = this.getEntities();
         List<DestinationDisplayDto> dtos = new ArrayList<>();
         for(Destination entity : entities){
             DestinationDisplayDto dto = this.modelMapper
@@ -117,12 +140,12 @@ public class DestinationService {
 
     public List<Destination> getEntities(){
         return this.destinationRepository
-                .findAllByNameNot("UNKNOWN");
+                .findAllByNameNot(BaseEntity.UNKNOWN);
     }
 
     public Destination getUnknownDestinationEntity() {
         return this.destinationRepository
-                .findFirstByName("UNKNOWN")
+                .findFirstByName(BaseEntity.UNKNOWN)
                 .get();
     }
 }

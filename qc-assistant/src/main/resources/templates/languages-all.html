@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon-32x32.png}">
     <title>Languages</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
@@ -30,13 +31,13 @@
         <thead>
         <tr>
             <th>Language:</th>
-            <th></th>
+            <th sec:authorize="hasRole('ROLE_MODERATOR')">Edit:</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="language : ${languages}">
             <td th:text="${language.name}">Language</td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_MODERATOR')">
                 <a th:href="@{'/languages/edit/' + ${language.id}}" >Edit</a>
             </td>
         </tr>

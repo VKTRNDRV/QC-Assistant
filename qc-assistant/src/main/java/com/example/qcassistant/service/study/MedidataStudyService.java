@@ -3,13 +3,20 @@ package com.example.qcassistant.service.study;
 import com.example.qcassistant.domain.dto.study.MedidataStudyAddDto;
 import com.example.qcassistant.domain.dto.study.MedidataStudyDisplayDto;
 import com.example.qcassistant.domain.dto.study.MedidataStudyEditDto;
+import com.example.qcassistant.domain.dto.study.MedidataStudyInfoDto;
+import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
+import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
+import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
+import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.repository.app.MedidataAppRepository;
 import com.example.qcassistant.repository.sponsor.MedidataSponsorRepository;
 import com.example.qcassistant.repository.study.MedidataStudyRepository;
 import com.example.qcassistant.repository.study.environment.MedidataEnvironmentRepository;
+import com.example.qcassistant.util.TrinaryBoolean;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +48,47 @@ public class MedidataStudyService {
         this.sponsorRepository = sponsorRepository;
         this.environmentRepository = environmentRepository;
         this.modelMapper = modelMapper;
+    }
+
+    @PostConstruct
+    public void initUnknown(){
+        if(this.studyRepository.findFirstByName(
+                BaseEntity.UNKNOWN).isEmpty()){
+            MedidataStudy study = new MedidataStudy();
+            study.setName(BaseEntity.UNKNOWN)
+                    .setFolderURL(BaseEntity.UNKNOWN);
+            study.setContainsTranslatedDocs(TrinaryBoolean.UNKNOWN)
+                    .setContainsTranslatedDocs(TrinaryBoolean.UNKNOWN)
+                    .setContainsEditableWelcomeLetter(TrinaryBoolean.UNKNOWN)
+                    .setIncludesHeadphonesStyluses(TrinaryBoolean.UNKNOWN)
+                    .setIsPatientDeviceIpad(TrinaryBoolean.UNKNOWN);
+
+
+            Optional<MedidataSponsor> optSponsor = this.sponsorRepository
+                    .findFirstByName(BaseEntity.UNKNOWN);
+            if(optSponsor.isPresent()){
+                study.setSponsor(optSponsor.get());
+            }else {
+                MedidataSponsor sponsor = new MedidataSponsor();
+                sponsor.setName(BaseEntity.UNKNOWN)
+                        .setAreStudyNamesSimilar(TrinaryBoolean.UNKNOWN);
+                this.sponsorRepository.save(sponsor);
+
+                study.setSponsor(sponsor);
+            }
+
+            MedidataEnvironment environment = new MedidataEnvironment();
+            environment.setPatientApps(new ArrayList<>())
+                    .setSiteApps(new ArrayList<>())
+                    .setIsLegacy(TrinaryBoolean.UNKNOWN)
+                    .setIsSitePatientSeparated(TrinaryBoolean.UNKNOWN)
+                    .setIsDestinationSeparated(TrinaryBoolean.UNKNOWN);
+            this.environmentRepository.save(environment);
+
+            study.setEnvironment(environment);
+
+            this.studyRepository.save(study);
+        }
     }
 
     public void addStudy(MedidataStudyAddDto studyAddDto) {
@@ -137,7 +185,7 @@ public class MedidataStudyService {
     }
 
     public List<MedidataStudyDisplayDto> displayAllStudies() {
-        return this.studyRepository.findAll().stream()
+        return this.getEntities().stream()
                 .map(s -> new MedidataStudyDisplayDto()
                         .setId(s.getId())
                         .setName(s.getName())
@@ -163,12 +211,23 @@ public class MedidataStudyService {
 
     public List<MedidataStudy> getEntities() {
         return this.studyRepository
-                .findAllByNameNot("UNKNOWN");
+                .findAllByNameNot(BaseEntity.UNKNOWN);
     }
 
     public MedidataStudy getUnknownStudy() {
         return this.studyRepository
-                .findFirstByName("UNKNOWN")
+                .findFirstByName(BaseEntity.UNKNOWN)
                 .get();
+    }
+
+    public MedidataStudyInfoDto getStudyInfoById(Long id) {
+        MedidataStudy study = this.studyRepository
+                .findById(id).orElseThrow();
+
+        MedidataStudyInfoDto dto = this.modelMapper
+                .map(study, MedidataStudyInfoDto.class);
+        dto.setSpecialFields(study);
+
+        return dto;
     }
 }

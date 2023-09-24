@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.88.1">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon-32x32.png}">
     <title>Destinations</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
@@ -34,7 +35,7 @@
             <th>Req. unused devices:</th>
             <th>Req. invoice:</th>
             <th>Languages:</th>
-            <th>Edit:</th>
+            <th sec:authorize="hasRole('ROLE_MODERATOR')">Edit:</th>
         </tr>
         </thead>
         <tbody>
@@ -46,7 +47,7 @@
             <td th:text="${d.requiresUnusedDevices}"></td>
             <td th:text="${d.requiresInvoice}"></td>
             <td th:text="${d.languages}"></td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_MODERATOR')">
                 <a th:href="@{'/destinations/edit/' + ${d.id}}" >Edit</a>
             </td>
         </tr>

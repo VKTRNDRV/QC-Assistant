@@ -80,10 +80,6 @@ public abstract class ClinicalOrder {
         return deviceRepository.containsTablets();
     }
 
-    public boolean containsIosDevices() {
-        return this.deviceRepository.containsIosDevices();
-    }
-
     public boolean isEnglishRequested() {
         if(requestedLanguages.size() > 1) return false;
         if(requestedLanguages.size() == 1){

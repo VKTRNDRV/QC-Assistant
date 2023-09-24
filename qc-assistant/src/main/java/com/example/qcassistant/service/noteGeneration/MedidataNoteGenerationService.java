@@ -10,6 +10,7 @@ import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.PlugType;
 import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.domain.item.accessory.MedidataAccessory;
+import com.example.qcassistant.domain.item.device.android.phone.MedidataAndroidPhone;
 import com.example.qcassistant.domain.item.device.ios.ipad.MedidataIPad;
 import com.example.qcassistant.domain.note.Note;
 import com.example.qcassistant.domain.note.noteText.NoteText;
@@ -28,8 +29,6 @@ import java.util.List;
 public class MedidataNoteGenerationService extends NoteGenerationService {
 
     private static final int LARGE_ORDER_COUNT = 10;
-    private static final String ISRAEL = "Israel";
-    private static final String TURKEY = "Turkey";
     private static final String ABBVIE = "Abbvie";
 
     @Autowired
@@ -43,9 +42,14 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
                 .setShellCheckNotes(this.genShellCheckNotes(order))
                 .setDocumentationNotes(this.genDocumentationNotes(order));
 
-        if(order.containsIosDevices()){
+        if(order.getDeviceRepository().containsIosDevices()){
             notes.setIosNotes(this.genIosNotes(order));
         }
+
+        if(order.getDeviceRepository().containsAndroidDevices()){
+            notes.setAndroidNotes(this.genAndroidNotes(order));
+        }
+
         return notes;
     }
 
@@ -67,13 +71,59 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
     private Collection<Note> genIosNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         notes.addAll(this.genIosDeviceNotes(order));
+        notes.addAll(this.genAirWatchNotes(order));
+        return notes;
+    }
+
+    private Collection<Note> genAndroidNotes(MedidataOrder order){
+        Collection<Note> notes = new ArrayList<>();
+        notes.addAll(this.genAndroidDeviceNotes(order));
+        notes.addAll(this.genAirWatchNotes(order));
+
+        return notes;
+    }
+
+    private Collection<Note> genAndroidDeviceNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+
+        notes.add(new Note(Severity.LOW, NoteText.VERIFY_SCREEN_LOCK_NONE));
+        notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_AUTO_DOWNLOADS));
+        if(order.getDeviceRepository().containsDevice(
+                MedidataAndroidPhone.GALAXY_S7.getShortName())){
+            notes.add(new Note(Severity.LOW, NoteText.VERIFY_S7_BATTERY));
+        }
+
+        notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_NO_DUPLICATES_AW));
+
+        notes.addAll(this.genHubLoggingNotes(order));
+        notes.addAll(this.genLanguageNotes(order));
+
+        if(order.getOrderType().equals(OrderType.PROD)){
+            notes.addAll(this.genAndroidAppNotes(order));
+        }else{
+            notes.add(new Note(Severity.MEDIUM, NoteText.UAT_CHECK_APPS));
+        }
+
+        return notes;
+    }
+
+    private Collection<Note> genAndroidAppNotes(MedidataOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+
+        notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_APPS_GREEN_CHECK));
+
+        List<MedidataApp> patientApps = order.getStudy().getEnvironment().getPatientApps();
+        if(patientApps.size() > 1){
+            notes.add(new Note(Severity.MEDIUM, String.format(
+                    NoteText.CONFIRM_PATIENT_APPS_INSTALLED,
+                    super.getAppNamesList(patientApps))));
+        }
 
         return notes;
     }
 
     private Collection<? extends Note> genIosDeviceNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
-        MedidataStudy study = order.getStudy();
 
         notes.addAll(this.genHubLoggingNotes(order));
         notes.addAll(this.genLanguageNotes(order));
@@ -83,8 +133,6 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         }else{
             notes.add(new Note(Severity.MEDIUM, NoteText.UAT_CHECK_APPS));
         }
-
-        notes.addAll(this.genAirWatchNotes(order));
 
         return notes;
     }
@@ -122,6 +170,8 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
                     notes.add(new Note(Severity.MEDIUM, NoteText.IS_DESTINATION_SEPARATED));
                 }
             }
+        }else{
+            notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_UAT_ENVIRONMENT));
         }
 
         return notes;
@@ -365,7 +415,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_BOX_SERIALS));
         }
 
-        if(destination.getName().equals(TURKEY)){
+        if(destination.getName().equals(Destination.TURKEY)){
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_CE_MARKS));
         }
 
@@ -377,13 +427,8 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         Destination destination = order.getDestination();
 
         if(order.getDeviceRepository().count() > LARGE_ORDER_COUNT &&
-                !destination.getName().equals(ISRAEL)){
+                !destination.getName().equals(Destination.ISRAEL)){
             notes.add(new Note(Severity.LOW, NoteText.VERIFY_CHARGER_COUNT));
-        }
-
-        if(!destination.getPlugType().equals(PlugType.C)){
-            notes.add(new Note(Severity.MEDIUM, String.format(
-                    NoteText.VERIFY_PLUG_TYPE, destination.getPlugType().name())));
         }
 
         if(!destination.isUnknown()){
@@ -391,8 +436,14 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
                     .equals(order.getSimType())){
                 notes.add(new Note(Severity.HIGH, NoteText.SIM_TYPE_NOT_MATCHING));
             }
+
+            if(!destination.getPlugType().equals(PlugType.C)){
+                notes.add(new Note(Severity.MEDIUM, String.format(
+                        NoteText.VERIFY_PLUG_TYPE, destination.getPlugType().name())));
+            }
         }else{
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_SIM_TYPE));
+            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_UNKNOWN_PLUG_TYPE));
         }
 
 

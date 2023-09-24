@@ -85,4 +85,16 @@ public class OrderNotesDto {
                 .setShortName(device.getShortName())
                 .setSerial(device.getSerial()));
     }
+
+    public boolean hasIosDevices(){
+        return this.iosNotes.size() > 0;
+    }
+
+    public boolean hasAndroidDevices(){
+        return this.androidNotes.size() > 0;
+    }
+
+    public boolean hasWindowsDevices(){
+        return this.windowsNotes.size() > 0;
+    }
 }

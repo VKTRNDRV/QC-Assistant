@@ -18,6 +18,8 @@ public abstract class BaseSponsor extends BaseEntity {
     @Column(name = "are_study_names_similar")
     private TrinaryBoolean areStudyNamesSimilar;
 
+    public static final String UNKNOWN = "UNKNOWN";
+
 
     public String getName() {
         return name;

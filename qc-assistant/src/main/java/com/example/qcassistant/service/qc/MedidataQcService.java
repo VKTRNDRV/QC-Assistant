@@ -5,6 +5,7 @@ import com.example.qcassistant.domain.dto.raw.RawOrderInputDto;
 import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.service.noteGeneration.MedidataNoteGenerationService;
 import com.example.qcassistant.service.orderParse.MedidataOrderParseService;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

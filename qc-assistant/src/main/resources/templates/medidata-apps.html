@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,14 +29,14 @@
         <tr>
             <th>Name:</th>
             <th>Requires Camera:</th>
-            <th>Edit:</th>
+            <th sec:authorize="hasRole('ROLE_MODERATOR')">Edit:</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="app : ${apps}">
             <td th:text="${app.name}"></td>
             <td th:text="${app.requiresCamera}"></td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_MODERATOR')">
                 <a th:href="@{'/medidata/apps/edit/' + ${app.id}}" >Edit</a>
             </td>
         </tr>

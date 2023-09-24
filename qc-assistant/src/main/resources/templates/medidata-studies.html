@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.88.1">
+    <link rel="icon" type="image/x-icon" th:href="@{/images/favicon-32x32.png}">
     <title>Studies - Medidata</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
@@ -23,30 +24,142 @@
     </div>
 </nav>
 
-<div class="container-md">
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Sponsor:</th>
-            <th>Name:</th>
-            <th>Details:</th>
-            <th>Edit:</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="s : ${studies}">
-            <td th:text="${s.sponsor}"></td>
-            <td th:text="${s.name}"></td>
-            <td>
-                <a th:href="@{'/'}" >View Details</a>
-            </td>
-            <td>
-                <a th:href="@{'/medidata/studies/edit/' + ${s.id}}" >Edit</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="container-xxl">
+    <div class="row">
+        <div class="col-6">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Sponsor:</th>
+                    <th>Name:</th>
+                    <th>Details:</th>
+                    <th sec:authorize="hasRole('ROLE_MODERATOR')">Edit:</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="s : ${studies}">
+                    <td th:text="${s.sponsor}"></td>
+                    <td th:text="${s.name}"></td>
+                    <td>
+                        <a href="#" class="view-details-link" th:data-id="${s.id}" >View Details</a>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_MODERATOR')">
+                        <a th:href="@{'/medidata/studies/edit/' + ${s.id}}" >Edit</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-6">
+            <div class="sticky-top">
+                <div class="card">
+                    <div class="card-body" th:object="${study}">
+                        <h5>Study Info:</h5>
+
+                        <hr class="my-4">
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Name:</span>
+                            <input type="text" class="form-control"  id="name" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Folder URL:</span>
+                            <input type="text" class="form-control"  id="folderURL" readonly>
+                        </div>
+
+                        <h6>Environment:</h6>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Legacy:</span>
+                            <input type="text" class="form-control"  id="isLegacy" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Site-Patient separated:</span>
+                            <input type="text" class="form-control"  id="isSitePatientSeparated" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Destination separated:</span>
+                            <input type="text" class="form-control"  id="isDestinationSeparated" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Site Apps:</span>
+                            <input type="text" class="form-control" id="siteApps" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Patient Apps:</span>
+                            <input type="text" class="form-control"  id="patientApps" readonly>
+                        </div>
+
+                        <h6>Docs & Labels:</h6>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Translated Labels:</span>
+                            <input type="text" class="form-control"  id="containsTranslatedLabels" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Translated User Guides:</span>
+                            <input type="text" class="form-control"  id="containsTranslatedDocs" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Is Welcome Letter Editable:</span>
+                            <input type="text" class="form-control" id="containsEditableWelcomeLetter" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">iPad Patient Device:</span>
+                            <input type="text" class="form-control" id="isPatientDeviceIpad" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Headphones & Styluses:</span>
+                            <input type="text" class="form-control" id="includesHeadphonesStyluses" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".view-details-link").on("click", function (e) {
+            e.preventDefault();
+
+            var studyId = $(this).data("id");
+            // Make a REST request to the server with the studyId
+            $.ajax({
+                type: "GET",
+                url: "/medidata/studies/info/" + studyId, // Replace with your REST endpoint
+                success: function (data) {
+                    $("#name").val(data.name);
+                    $("#folderURL").val(data.folderURL);
+                    $("#isLegacy").val(data.environment.isLegacy);
+                    $("#isSitePatientSeparated").val(data.environment.isSitePatientSeparated);
+                    $("#isDestinationSeparated").val(data.environment.isDestinationSeparated);
+                    $("#siteApps").val(data.environment.siteApps);
+                    $("#patientApps").val(data.environment.patientApps);
+                    $("#containsTranslatedLabels").val(data.containsTranslatedLabels);
+                    $("#containsTranslatedDocs").val(data.containsTranslatedDocs);
+                    $("#containsEditableWelcomeLetter").val(data.containsEditableWelcomeLetter);
+                    $("#isPatientDeviceIpad").val(data.isPatientDeviceIpad);
+                    $("#includesHeadphonesStyluses").val(data.includesHeadphonesStyluses);
+                },
+                error: function (error) {
+                    alert("Error fetching Study data");
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

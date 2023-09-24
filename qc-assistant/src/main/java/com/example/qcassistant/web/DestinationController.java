@@ -7,6 +7,7 @@ import com.example.qcassistant.service.LanguageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/destinations")
@@ -32,7 +33,8 @@ public class DestinationController {
     }
 
     @PostMapping("/add")
-    public String addDestination(@ModelAttribute DestinationAddDto destinationAddDto, Model model){
+    public String addDestination(@ModelAttribute DestinationAddDto destinationAddDto,
+                                 Model model, RedirectAttributes redirectAttributes){
         try {
             this.destinationService.addDestination(destinationAddDto);
         }catch (RuntimeException exc){
@@ -41,6 +43,8 @@ public class DestinationController {
             model.addAttribute("message", exc.getMessage());
             return "destinations-add";
         }
+
+        redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/";
     }
 
@@ -63,7 +67,8 @@ public class DestinationController {
     }
 
     @PostMapping("/edit")
-    public String editDestination(@ModelAttribute DestinationEditDto editDto, Model model){
+    public String editDestination(@ModelAttribute DestinationEditDto editDto, Model model,
+                                  RedirectAttributes redirectAttributes){
         try {
             this.destinationService.editDestination(editDto);
         }catch (RuntimeException exc){
@@ -73,6 +78,7 @@ public class DestinationController {
             model.addAttribute("message", exc.getMessage());
         }
 
+        redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/";
     }
 }

@@ -13,9 +13,6 @@ public abstract class BaseStudy extends BaseEntity {
     @Column(name = "folder_url")
     private String folderURL;
 
-
-    private static final String UNKNOWN = "UNKNOWN";
-
     public String getName() {
         return name;
     }
