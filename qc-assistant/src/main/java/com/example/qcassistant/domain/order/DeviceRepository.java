@@ -4,13 +4,11 @@ import com.example.qcassistant.domain.enums.item.OperatingSystem;
 import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.item.device.Device;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 public class DeviceRepository {
 
-    private Collection<Device> devices;
+    private List<Device> devices;
 
     public DeviceRepository(){
         this.devices = new ArrayList<>();
@@ -77,5 +75,26 @@ public class DeviceRepository {
         }
 
         return false;
+    }
+
+    public Optional<List<String>> getDuplicateSerials() {
+        List<String> duplicates = new ArrayList<>();
+        for (int i = 0; i < this.devices.size() - 1; i++) {
+            String testSerial = this.devices.get(i).getSerial();
+
+            for (int j = i + 1; j < this.devices.size(); j++) {
+                String currentSerial = this.devices.get(j).getSerial();
+
+                if(testSerial.equals(currentSerial)){
+                    duplicates.add(testSerial);
+                }
+            }
+        }
+
+        if(duplicates.isEmpty()){
+            return Optional.empty();
+        }else{
+            return Optional.of(duplicates);
+        }
     }
 }

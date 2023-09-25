@@ -29,4 +29,16 @@ public class Note {
         this.text = text;
         return this;
     }
+
+    public boolean isLowSeverity(){
+        return this.severity.equals(Severity.LOW);
+    }
+
+    public boolean isMediumSeverity(){
+        return this.severity.equals(Severity.MEDIUM);
+    }
+
+    public boolean isHighSeverity(){
+        return this.severity.equals(Severity.HIGH);
+    }
 }

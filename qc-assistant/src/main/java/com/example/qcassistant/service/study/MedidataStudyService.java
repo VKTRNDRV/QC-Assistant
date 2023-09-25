@@ -58,7 +58,7 @@ public class MedidataStudyService {
             study.setName(BaseEntity.UNKNOWN)
                     .setFolderURL(BaseEntity.UNKNOWN);
             study.setContainsTranslatedDocs(TrinaryBoolean.UNKNOWN)
-                    .setContainsTranslatedDocs(TrinaryBoolean.UNKNOWN)
+                    .setContainsTranslatedLabels(TrinaryBoolean.UNKNOWN)
                     .setContainsEditableWelcomeLetter(TrinaryBoolean.UNKNOWN)
                     .setIncludesHeadphonesStyluses(TrinaryBoolean.UNKNOWN)
                     .setIsPatientDeviceIpad(TrinaryBoolean.UNKNOWN);

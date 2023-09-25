@@ -7,6 +7,7 @@ public class NoteText {
 
 
 
+    public static final String ADD_UNKNOWN_DESTINATION = "Unknown Destination - consider adding it to the database";
     public static final String VERIFY_AFW_CHARGERS = "Verify correct connector type for Android chargers";
     public static final String VERIFY_CHARGER_COUNT = "Verify correct count of chargers";
     public static final String VERIFY_PLUG_TYPE = "Verify chargers of plug type %s are present";
@@ -19,7 +20,7 @@ public class NoteText {
     public static final String HEADPHONES_NOT_DETECTED = "Headphones not detected in order (study marked as requiring headphones)";
     public static final String VERIFY_STYLUS_PRESENT = "Verify Stylus(es) present in bin";
     public static final String STYLUSES_NOT_DETECTED = "Styluses not detected in order (study marked as requiring styluses)";
-    public static final String CONFIRM_IF_HEADPH_STYLUSES_NEEDED = "Confirm if Headph. and Styluses not required for Site Device(s)";
+    public static final String CONFIRM_IF_HEADPH_STYLUSES_NEEDED = "Confirm if headphones and styluses not required for Site Device(s)";
     public static final String IPAD_PATIENT_DEVICE_CASE = "Studies with iPad Patient devices usually use distinct cases for them";
 
 
@@ -34,10 +35,11 @@ public class NoteText {
 
 
 
+    public static final String ADD_UNKNOWN_STUDY = "Unknown Study - consider adding it to the database";
     public static final String INCLUDE_ABBVIE_DOC = "Verify Device Decontamination Document is included (sponsor Abbvie)";
     public static final String VERIFY_WELCOME_LETTER = "Verify Welcome Letter fields are populated properly (if necessary at all)";
     public static final String SEPARATE_BUILD_DOCS = "Verify all devices have separate build docs";
-    public static final String MULTIPLE_DOCS_REQ = "Multiple Documents requested";
+    public static final String MULTIPLE_DOCS_REQ = "Multiple copies of documents requested";
     public static final String CHECK_FOR_TRANSLATED_DOCS = "Check Study folder for Translated Documents";
     public static final String STUDY_CONTAINS_TRANSLATED_DOCS = "Study marked as containing Translated Documents";
     public static final String CONFIRM_DOCS_PRINTED = "Confirm all requested documents are printed";
@@ -51,13 +53,14 @@ public class NoteText {
 
 
     public static final String CONFIRM_SITE_PATIENT_LABELS = "Confirm 'Site Use' on Site labels and 'Patient use' on Patient labels";
-    public static final String CONFIRM_LABEL_DETAILS = "Verify Site Number (If present) and correct Destination on labels";
-    public static final String VERIFY_PATIENT_IPAD_LABEL = "(Study uses iPad Patient Devices) Verify Patient Label(s) used on iPad Patient Device(s)";
+    public static final String CONFIRM_LABEL_DETAILS = "Verify site number (if present) and correct Destination on labels";
+    public static final String VERIFY_PATIENT_IPAD_LABEL = "(study uses iPad Patient Devices) Verify Patient Label(s) used on iPad Patient Device(s)";
     public static final String CHECK_FOR_TRANSLATED_LABELS = "Check Study folder for translated labels";
     public static final String CONTAINS_TRANSLATED_LABELS = "Study contains translated labels";
-    public static final String VERIFY_LABEL_TYPE = "(If transl. labels required) Verify correct label type used (Site/Patient)";
+    public static final String VERIFY_LABEL_TYPE = "(if transl. labels required) Verify correct label type used (Site/Patient)";
     public static final String CONFIRM_NO_PRINTING_ERRORS = "Verify no printing errors on the labels (e.g. text overflowing)";
     public static final String SPECIAL_INSTRUCTIONS = "Special Instructions detected in Order Term Comments";
+    public static final String VERIFY_STUDY_NAME_DOCS = "Verify correct Study Name on all documents";
 
 
 
@@ -70,7 +73,7 @@ public class NoteText {
     public static final String VERIFY_P_CLOUD_SINGLEUSER_MODE_TABLET = "(iPad Patient Devices) Verify Patient Cloud in Single User Mode on Patient Devices";
     public static final String NO_LANGUAGES_DETECTED = "No requested languages detected, if indeed none - leave devices as per destination's default";
     public static final String ENGLISH_REQUESTED = "English requested - leave devices in English";
-    public static final String UNKNOWN_DESTINATION = "Unknown Destination - careful with language(s) (some of them might not have been detected)";
+    public static final String UNKNOWN_DESTINATION = "(Unknown Destination) Careful with languages (may not have been detected)";
     public static final String MULTIPLE_LANGS_REQUESTED = "Multiple requested languages detected - check order comments for their priority";
     public static final String CHANGE_DEVICE_LANGUAGE = "Set devices in requested language after QC";
     public static final String UNUSUAL_LANGUAGES_REQUESTED = "Unusual language(s) requested (as per destination) - double check!";
@@ -82,8 +85,8 @@ public class NoteText {
     public static final String CONFIRM_PATIENT_APPS_INSTALLED = "Confirm all Patient apps installed: %s";
     public static final String VERIFY_P_CLOUD_UPDATED = "Verify latest version of Patient Cloud installed on all devices";
     public static final String VERIFY_NO_DECOM_TAG = "Verify none of the devices have 'Decom' Tag in AirWatch";
-    public static final String VERIFY_RETROFIT_TAG = "(Study marked as Legacy) Verify all devices have 'Legacy Retrofit' Tag in AW";
-    public static final String VERIFY_LEGACY_APN_TAG = "(Study marked as Legacy) Verify all devices have APN Tag (as per SIM) in AW";
+    public static final String VERIFY_RETROFIT_TAG = "(study marked as Legacy) Verify all devices have 'Legacy Retrofit' Tag in AW";
+    public static final String VERIFY_LEGACY_APN_TAG = "(study marked as Legacy) Verify all devices have APN Tag (as per SIM) in AW";
     public static final String IS_SITE_PATIENT_SEPARATED = "Study's AW groups marked as Site-Patient separated";
     public static final String IS_DESTINATION_SEPARATED = "Study's AW groups marked as Destination separated";
     public static final String CONFIRM_APPROPRIATE_GROUP = "(If study has multiple groups) Confirm devices are located in the appropriate AW group";
@@ -95,4 +98,5 @@ public class NoteText {
     public static final String VERIFY_S7_BATTERY = "Verify Galaxy S7 phones are sufficiently charged (battery falls quick)";
     public static final String VERIFY_NO_DUPLICATES_AW = "Verify devices have NO duplicate enrollments in AirWatch";
     public static final String CAREFUL_UAT_ENVIRONMENT = "Careful with the UAT AirWatch groups";
+    public static final String DUPLICATE_SERIALS = "Duplicate Serials detected - %s";
 }

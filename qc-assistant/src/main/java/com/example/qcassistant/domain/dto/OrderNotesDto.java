@@ -6,6 +6,7 @@ import com.example.qcassistant.domain.note.Note;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 public class OrderNotesDto {
 
@@ -86,15 +87,22 @@ public class OrderNotesDto {
                 .setSerial(device.getSerial()));
     }
 
-    public boolean hasIosDevices(){
+    public boolean containsIosDevices(){
         return this.iosNotes.size() > 0;
     }
 
-    public boolean hasAndroidDevices(){
+    public boolean containsAndroidDevices(){
         return this.androidNotes.size() > 0;
     }
 
-    public boolean hasWindowsDevices(){
+    public boolean containsWindowsDevices(){
         return this.windowsNotes.size() > 0;
+    }
+
+    public void sortItems() {
+        this.setItems(items.stream()
+                .sorted((i1,i2) -> i1.getShortName()
+                        .compareTo(i2.getShortName()))
+                .collect(Collectors.toList()));
     }
 }

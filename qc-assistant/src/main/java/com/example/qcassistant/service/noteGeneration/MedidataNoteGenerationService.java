@@ -3,6 +3,7 @@ package com.example.qcassistant.service.noteGeneration;
 import com.example.qcassistant.domain.dto.OrderNotesDto;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.domain.entity.destination.Destination;
+import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.domain.enums.OrderType;
@@ -15,6 +16,7 @@ import com.example.qcassistant.domain.item.device.ios.ipad.MedidataIPad;
 import com.example.qcassistant.domain.note.Note;
 import com.example.qcassistant.domain.note.noteText.NoteText;
 import com.example.qcassistant.domain.order.AccessoryRepository;
+import com.example.qcassistant.domain.order.DocumentRepository;
 import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.util.TrinaryBoolean;
 import org.modelmapper.ModelMapper;
@@ -24,6 +26,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MedidataNoteGenerationService extends NoteGenerationService {
@@ -41,6 +45,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         notes.setItems(super.mapDevices(order))
                 .setShellCheckNotes(this.genShellCheckNotes(order))
                 .setDocumentationNotes(this.genDocumentationNotes(order));
+        notes.sortItems();
 
         if(order.getDeviceRepository().containsIosDevices()){
             notes.setIosNotes(this.genIosNotes(order));
@@ -55,13 +60,21 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
 
     private Collection<Note> genShellCheckNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
+        if(order.getDestination().isUnknown()){
+            notes.add(new Note(Severity.HIGH, NoteText.ADD_UNKNOWN_DESTINATION));
+        }
+
         notes.addAll(this.genShellCheckAccessoryNotes(order));
         notes.addAll(this.genShellCheckDeviceNotes(order));
+
         return notes;
     }
 
     private Collection<Note> genDocumentationNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
+        if(order.getStudy().isUnknown()){
+            notes.add(new Note(Severity.HIGH, NoteText.ADD_UNKNOWN_STUDY));
+        }
         notes.addAll(this.genDocsNotes(order));
         notes.addAll(this.genLabelsNotes(order));
         notes.addAll(super.genCommentNotes(order));
@@ -265,6 +278,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
                 if(!order.getStudy().getEnvironment().getIsLegacy().equals(TrinaryBoolean.TRUE)){
                     notes.add(new Note(Severity.LOW, NoteText.VERIFY_SIMON_APN));
                 }
+                break;
             case NONE:
                 if (order.getDestination().getName().equals(Destination.EGYPT)) {
                     notes.add(new Note(Severity.MEDIUM, NoteText.EGYPT_NO_SIM_HUB_LOG));
@@ -321,11 +335,17 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
 
     private Collection<Note> genDocsNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
+        MedidataSponsor sponsor = order.getSponsor();
+        DocumentRepository documents = order.getDocumentRepository();
 
         notes.add(new Note(Severity.LOW, NoteText.SEPARATE_BUILD_DOCS));
 
-        if(order.getSponsor().getName().equals(ABBVIE)){
+        if(sponsor.getName().equals(ABBVIE)){
             notes.add(new Note(Severity.MEDIUM, NoteText.INCLUDE_ABBVIE_DOC));
+        }
+
+        if(sponsor.getAreStudyNamesSimilar().equals(TrinaryBoolean.TRUE)){
+            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_STUDY_NAME_DOCS));
         }
 
         if(!order.getStudy().getContainsEditableWelcomeLetter()
@@ -333,12 +353,11 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_WELCOME_LETTER));
         }
 
-        if(order.getDocumentRepository()
-                .areMultipleCopiesRequested()){
+        if(documents.areMultipleCopiesRequested()){
             notes.add(new Note(Severity.MEDIUM, NoteText.MULTIPLE_DOCS_REQ));
         }
 
-        if(order.getDocumentRepository().areUserGuidesRequested()){
+        if(documents.areUserGuidesRequested()){
             notes.add(new Note(Severity.LOW, NoteText.CONFIRM_DOCS_PRINTED));
             notes.add(new Note(Severity.LOW, NoteText.CONFIRM_CORRECT_EDGE));
             if(!order.isEnglishRequested()){
@@ -391,6 +410,15 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
 
     private Collection<Note> genShellCheckDeviceNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
+
+        Optional<List<String>> duplicates = order
+                .getDeviceRepository().getDuplicateSerials();
+        if(duplicates.isPresent()){
+            notes.add(new Note(Severity.HIGH, String.format(
+                    NoteText.DUPLICATE_SERIALS,
+                    String.join(", ", duplicates.get()))));
+        }
+
         notes.addAll(this.genSpecialDeviceReqNotes(order));
         return notes;
     }

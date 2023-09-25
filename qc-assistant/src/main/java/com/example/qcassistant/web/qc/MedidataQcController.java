@@ -1,5 +1,6 @@
 package com.example.qcassistant.web.qc;
 
+import com.example.qcassistant.domain.dto.OrderNotesDto;
 import com.example.qcassistant.domain.dto.raw.RawOrderInputDto;
 import com.example.qcassistant.exception.OrderParsingException;
 import com.example.qcassistant.service.qc.MedidataQcService;
@@ -33,14 +34,16 @@ public class MedidataQcController {
     public String generateQcNotes(@ModelAttribute RawOrderInputDto rawOrderInputDto,
                                   Model model){
         try {
-            this.qcService.generateOrderNotes(rawOrderInputDto);
+            OrderNotesDto notes = this.qcService.generateOrderNotes(rawOrderInputDto);
+            model.addAttribute("notes", notes);
         }catch (OrderParsingException exception){
-
-            //TODO: handle parsing exceptions
-
+            model.addAttribute("rawOrderInput", rawOrderInputDto);
+            model.addAttribute("error", true);
+            model.addAttribute("message", exception.getMessage());
+            return "medidata-qc";
         }
 
-        //TODO: finish redirect
-        return "redirect:/medidata/qc/notes";
+
+        return "medidata-qc-notes";
     }
 }

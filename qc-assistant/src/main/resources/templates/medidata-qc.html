@@ -29,8 +29,8 @@
         <form th:method="POST" th:action="@{/medidata/qc}" th:object="${rawOrderInput}">
             <div class="form-group">
                 <div class="col-md-12">
-                    <label for="rawInput" class="form-label" >Paste Order Info:</label>
-                    <textarea class="form-control" id="rawInput" rows="25" th:field="*{rawText}" required></textarea>
+                    <label for="rawText" class="form-label" >Paste Order Info:</label>
+                    <textarea class="form-control" id="rawText" rows="25" th:field="*{rawText}" required></textarea>
                 </div>
             </div>
             <hr class="my-4">
