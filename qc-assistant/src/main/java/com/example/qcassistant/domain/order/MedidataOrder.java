@@ -1,13 +1,11 @@
 package com.example.qcassistant.domain.order;
 
-import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.domain.item.device.ios.ipad.MedidataIPad;
 import com.example.qcassistant.regex.MedidataOrderInputRegex;
 import com.example.qcassistant.util.TrinaryBoolean;
-import org.hibernate.validator.internal.IgnoreForbiddenApisErrors;
 
 public class MedidataOrder extends ClinicalOrder{
     private MedidataStudy study;
@@ -82,5 +80,14 @@ public class MedidataOrder extends ClinicalOrder{
 
             return false;
         }
+    }
+
+    @Override
+    public boolean isStudyUnknown(){
+        if(this.study == null){
+            return true;
+        }
+
+        return this.study.isUnknown();
     }
 }

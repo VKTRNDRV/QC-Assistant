@@ -7,7 +7,7 @@ public class MedidataOrderInputRegex {
 
     public static final String MULTI_USER = "Multi-User";
     public static final String SINGLE_USER = "Single-User";
-    public static final String STUDY_REGEX = "Study\\s*(?<studyName>.+)\\s*Site";
+    public static final String STUDY_REGEX = "Study\\s*(?<studyName>.+)\\s*Site\\s*Name";
     public static final String STUDY_GROUP = "studyName";
 
     public static final String DOCUMENT_REGEX = "Medidata\\s*Custom\\s*Study\\s*Document\\s*55982-DNI\\s*(?<copiesCount>[0-9]{1,3}).";

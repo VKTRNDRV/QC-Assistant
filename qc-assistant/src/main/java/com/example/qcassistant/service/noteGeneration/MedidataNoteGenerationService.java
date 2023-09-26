@@ -1,6 +1,6 @@
 package com.example.qcassistant.service.noteGeneration;
 
-import com.example.qcassistant.domain.dto.OrderNotesDto;
+import com.example.qcassistant.domain.dto.orderNotes.MedidataOrderNotesDto;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
@@ -18,6 +18,7 @@ import com.example.qcassistant.domain.note.noteText.NoteText;
 import com.example.qcassistant.domain.order.AccessoryRepository;
 import com.example.qcassistant.domain.order.DocumentRepository;
 import com.example.qcassistant.domain.order.MedidataOrder;
+import com.example.qcassistant.service.study.MedidataStudyService;
 import com.example.qcassistant.util.TrinaryBoolean;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +28,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class MedidataNoteGenerationService extends NoteGenerationService {
+
+    private MedidataStudyService studyService;
 
     private static final int LARGE_ORDER_COUNT = 10;
     private static final String ABBVIE = "Abbvie";
 
     @Autowired
-    public MedidataNoteGenerationService(ModelMapper modelMapper) {
+    public MedidataNoteGenerationService(ModelMapper modelMapper, MedidataStudyService studyService) {
         super(modelMapper);
+        this.studyService = studyService;
     }
 
-    public OrderNotesDto generateNotes(MedidataOrder order) {
-        OrderNotesDto notes = new OrderNotesDto();
+    public MedidataOrderNotesDto generateNotes(MedidataOrder order) {
+        MedidataOrderNotesDto notes = new MedidataOrderNotesDto();
         notes.setItems(super.mapDevices(order))
                 .setShellCheckNotes(this.genShellCheckNotes(order))
                 .setDocumentationNotes(this.genDocumentationNotes(order));
@@ -53,6 +56,11 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
 
         if(order.getDeviceRepository().containsAndroidDevices()){
             notes.setAndroidNotes(this.genAndroidNotes(order));
+        }
+
+        if(!order.isStudyUnknown()){
+            notes.setStudy(studyService.getStudyInfoById(
+                    order.getStudy().getId()));
         }
 
         return notes;

@@ -1,6 +1,7 @@
 package com.example.qcassistant.web.qc;
 
-import com.example.qcassistant.domain.dto.OrderNotesDto;
+import com.example.qcassistant.domain.dto.orderNotes.MedidataOrderNotesDto;
+import com.example.qcassistant.domain.dto.orderNotes.OrderNotesDto;
 import com.example.qcassistant.domain.dto.raw.RawOrderInputDto;
 import com.example.qcassistant.exception.OrderParsingException;
 import com.example.qcassistant.service.qc.MedidataQcService;
@@ -34,7 +35,7 @@ public class MedidataQcController {
     public String generateQcNotes(@ModelAttribute RawOrderInputDto rawOrderInputDto,
                                   Model model){
         try {
-            OrderNotesDto notes = this.qcService.generateOrderNotes(rawOrderInputDto);
+            MedidataOrderNotesDto notes = this.qcService.generateOrderNotes(rawOrderInputDto);
             model.addAttribute("notes", notes);
         }catch (OrderParsingException exception){
             model.addAttribute("rawOrderInput", rawOrderInputDto);

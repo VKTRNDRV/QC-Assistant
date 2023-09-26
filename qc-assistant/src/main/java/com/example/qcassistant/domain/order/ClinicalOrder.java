@@ -122,4 +122,6 @@ public abstract class ClinicalOrder {
 
         return false;
     }
+
+    public abstract boolean isStudyUnknown();
 }

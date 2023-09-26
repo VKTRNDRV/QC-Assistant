@@ -1,11 +1,11 @@
 package com.example.qcassistant.service.qc;
 
-import com.example.qcassistant.domain.dto.OrderNotesDto;
+import com.example.qcassistant.domain.dto.orderNotes.MedidataOrderNotesDto;
+import com.example.qcassistant.domain.dto.orderNotes.OrderNotesDto;
 import com.example.qcassistant.domain.dto.raw.RawOrderInputDto;
 import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.service.noteGeneration.MedidataNoteGenerationService;
 import com.example.qcassistant.service.orderParse.MedidataOrderParseService;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +22,9 @@ public class MedidataQcService {
         this.noteGenerationService = noteGenerationService;
     }
 
-    public OrderNotesDto generateOrderNotes(RawOrderInputDto inputDto){
+    public MedidataOrderNotesDto generateOrderNotes(RawOrderInputDto inputDto){
         MedidataOrder order = this.orderParseService.parseOrder(inputDto);
-        OrderNotesDto notes = this.noteGenerationService.generateNotes(order);
+        MedidataOrderNotesDto notes = this.noteGenerationService.generateNotes(order);
         return notes;
     }
 }

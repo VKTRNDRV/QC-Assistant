@@ -37,7 +37,7 @@
                     <button type="submit" class="btn btn-secondary mb-3" id="reset-button">Reset</button>
                 </div>
             </form>
-            <div class="list-group">
+            <div class="list-group mb-3">
                 <a href="#" class="list-group-item list-group-item-action list-group-item-dark"><strong>Serialized Items:</strong></a>
 
                 <li th:each="item : *{items}"
@@ -48,6 +48,74 @@
                     <span th:value="${item.serial}" th:text="${item.serial}"
                           class="serial-number">T3STS3R14LT3STS3R14LT3STS3R14L</span>
                 </li>
+            </div>
+            <div class="card" th:unless="*{isStudyUnknown()}">
+                <div class="card-body" th:object="${notes.study}">
+                    <h5>Study Info:</h5>
+
+                    <hr class="my-4">
+
+                    <a class="btn btn-primary mb-3" th:href="*{folderURL}" role="button" target="_blank">Study Docs & Labels folder </a>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Name:</span>
+                        <input type="text" class="form-control"  id="name" th:value="*{name}" readonly>
+                    </div>
+
+                    <h6>Environment:</h6>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Legacy:</span>
+                        <input type="text" class="form-control"  id="isLegacy" th:value="*{environment.isLegacy}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Site-Patient separated:</span>
+                        <input type="text" class="form-control"  id="isSitePatientSeparated" th:value="*{environment.isSitePatientSeparated}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Destination separated:</span>
+                        <input type="text" class="form-control"  id="isDestinationSeparated" th:value="*{environment.isDestinationSeparated}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Site Apps:</span>
+                        <input type="text" class="form-control" id="siteApps" th:value="*{environment.siteApps}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Patient Apps:</span>
+                        <input type="text" class="form-control"  id="patientApps" th:value="*{environment.patientApps}" readonly>
+                    </div>
+
+                    <h6>Docs & Labels:</h6>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Translated Labels:</span>
+                        <input type="text" class="form-control"  id="containsTranslatedLabels" th:value="*{containsTranslatedLabels}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Translated User Guides:</span>
+                        <input type="text" class="form-control"  id="containsTranslatedDocs" th:value="*{containsTranslatedDocs}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Editable Welcome Letter:</span>
+                        <input type="text" class="form-control" id="containsEditableWelcomeLetter" th:value="*{containsEditableWelcomeLetter}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >iPad Patient Device:</span>
+                        <input type="text" class="form-control" id="isPatientDeviceIpad" th:value="*{isPatientDeviceIpad}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >Headphones & Styluses:</span>
+                        <input type="text" class="form-control" id="includesHeadphonesStyluses" th:value="*{includesHeadphonesStyluses}" readonly>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-9">

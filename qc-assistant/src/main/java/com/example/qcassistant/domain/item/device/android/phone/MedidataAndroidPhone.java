@@ -9,6 +9,9 @@ public enum MedidataAndroidPhone {
             ConnectorType.MICRO_USB),
     GALAXY_J3("Medidata\\s*Samsung\\s*Galaxy\\s*J3.{0,32}\\s*SmartPhone Shell\\s*(?<serial>[A-Z0-9]{11})",
             "Galaxy J3",
+            ConnectorType.MICRO_USB),
+    GALAXY_J3_STAR("Medidata\\s*Samsung\\s*Galaxy\\s*J3\\s*Star.{0,16}SmartPhone Shell\\s*(?<serial>[A-Z0-9]{11})",
+            "Galaxy J3 Star",
             ConnectorType.MICRO_USB);
 
     private String regexPattern;

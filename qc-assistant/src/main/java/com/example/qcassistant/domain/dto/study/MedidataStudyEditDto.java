@@ -132,4 +132,14 @@ public class MedidataStudyEditDto {
                 .stream().map(BaseApp::getName).collect(Collectors.toList()));
         return this;
     }
+
+    public void trimStringFields() {
+        if(name != null){
+            name = name.trim();
+        }
+
+        if(folderURL != null){
+            folderURL = folderURL.trim();
+        }
+    }
 }

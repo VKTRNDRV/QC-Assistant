@@ -1,4 +1,4 @@
-package com.example.qcassistant.domain.dto;
+package com.example.qcassistant.domain.dto.orderNotes;
 
 import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
 import com.example.qcassistant.domain.item.device.Device;
@@ -8,14 +8,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class OrderNotesDto {
+public abstract class OrderNotesDto {
 
-    private Collection<ItemNameSerialDto> items;
-    private Collection<Note> shellCheckNotes;
-    private Collection<Note> documentationNotes;
-    private Collection<Note> iosNotes;
-    private Collection<Note> androidNotes;
-    private Collection<Note> windowsNotes;
+    protected Collection<ItemNameSerialDto> items;
+    protected Collection<Note> shellCheckNotes;
+    protected Collection<Note> documentationNotes;
+    protected Collection<Note> iosNotes;
+    protected Collection<Note> androidNotes;
+
+//    protected Collection<Note> windowsNotes;
 
 
     public OrderNotesDto() {
@@ -24,7 +25,7 @@ public class OrderNotesDto {
         this.documentationNotes = new ArrayList<>();
         this.iosNotes = new ArrayList<>();
         this.androidNotes = new ArrayList<>();
-        this.windowsNotes = new ArrayList<>();
+//        this.windowsNotes = new ArrayList<>();
     }
 
     public Collection<ItemNameSerialDto> getItems() {
@@ -72,14 +73,14 @@ public class OrderNotesDto {
         return this;
     }
 
-    public Collection<Note> getWindowsNotes() {
-        return windowsNotes;
-    }
-
-    public OrderNotesDto setWindowsNotes(Collection<Note> windowsNotes) {
-        this.windowsNotes = windowsNotes;
-        return this;
-    }
+//    public Collection<Note> getWindowsNotes() {
+//        return windowsNotes;
+//    }
+//
+//    public OrderNotesDto setWindowsNotes(Collection<Note> windowsNotes) {
+//        this.windowsNotes = windowsNotes;
+//        return this;
+//    }
 
     public void addDevice(Device device){
         this.items.add(new ItemNameSerialDto()
@@ -95,9 +96,9 @@ public class OrderNotesDto {
         return this.androidNotes.size() > 0;
     }
 
-    public boolean containsWindowsDevices(){
-        return this.windowsNotes.size() > 0;
-    }
+//    public boolean containsWindowsDevices(){
+//        return this.windowsNotes.size() > 0;
+//    }
 
     public void sortItems() {
         this.setItems(items.stream()

@@ -105,4 +105,14 @@ public class MedidataStudyAddDto {
         this.includesHeadphonesStyluses = includesHeadphonesStyluses;
         return this;
     }
+
+    public void trimStringFields() {
+        if(name != null){
+            name = name.trim();
+        }
+
+        if(folderURL != null){
+            folderURL = folderURL.trim();
+        }
+    }
 }

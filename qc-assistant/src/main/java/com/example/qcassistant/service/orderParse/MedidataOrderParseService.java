@@ -228,7 +228,8 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
         String studyName;
         if(matcher.find()){
             studyName = matcher.group(
-                    MedidataOrderInputRegex.STUDY_GROUP);
+                    MedidataOrderInputRegex.STUDY_GROUP)
+                    .trim();
         }else{
             throw new OrderParsingException(
                     "Study Name could not be detected");

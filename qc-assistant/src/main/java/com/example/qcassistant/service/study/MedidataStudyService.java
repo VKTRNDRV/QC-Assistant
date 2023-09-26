@@ -93,6 +93,7 @@ public class MedidataStudyService {
 
     public void addStudy(MedidataStudyAddDto studyAddDto) {
         validateStudyAdd(studyAddDto);
+        studyAddDto.trimStringFields();
         MedidataStudy study = mapToEntity(studyAddDto);
         this.environmentRepository.save(study.getEnvironment());
         this.studyRepository.save(study);
@@ -100,6 +101,7 @@ public class MedidataStudyService {
 
     public void editStudy(MedidataStudyEditDto studyEditDto){
         validateStudyEdit(studyEditDto);
+        studyEditDto.trimStringFields();
         MedidataStudy study = mapToEntity(studyEditDto);
         this.environmentRepository.save(study.getEnvironment());
         this.studyRepository.save(study);
