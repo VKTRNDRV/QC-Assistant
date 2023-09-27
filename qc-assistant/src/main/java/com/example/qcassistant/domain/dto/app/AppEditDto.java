@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.dto.app;
 
-public class MedidataAppEditDto {
+public class AppEditDto {
 
     private Long id;
 
@@ -13,7 +13,7 @@ public class MedidataAppEditDto {
         return id;
     }
 
-    public MedidataAppEditDto setId(Long id) {
+    public AppEditDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -22,7 +22,7 @@ public class MedidataAppEditDto {
         return name;
     }
 
-    public MedidataAppEditDto setName(String name) {
+    public AppEditDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -31,7 +31,7 @@ public class MedidataAppEditDto {
         return requiresCamera;
     }
 
-    public MedidataAppEditDto setRequiresCamera(String requiresCamera) {
+    public AppEditDto setRequiresCamera(String requiresCamera) {
         this.requiresCamera = requiresCamera;
         return this;
     }

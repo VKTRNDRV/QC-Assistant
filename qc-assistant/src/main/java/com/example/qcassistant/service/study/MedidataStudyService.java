@@ -28,26 +28,25 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
-public class MedidataStudyService {
+public class MedidataStudyService extends BaseStudyService{
 
     private MedidataStudyRepository studyRepository;
-
     private MedidataAppRepository appRepository;
-
     private MedidataSponsorRepository sponsorRepository;
-
     private MedidataEnvironmentRepository environmentRepository;
 
-    private ModelMapper modelMapper;
 
     @Autowired
-    public MedidataStudyService(MedidataStudyRepository studyRepository, MedidataAppRepository appRepository, MedidataSponsorRepository sponsorRepository, MedidataEnvironmentRepository environmentRepository, ModelMapper modelMapper) {
+    public MedidataStudyService(MedidataStudyRepository studyRepository,
+                                MedidataAppRepository appRepository,
+                                MedidataSponsorRepository sponsorRepository,
+                                MedidataEnvironmentRepository environmentRepository,
+                                ModelMapper modelMapper) {
+        super(modelMapper);
         this.studyRepository = studyRepository;
         this.appRepository = appRepository;
         this.sponsorRepository = sponsorRepository;
         this.environmentRepository = environmentRepository;
-        this.modelMapper = modelMapper;
     }
 
     @PostConstruct
@@ -149,14 +148,14 @@ public class MedidataStudyService {
     }
 
     private void validateStudyAdd(MedidataStudyAddDto studyAddDto) {
-        validateNameNotBlank(studyAddDto.getName());
+        super.validateNameNotBlank(studyAddDto.getName());
         validateUniqueName(studyAddDto.getName());
         validateAppsCount(studyAddDto.getEnvironment().getSiteApps(),
                 studyAddDto.getEnvironment().getPatientApps());
     }
 
     private void validateStudyEdit(MedidataStudyEditDto studyEditDto) {
-        validateNameNotBlank(studyEditDto.getName());
+        super.validateNameNotBlank(studyEditDto.getName());
         if(!this.studyRepository.findById(studyEditDto.getId()).get().getName()
                 .equals(studyEditDto.getName())){
             validateUniqueName(studyEditDto.getName());
@@ -171,12 +170,6 @@ public class MedidataStudyService {
         }
         if(patientApps == null || patientApps.size() == 0){
             throw new RuntimeException("No Patient apps selected");
-        }
-    }
-
-    private void validateNameNotBlank(String name){
-        if(name == null || name.trim().isEmpty()){
-            throw new RuntimeException("Name cannot be blank");
         }
     }
 

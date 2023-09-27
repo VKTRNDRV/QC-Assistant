@@ -17,16 +17,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class MedidataSponsorService {
+public class MedidataSponsorService extends BaseSponsorService{
 
     private MedidataSponsorRepository sponsorRepository;
 
-    private ModelMapper modelMapper;
 
     @Autowired
     public MedidataSponsorService(MedidataSponsorRepository sponsorRepository, ModelMapper modelMapper) {
+        super(modelMapper);
         this.sponsorRepository = sponsorRepository;
-        this.modelMapper = modelMapper;
     }
 
 
@@ -66,17 +65,11 @@ public class MedidataSponsorService {
 
     private void validateEditSponsor(MedidataSponsorEditDto sponsorEditDto) {
         String name = sponsorEditDto.getName();
-        validateNameNotBlank(name);
+        super.validateNameNotBlank(name);
         if(!this.sponsorRepository.findById(sponsorEditDto.getId()).get()
                 .getName().trim()
                 .equals(sponsorEditDto.getName())){
             validateUniqueName(name);
-        }
-    }
-
-    private void validateNameNotBlank(String name){
-        if(name == null || name.trim().isEmpty()){
-            throw new RuntimeException("Name cannot be null");
         }
     }
 

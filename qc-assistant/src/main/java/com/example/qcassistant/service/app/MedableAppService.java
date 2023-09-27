@@ -2,31 +2,28 @@ package com.example.qcassistant.service.app;
 
 import com.example.qcassistant.domain.dto.app.AppAddDto;
 import com.example.qcassistant.domain.dto.app.AppEditDto;
+import com.example.qcassistant.domain.entity.app.IqviaApp;
+import com.example.qcassistant.domain.entity.app.MedableApp;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
-import com.example.qcassistant.repository.app.MedidataAppRepository;
+import com.example.qcassistant.repository.app.MedableAppRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
-public class MedidataAppService extends BaseAppService{
+public class MedableAppService extends BaseAppService{
 
-    private MedidataAppRepository appRepository;
+    private MedableAppRepository appRepository;
 
     @Autowired
-    public MedidataAppService(MedidataAppRepository appRepository,
-                              ModelMapper modelMapper) {
+    public MedableAppService(ModelMapper modelMapper, MedableAppRepository appRepository) {
         super(modelMapper);
         this.appRepository = appRepository;
     }
 
-
     public void addApp(AppAddDto appAddDto) {
         validateNewApp(appAddDto);
-        MedidataApp app = super.modelMapper.map(appAddDto, MedidataApp.class);
+        MedableApp app = super.modelMapper.map(appAddDto, MedableApp.class);
         this.appRepository.save(app);
     }
 
@@ -49,31 +46,17 @@ public class MedidataAppService extends BaseAppService{
         }
     }
 
-    public AppEditDto getEditAppById(Long id) {
-        return this.modelMapper.map(
-                this.appRepository.findById(id).get(),
-                AppEditDto.class);
-    }
-
-    public List<AppEditDto> getAllEditApps() {
-        return this.appRepository.findAll()
-                .stream().map((a) -> this.modelMapper
-                        .map(a, AppEditDto.class))
-                .sorted((a1,a2) -> a1.getName().compareTo(a2.getName()))
-                .collect(Collectors.toList());
-    }
-
     public void editApp(AppEditDto editDto) {
         validateEditApp(editDto);
-        MedidataApp editedApp = this.modelMapper
-                .map(editDto, MedidataApp.class);
+        MedableApp editedApp = this.modelMapper
+                .map(editDto, MedableApp.class);
         this.appRepository.save(editedApp);
     }
 
     @Override
     protected void validateUniqueName(String name){
         if(this.appRepository.findFirstByName(name).isPresent()){
-            throw new RuntimeException("App \"" + name + "\" already present");
+            throw new RuntimeException("App '" + name + "' already present");
         }
     }
 }

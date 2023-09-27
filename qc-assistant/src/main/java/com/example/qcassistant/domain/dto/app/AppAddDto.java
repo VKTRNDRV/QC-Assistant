@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.dto.app;
 
-public class MedidataAppAddDto {
+public class AppAddDto {
 
     private String name;
 
@@ -11,7 +11,7 @@ public class MedidataAppAddDto {
         return name;
     }
 
-    public MedidataAppAddDto setName(String name) {
+    public AppAddDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -20,8 +20,16 @@ public class MedidataAppAddDto {
         return requiresCamera;
     }
 
-    public MedidataAppAddDto setRequiresCamera(String requiresCamera) {
+    public AppAddDto setRequiresCamera(String requiresCamera) {
         this.requiresCamera = requiresCamera;
         return this;
+    }
+
+    public void trimStringFields() {
+        if(this.name == null){
+            return;
+        }
+
+        this.name = this.name.trim();
     }
 }

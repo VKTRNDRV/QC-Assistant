@@ -5,11 +5,11 @@ import com.example.qcassistant.domain.item.sim.SerializedSIM;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SerializedSimRepository {
+public class SimRepository {
 
     private Collection<SerializedSIM> sims;
 
-    public SerializedSimRepository(){
+    public SimRepository(){
         this.sims = new ArrayList<>();
     }
 }

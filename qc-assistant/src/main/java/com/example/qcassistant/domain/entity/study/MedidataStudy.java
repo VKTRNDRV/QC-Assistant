@@ -39,6 +39,7 @@ public class MedidataStudy extends BaseStudy{
     private TrinaryBoolean includesHeadphonesStyluses;
 
 
+    @Override
     public MedidataSponsor getSponsor() {
         return sponsor;
     }
@@ -48,6 +49,7 @@ public class MedidataStudy extends BaseStudy{
         return this;
     }
 
+    @Override
     public MedidataEnvironment getEnvironment() {
         return environment;
     }

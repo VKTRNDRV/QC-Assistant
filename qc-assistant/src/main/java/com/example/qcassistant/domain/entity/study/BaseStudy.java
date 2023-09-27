@@ -1,6 +1,8 @@
 package com.example.qcassistant.domain.entity.study;
 
 import com.example.qcassistant.domain.entity.BaseEntity;
+import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
+import com.example.qcassistant.domain.entity.study.environment.BaseEnvironment;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 
@@ -34,4 +36,8 @@ public abstract class BaseStudy extends BaseEntity {
     public boolean isUnknown() {
         return name.equals(UNKNOWN);
     }
+
+    public abstract <T extends BaseSponsor> T getSponsor();
+
+    public abstract <T extends BaseEnvironment> T getEnvironment();
 }

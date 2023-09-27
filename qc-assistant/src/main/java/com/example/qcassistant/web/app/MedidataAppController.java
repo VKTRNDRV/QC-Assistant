@@ -1,7 +1,7 @@
 package com.example.qcassistant.web.app;
 
-import com.example.qcassistant.domain.dto.app.MedidataAppAddDto;
-import com.example.qcassistant.domain.dto.app.MedidataAppEditDto;
+import com.example.qcassistant.domain.dto.app.AppAddDto;
+import com.example.qcassistant.domain.dto.app.AppEditDto;
 import com.example.qcassistant.service.app.MedidataAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,13 +30,13 @@ public class MedidataAppController {
     @GetMapping("/add")
     public String getAddApp(Model model){
         model.addAttribute("medidataAppAddDto",
-                new MedidataAppAddDto());
+                new AppAddDto());
         return "medidata-apps-add";
     }
 
 
     @PostMapping("/add")
-    public String addApp(@ModelAttribute MedidataAppAddDto appAddDto,
+    public String addApp(@ModelAttribute AppAddDto appAddDto,
                          Model model, RedirectAttributes redirectAttributes){
         try {
             this.appService.addApp(appAddDto);
@@ -59,7 +59,7 @@ public class MedidataAppController {
     }
 
     @PostMapping("/edit")
-    public String editApp(@ModelAttribute MedidataAppEditDto editDto,
+    public String editApp(@ModelAttribute AppEditDto editDto,
                           Model model, RedirectAttributes redirectAttributes){
         try {
             this.appService.editApp(editDto);

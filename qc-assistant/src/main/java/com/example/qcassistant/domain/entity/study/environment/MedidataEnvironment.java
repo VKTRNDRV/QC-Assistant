@@ -42,6 +42,7 @@ public class MedidataEnvironment extends BaseEnvironment{
         return this;
     }
 
+    @Override
     public List<MedidataApp> getPatientApps() {
         return patientApps;
     }
@@ -51,6 +52,7 @@ public class MedidataEnvironment extends BaseEnvironment{
         return this;
     }
 
+    @Override
     public List<MedidataApp> getSiteApps() {
         return siteApps;
     }
