@@ -236,7 +236,7 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
         }
 
         for (MedidataStudy study : this.studyService.getEntities()){
-            if(study.getName().equals(studyName)){
+            if(studyName.contains(study.getName())){
                 return study;
             }
         }

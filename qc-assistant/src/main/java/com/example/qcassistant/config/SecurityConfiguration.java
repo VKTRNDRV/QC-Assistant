@@ -31,9 +31,20 @@ public class SecurityConfiguration {
                 )
                 .permitAll()
                 .requestMatchers(
-                        "/languages/edit/**", "/languages/add/**", "/destinations/edit/**", "/destinations/add/**",
-                        "/medidata/studies/add/**", "/medidata/studies/edit/**", "/medidata/sponsors/add/**", "/medidata/sponsors/edit/**",
-                        "/medidata/apps/add/**", "/medidata/apps/edit/**"
+                        "/languages/edit/**", "/languages/add/**",
+                        "/destinations/edit/**", "/destinations/add/**",
+
+                        "/medidata/studies/add/**", "/medidata/studies/edit/**",
+                        "/medidata/sponsors/add/**", "/medidata/sponsors/edit/**",
+                        "/medidata/apps/add/**", "/medidata/apps/edit/**",
+
+                        "/iqvia/studies/add/**", "/iqvia/studies/edit/**",
+                        "/iqvia/sponsors/add/**", "/iqvia/sponsors/edit/**",
+                        "/iqvia/apps/add/**", "/iqvia/apps/edit/**",
+
+                        "/medable/studies/add/**", "/medable/studies/edit/**",
+                        "/medable/sponsors/add/**", "/medable/sponsors/edit/**",
+                        "/medable/apps/add/**", "/medable/apps/edit/**"
                 )
                 .hasRole(RoleEnum.MODERATOR.name())
                 .requestMatchers("/users/**")

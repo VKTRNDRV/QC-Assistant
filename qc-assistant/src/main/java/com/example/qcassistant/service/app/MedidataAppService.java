@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class MedidataAppService extends BaseAppService{
@@ -24,45 +24,14 @@ public class MedidataAppService extends BaseAppService{
     }
 
 
+    @Override
     public void addApp(AppAddDto appAddDto) {
         validateNewApp(appAddDto);
         MedidataApp app = super.modelMapper.map(appAddDto, MedidataApp.class);
         this.appRepository.save(app);
     }
 
-    private void validateNewApp(AppAddDto appAddDto) {
-        appAddDto.trimStringFields();
-        String name = appAddDto.getName();
-        super.validateNameNotBlank(name);
-        this.validateUniqueName(name);
-    }
-
-    private void validateEditApp(AppEditDto appEditDto){
-        String name = appEditDto.getName();
-        validateNameNotBlank(name);
-
-        // if app name changed - validate unique
-        if(!this.appRepository.findById(appEditDto.getId()).get()
-                .getName().trim()
-                .equals(name)){
-            validateUniqueName(name);
-        }
-    }
-
-    public AppEditDto getEditAppById(Long id) {
-        return this.modelMapper.map(
-                this.appRepository.findById(id).get(),
-                AppEditDto.class);
-    }
-
-    public List<AppEditDto> getAllEditApps() {
-        return this.appRepository.findAll()
-                .stream().map((a) -> this.modelMapper
-                        .map(a, AppEditDto.class))
-                .sorted((a1,a2) -> a1.getName().compareTo(a2.getName()))
-                .collect(Collectors.toList());
-    }
-
+    @Override
     public void editApp(AppEditDto editDto) {
         validateEditApp(editDto);
         MedidataApp editedApp = this.modelMapper
@@ -71,9 +40,18 @@ public class MedidataAppService extends BaseAppService{
     }
 
     @Override
-    protected void validateUniqueName(String name){
-        if(this.appRepository.findFirstByName(name).isPresent()){
-            throw new RuntimeException("App \"" + name + "\" already present");
-        }
+    protected MedidataAppRepository getAppRepository(){
+        return this.appRepository;
+    }
+
+
+    @Override
+    protected List<MedidataApp> getEntities() {
+        return getAppRepository().findAll();
+    }
+
+    @Override
+    protected Optional<MedidataApp> findFirstByName(String name) {
+        return getAppRepository().findFirstByName(name);
     }
 }

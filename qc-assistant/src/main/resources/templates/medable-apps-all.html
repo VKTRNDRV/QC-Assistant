@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.88.1">
     <link rel="icon" type="image/x-icon" th:href="@{/images/favicon-32x32.png}">
-    <title>Sponsors - Medidata</title>
+    <title>Medable Apps</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/navbars/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -24,29 +24,31 @@
     </div>
 </nav>
 
-<div class="container-sm">
+<div class="container col-6">
     <div class="container m-3 text-center">
-        <h3 >Medidata Sponsors</h3>
+        <h3 >Medable Apps & Web Clips</h3>
     </div>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Name:</th>
-            <th>Are Study/Group names similar:</th>
-            <th sec:authorize="hasRole('ROLE_MODERATOR')">Edit:</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="s : ${sponsors}">
-            <td th:text="${s.name}"></td>
-            <td th:text="${s.areStudyNamesSimilar}"></td>
-            <td sec:authorize="hasRole('ROLE_MODERATOR')">
-                <a th:href="@{'/medidata/sponsors/edit/' + ${s.id}}" >Edit</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <div class="container ">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Name:</th>
+                <th>Requires Camera:</th>
+                <th sec:authorize="hasRole('ROLE_MODERATOR')">Edit:</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="app : ${apps}">
+                <td th:text="${app.name}"></td>
+                <td th:text="${app.requiresCamera}"></td>
+                <td sec:authorize="hasRole('ROLE_MODERATOR')">
+                    <a th:href="@{'/medable/apps/edit/' + ${app.id}}" >Edit</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
+</div>
 </body>
 </html>

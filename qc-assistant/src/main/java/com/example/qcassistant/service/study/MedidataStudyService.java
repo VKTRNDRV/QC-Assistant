@@ -1,14 +1,12 @@
 package com.example.qcassistant.service.study;
 
 import com.example.qcassistant.domain.dto.study.MedidataStudyAddDto;
-import com.example.qcassistant.domain.dto.study.MedidataStudyDisplayDto;
+import com.example.qcassistant.domain.dto.study.StudyDisplayDto;
 import com.example.qcassistant.domain.dto.study.MedidataStudyEditDto;
 import com.example.qcassistant.domain.dto.study.MedidataStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
-import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
-import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.repository.app.MedidataAppRepository;
@@ -17,7 +15,6 @@ import com.example.qcassistant.repository.study.MedidataStudyRepository;
 import com.example.qcassistant.repository.study.environment.MedidataEnvironmentRepository;
 import com.example.qcassistant.util.TrinaryBoolean;
 import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -179,9 +176,9 @@ public class MedidataStudyService extends BaseStudyService{
         }
     }
 
-    public List<MedidataStudyDisplayDto> displayAllStudies() {
+    public List<StudyDisplayDto> displayAllStudies() {
         return this.getEntities().stream()
-                .map(s -> new MedidataStudyDisplayDto()
+                .map(s -> new StudyDisplayDto()
                         .setId(s.getId())
                         .setName(s.getName())
                         .setSponsor(s.getSponsor().getName()))

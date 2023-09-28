@@ -5,13 +5,9 @@ import java.util.List;
 public class MedidataEnvironmentAddDto {
 
     private String isSitePatientSeparated;
-
     private String isDestinationSeparated;
-
     private String isLegacy;
-
     private List<String> patientApps;
-
     private List<String> siteApps;
 
 

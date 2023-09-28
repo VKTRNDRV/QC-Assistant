@@ -26,13 +26,13 @@
 
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
+                <li class="nav-item mx-2">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
                     <a class="nav-link" href="/users">Users</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown mx-2">
                     <a class="nav-link dropdown-toggle" href="#" id="destinations-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Destinations</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown04">
                         <li><a class="dropdown-item" href="/destinations/all">View/Edit Destinations</a></li>
@@ -42,7 +42,7 @@
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/languages/add">Add Language</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown mx-2">
                     <a class="nav-link dropdown-toggle" href="#" id="medidata-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Medidata</a>
                     <ul class="dropdown-menu" aria-labelledby="dropdown04">
                         <li><a class="dropdown-item" href="/medidata/qc">Generate Order Notes</a></li>
@@ -55,6 +55,36 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/medidata/apps">View/Edit Apps</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/apps/add">Add App</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle" href="#" id="iqvia-dropdown" data-bs-toggle="dropdown" aria-expanded="false">IQVIA</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                        <li><a class="dropdown-item" href="/iqvia/qc">Generate Order Notes</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/iqvia/studies">View/Edit Studies</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/iqvia/studies/add">Add Study</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/iqvia/sponsors">View/Edit Sponsors</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/iqvia/sponsors/add">Add Sponsor</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/iqvia/apps">View/Edit Apps</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/iqvia/apps/add">Add App</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle" href="#" id="medable-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Medable</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown04">
+                        <li><a class="dropdown-item" href="/medable/qc">Generate Order Notes</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/medable/studies">View/Edit Studies</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medable/studies/add">Add Study</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/medable/sponsors">View/Edit Sponsors</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medable/sponsors/add">Add Sponsor</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/medable/apps">View/Edit Apps</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medable/apps/add">Add App</a></li>
                     </ul>
                 </li>
             </ul>

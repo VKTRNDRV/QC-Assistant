@@ -35,4 +35,12 @@ public class AppEditDto {
         this.requiresCamera = requiresCamera;
         return this;
     }
+
+    public void trimStringFields() {
+        if(this.name == null){
+            return;
+        }
+
+        this.name = this.name.trim();
+    }
 }

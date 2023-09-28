@@ -1,20 +1,16 @@
 package com.example.qcassistant.service.sponsor;
 
-import com.example.qcassistant.domain.dto.sponsor.MedidataSponsorAddDto;
-import com.example.qcassistant.domain.dto.sponsor.MedidataSponsorDisplayDto;
-import com.example.qcassistant.domain.dto.sponsor.MedidataSponsorEditDto;
+import com.example.qcassistant.domain.dto.sponsor.sponsorAddDto;
+import com.example.qcassistant.domain.dto.sponsor.sponsorEditDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
-import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.repository.sponsor.MedidataSponsorRepository;
-import com.example.qcassistant.util.TrinaryBoolean;
-import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class MedidataSponsorService extends BaseSponsorService{
@@ -28,54 +24,34 @@ public class MedidataSponsorService extends BaseSponsorService{
         this.sponsorRepository = sponsorRepository;
     }
 
-
-    public List<MedidataSponsorDisplayDto> displayAllSponsors() {
-        return this.sponsorRepository.findAll()
-                .stream().map(s -> this.modelMapper
-                        .map(s, MedidataSponsorDisplayDto.class))
-                .sorted((s1,s2) -> s1.getName().compareTo(s2.getName()))
-                .collect(Collectors.toList());
+    @Override
+    public List<MedidataSponsor> getEntities(){
+        return this.sponsorRepository
+                .findAllByNameNot(BaseEntity.UNKNOWN);
     }
 
-    public void addSponsor(MedidataSponsorAddDto sponsorAddDto) {
+    @Override
+    protected Optional<MedidataSponsor> findFirstByName(String name) {
+        return getSponsorRepository().findFirstByName(name);
+    }
+
+    @Override
+    protected MedidataSponsorRepository getSponsorRepository() {
+        return this.sponsorRepository;
+    }
+
+    @Override
+    public void addSponsor(sponsorAddDto sponsorAddDto) {
         validateAddSponsor(sponsorAddDto);
         MedidataSponsor sponsor = this.modelMapper.map(
                 sponsorAddDto, MedidataSponsor.class);
-        this.sponsorRepository.save(sponsor);
+        getSponsorRepository().save(sponsor);
     }
 
-    private void validateAddSponsor(MedidataSponsorAddDto sponsorAddDto) {
-        String name = sponsorAddDto.getName();
-        validateNameNotBlank(name);
-        validateUniqueName(name);
-    }
-
-    public MedidataSponsorEditDto getSponsorEditById(Long id) {
-        return this.modelMapper.map(
-                this.sponsorRepository.findById(id)
-                        .orElseThrow(),
-                MedidataSponsorEditDto.class);
-    }
-
-    public void editSponsor(MedidataSponsorEditDto sponsorEditDto) {
+    @Override
+    public void editSponsor(sponsorEditDto sponsorEditDto) {
         validateEditSponsor(sponsorEditDto);
         MedidataSponsor sponsor = this.modelMapper.map(sponsorEditDto, MedidataSponsor.class);
         this.sponsorRepository.save(sponsor);
-    }
-
-    private void validateEditSponsor(MedidataSponsorEditDto sponsorEditDto) {
-        String name = sponsorEditDto.getName();
-        super.validateNameNotBlank(name);
-        if(!this.sponsorRepository.findById(sponsorEditDto.getId()).get()
-                .getName().trim()
-                .equals(sponsorEditDto.getName())){
-            validateUniqueName(name);
-        }
-    }
-
-    private void validateUniqueName(String name){
-        if(this.sponsorRepository.findFirstByName(name).isPresent()){
-            throw new RuntimeException("Sponsor \"" + name + "\" already present");
-        }
     }
 }

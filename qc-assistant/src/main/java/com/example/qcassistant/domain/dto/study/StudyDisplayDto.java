@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.dto.study;
 
-public class MedidataStudyDisplayDto {
+public class StudyDisplayDto {
 
     private Long id;
 
@@ -13,7 +13,7 @@ public class MedidataStudyDisplayDto {
         return id;
     }
 
-    public MedidataStudyDisplayDto setId(Long id) {
+    public StudyDisplayDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -22,7 +22,7 @@ public class MedidataStudyDisplayDto {
         return sponsor;
     }
 
-    public MedidataStudyDisplayDto setSponsor(String sponsor) {
+    public StudyDisplayDto setSponsor(String sponsor) {
         this.sponsor = sponsor;
         return this;
     }
@@ -31,7 +31,7 @@ public class MedidataStudyDisplayDto {
         return name;
     }
 
-    public MedidataStudyDisplayDto setName(String name) {
+    public StudyDisplayDto setName(String name) {
         this.name = name;
         return this;
     }

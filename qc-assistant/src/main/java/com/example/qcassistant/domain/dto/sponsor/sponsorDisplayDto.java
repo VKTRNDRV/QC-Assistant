@@ -1,16 +1,27 @@
 package com.example.qcassistant.domain.dto.sponsor;
 
-public class MedidataSponsorAddDto {
+public class sponsorDisplayDto {
+
+    private Long id;
 
     private String name;
+
     private String areStudyNamesSimilar;
 
+    public Long getId() {
+        return id;
+    }
+
+    public sponsorDisplayDto setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
     }
 
-    public MedidataSponsorAddDto setName(String name) {
+    public sponsorDisplayDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -19,7 +30,7 @@ public class MedidataSponsorAddDto {
         return areStudyNamesSimilar;
     }
 
-    public MedidataSponsorAddDto setAreStudyNamesSimilar(String areStudyNamesSimilar) {
+    public sponsorDisplayDto setAreStudyNamesSimilar(String areStudyNamesSimilar) {
         this.areStudyNamesSimilar = areStudyNamesSimilar;
         return this;
     }

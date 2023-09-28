@@ -2,7 +2,7 @@ package com.example.qcassistant.web.sponsor;
 
 import com.example.qcassistant.domain.dto.sponsor.sponsorAddDto;
 import com.example.qcassistant.domain.dto.sponsor.sponsorEditDto;
-import com.example.qcassistant.service.sponsor.MedidataSponsorService;
+import com.example.qcassistant.service.sponsor.MedableSponsorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,21 +10,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/medidata/sponsors")
-public class MedidataSponsorController {
+@RequestMapping("/medable/sponsors")
+public class MedableSponsorController {
 
-    private MedidataSponsorService sponsorService;
-
+    private MedableSponsorService sponsorService;
 
     @Autowired
-    public MedidataSponsorController(MedidataSponsorService sponsorService) {
+    public MedableSponsorController(MedableSponsorService sponsorService) {
         this.sponsorService = sponsorService;
     }
 
     @GetMapping
     public String getAllSponsors(Model model){
         model.addAttribute("sponsors", this.sponsorService.displayAllSponsors());
-        return "medidata-sponsors";
+        return "medable-sponsors";
     }
 
     @GetMapping("/add")
@@ -32,7 +31,7 @@ public class MedidataSponsorController {
         model.addAttribute("sponsorAddDto",
                 new sponsorAddDto());
 
-        return "medidata-sponsors-add";
+        return "medable-sponsors-add";
     }
 
     @PostMapping("/add")
@@ -44,7 +43,7 @@ public class MedidataSponsorController {
             model.addAttribute("sponsorAddDto", sponsorAddDto);
             model.addAttribute("error", true);
             model.addAttribute("message", exc.getMessage());
-            return "medidata-sponsors-add";
+            return "medable-sponsors-add";
         }
 
         redirectAttributes.addFlashAttribute("success", true);
@@ -55,7 +54,7 @@ public class MedidataSponsorController {
     public String getEditSponsor(@PathVariable Long id, Model model){
         model.addAttribute("sponsorEditDto",
                 this.sponsorService.getSponsorEditById(id));
-        return "medidata-sponsors-edit";
+        return "medable-sponsors-edit";
     }
 
     @PostMapping("/edit")
@@ -67,7 +66,7 @@ public class MedidataSponsorController {
             model.addAttribute("sponsorEditDto", sponsorEditDto);
             model.addAttribute("error", true);
             model.addAttribute("message", exc.getMessage());
-            return "medidata-sponsors-edit";
+            return "medable-sponsors-edit";
         }
 
         redirectAttributes.addFlashAttribute("success", true);
