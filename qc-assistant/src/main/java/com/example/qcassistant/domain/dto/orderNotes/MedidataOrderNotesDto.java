@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.dto.orderNotes;
 
-import com.example.qcassistant.domain.dto.study.MedidataStudyInfoDto;
+import com.example.qcassistant.domain.dto.study.info.MedidataStudyInfoDto;
 
 public class MedidataOrderNotesDto extends OrderNotesDto{
 

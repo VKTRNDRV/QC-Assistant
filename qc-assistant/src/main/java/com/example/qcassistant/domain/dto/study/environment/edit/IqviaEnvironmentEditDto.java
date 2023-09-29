@@ -1,22 +1,14 @@
-package com.example.qcassistant.domain.dto.study.environment;
+package com.example.qcassistant.domain.dto.study.environment.edit;
 
 import java.util.List;
 
-public class MedidataEnvironmentEditDto {
+public class IqviaEnvironmentEditDto {
 
     private Long id;
-
     private String isSitePatientSeparated;
-
     private String isDestinationSeparated;
-
-    private String isLegacy;
-
     private List<String> patientApps;
-
     private List<String> siteApps;
-
-
 
 
 
@@ -24,7 +16,7 @@ public class MedidataEnvironmentEditDto {
         return id;
     }
 
-    public MedidataEnvironmentEditDto setId(Long id) {
+    public IqviaEnvironmentEditDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -33,7 +25,7 @@ public class MedidataEnvironmentEditDto {
         return isSitePatientSeparated;
     }
 
-    public MedidataEnvironmentEditDto setIsSitePatientSeparated(String isSitePatientSeparated) {
+    public IqviaEnvironmentEditDto setIsSitePatientSeparated(String isSitePatientSeparated) {
         this.isSitePatientSeparated = isSitePatientSeparated;
         return this;
     }
@@ -42,17 +34,8 @@ public class MedidataEnvironmentEditDto {
         return isDestinationSeparated;
     }
 
-    public MedidataEnvironmentEditDto setIsDestinationSeparated(String isDestinationSeparated) {
+    public IqviaEnvironmentEditDto setIsDestinationSeparated(String isDestinationSeparated) {
         this.isDestinationSeparated = isDestinationSeparated;
-        return this;
-    }
-
-    public String getIsLegacy() {
-        return isLegacy;
-    }
-
-    public MedidataEnvironmentEditDto setIsLegacy(String isLegacy) {
-        this.isLegacy = isLegacy;
         return this;
     }
 
@@ -60,7 +43,7 @@ public class MedidataEnvironmentEditDto {
         return patientApps;
     }
 
-    public MedidataEnvironmentEditDto setPatientApps(List<String> patientApps) {
+    public IqviaEnvironmentEditDto setPatientApps(List<String> patientApps) {
         this.patientApps = patientApps;
         return this;
     }
@@ -69,7 +52,7 @@ public class MedidataEnvironmentEditDto {
         return siteApps;
     }
 
-    public MedidataEnvironmentEditDto setSiteApps(List<String> siteApps) {
+    public IqviaEnvironmentEditDto setSiteApps(List<String> siteApps) {
         this.siteApps = siteApps;
         return this;
     }

@@ -1,25 +1,17 @@
-package com.example.qcassistant.domain.dto.study;
+package com.example.qcassistant.domain.dto.study.add;
 
-import com.example.qcassistant.domain.dto.study.environment.MedidataEnvironmentAddDto;
+import com.example.qcassistant.domain.dto.study.environment.add.MedidataEnvironmentAddDto;
 
 public class MedidataStudyAddDto {
 
     private String name;
-
     private String folderURL;
-
     private String sponsor;
-
     private MedidataEnvironmentAddDto environment;
-
     private String containsTranslatedLabels;
-
     private String containsTranslatedDocs;
-
     private String containsEditableWelcomeLetter;
-
     private String isPatientDeviceIpad;
-
     private String includesHeadphonesStyluses;
 
 

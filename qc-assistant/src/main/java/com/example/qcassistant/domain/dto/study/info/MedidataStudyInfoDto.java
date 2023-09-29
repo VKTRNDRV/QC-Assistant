@@ -1,16 +1,7 @@
-package com.example.qcassistant.domain.dto.study;
+package com.example.qcassistant.domain.dto.study.info;
 
-import com.example.qcassistant.domain.dto.study.environment.MedidataEnvironmentInfoDto;
-import com.example.qcassistant.domain.entity.app.BaseApp;
+import com.example.qcassistant.domain.dto.study.environment.info.MedidataEnvironmentInfoDto;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
-import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
-import com.example.qcassistant.util.TrinaryBoolean;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class MedidataStudyInfoDto {
 

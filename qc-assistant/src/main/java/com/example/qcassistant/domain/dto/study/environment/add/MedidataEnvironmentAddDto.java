@@ -1,4 +1,4 @@
-package com.example.qcassistant.domain.dto.study.environment;
+package com.example.qcassistant.domain.dto.study.environment.add;
 
 import java.util.List;
 

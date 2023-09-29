@@ -1,8 +1,8 @@
-package com.example.qcassistant.domain.dto.study.environment;
+package com.example.qcassistant.domain.dto.study.environment.info;
 
-import com.example.qcassistant.domain.dto.study.MedidataStudyInfoDto;
 import com.example.qcassistant.domain.entity.app.BaseApp;
 import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
+import com.example.qcassistant.util.TrinaryBoolean;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -62,7 +62,8 @@ public class MedidataEnvironmentInfoDto {
 
     public void setSpecialFields(MedidataEnvironment environment){
         this.setPatientApps(this.getAppNamesList(environment.getPatientApps()))
-                .setSiteApps(this.getAppNamesList(environment.getSiteApps()));
+                .setSiteApps(this.getAppNamesList(environment.getSiteApps()))
+                .setIsLegacy(environment.getIsLegacy().name());
     }
 
     public String getAppNamesList(List<? extends BaseApp> apps){

@@ -1,9 +1,9 @@
 package com.example.qcassistant.service.study;
 
-import com.example.qcassistant.domain.dto.study.MedidataStudyAddDto;
+import com.example.qcassistant.domain.dto.study.add.MedidataStudyAddDto;
 import com.example.qcassistant.domain.dto.study.StudyDisplayDto;
-import com.example.qcassistant.domain.dto.study.MedidataStudyEditDto;
-import com.example.qcassistant.domain.dto.study.MedidataStudyInfoDto;
+import com.example.qcassistant.domain.dto.study.edit.MedidataStudyEditDto;
+import com.example.qcassistant.domain.dto.study.info.MedidataStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
@@ -145,6 +145,7 @@ public class MedidataStudyService extends BaseStudyService{
     }
 
     private void validateStudyAdd(MedidataStudyAddDto studyAddDto) {
+        studyAddDto.trimStringFields();
         super.validateNameNotBlank(studyAddDto.getName());
         validateUniqueName(studyAddDto.getName());
         validateAppsCount(studyAddDto.getEnvironment().getSiteApps(),
@@ -152,6 +153,7 @@ public class MedidataStudyService extends BaseStudyService{
     }
 
     private void validateStudyEdit(MedidataStudyEditDto studyEditDto) {
+        studyEditDto.trimStringFields();
         super.validateNameNotBlank(studyEditDto.getName());
         if(!this.studyRepository.findById(studyEditDto.getId()).get().getName()
                 .equals(studyEditDto.getName())){
@@ -159,15 +161,6 @@ public class MedidataStudyService extends BaseStudyService{
         }
         validateAppsCount(studyEditDto.getEnvironment().getSiteApps(),
                 studyEditDto.getEnvironment().getPatientApps());
-    }
-
-    private void validateAppsCount(List<String> siteApps, List<String> patientApps){
-        if(siteApps == null || siteApps.size() == 0){
-            throw new RuntimeException("No Site apps selected");
-        }
-        if(patientApps == null || patientApps.size() == 0){
-            throw new RuntimeException("No Patient apps selected");
-        }
     }
 
     private void validateUniqueName(String name){

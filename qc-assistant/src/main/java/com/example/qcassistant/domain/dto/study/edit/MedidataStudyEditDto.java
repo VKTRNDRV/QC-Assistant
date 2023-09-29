@@ -1,7 +1,6 @@
-package com.example.qcassistant.domain.dto.study;
+package com.example.qcassistant.domain.dto.study.edit;
 
-import com.example.qcassistant.domain.dto.study.environment.MedidataEnvironmentAddDto;
-import com.example.qcassistant.domain.dto.study.environment.MedidataEnvironmentEditDto;
+import com.example.qcassistant.domain.dto.study.environment.edit.MedidataEnvironmentEditDto;
 import com.example.qcassistant.domain.entity.app.BaseApp;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 
@@ -130,6 +129,7 @@ public class MedidataStudyEditDto {
                 .stream().map(BaseApp::getName).collect(Collectors.toList()));
         this.environment.setSiteApps(study.getEnvironment().getSiteApps()
                 .stream().map(BaseApp::getName).collect(Collectors.toList()));
+        this.environment.setIsLegacy(study.getEnvironment().getIsLegacy().name());
         return this;
     }
 
