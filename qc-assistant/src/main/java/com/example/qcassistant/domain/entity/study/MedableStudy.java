@@ -31,4 +31,14 @@ public class MedableStudy extends BaseStudy {
     public MedableEnvironment getEnvironment() {
         return environment;
     }
+
+    public MedableStudy setSponsor(MedableSponsor sponsor) {
+        this.sponsor = sponsor;
+        return this;
+    }
+
+    public MedableStudy setEnvironment(MedableEnvironment environment) {
+        this.environment = environment;
+        return this;
+    }
 }

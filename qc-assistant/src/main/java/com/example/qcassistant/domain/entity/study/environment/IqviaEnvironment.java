@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "iqvia_environments")
 public class IqviaEnvironment extends BaseEnvironment{
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "iqvia_environments_patient_apps",
             joinColumns = { @JoinColumn(name = "environment_id") },
@@ -17,7 +17,7 @@ public class IqviaEnvironment extends BaseEnvironment{
     )
     private List<IqviaApp> patientApps;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "iqvia_environments_site_apps",
             joinColumns = { @JoinColumn(name = "environment_id") },

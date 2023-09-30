@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name = "medable_environments")
 public class MedableEnvironment extends BaseEnvironment{
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "medable_environments_patient_apps",
             joinColumns = { @JoinColumn(name = "environment_id") },
@@ -19,7 +19,7 @@ public class MedableEnvironment extends BaseEnvironment{
     )
     private List<MedableApp> patientApps;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "medable_environments_site_apps",
             joinColumns = { @JoinColumn(name = "environment_id") },

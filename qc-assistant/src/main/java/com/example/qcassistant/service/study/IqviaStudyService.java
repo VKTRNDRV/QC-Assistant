@@ -8,12 +8,17 @@ import com.example.qcassistant.domain.dto.study.info.MedidataStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.IqviaApp;
 import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
+import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.IqviaStudy;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
+import com.example.qcassistant.domain.entity.study.environment.IqviaEnvironment;
+import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.repository.app.IqviaAppRepository;
 import com.example.qcassistant.repository.sponsor.IqviaSponsorRepository;
 import com.example.qcassistant.repository.study.IqviaStudyRepository;
 import com.example.qcassistant.repository.study.environment.IqviaEnvironmentRepository;
+import com.example.qcassistant.util.TrinaryBoolean;
+import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +47,45 @@ public class IqviaStudyService extends BaseStudyService{
         this.appRepository = appRepository;
         this.sponsorRepository = sponsorRepository;
         this.environmentRepository = environmentRepository;
+    }
+
+    @PostConstruct
+    public void initUnknown(){
+        if(this.studyRepository.findFirstByName(
+                BaseEntity.UNKNOWN).isEmpty()){
+            IqviaStudy study = new IqviaStudy();
+            study.setName(BaseEntity.UNKNOWN)
+                    .setFolderURL(BaseEntity.UNKNOWN);
+            study.setContainsTranslatedDocs(TrinaryBoolean.UNKNOWN)
+                    .setContainsTranslatedLabels(TrinaryBoolean.UNKNOWN)
+                    .setContainsSepSitePatientLabels(TrinaryBoolean.UNKNOWN)
+                    .setIsGsgPlain(TrinaryBoolean.UNKNOWN);
+
+
+            Optional<IqviaSponsor> optSponsor = this.sponsorRepository
+                    .findFirstByName(BaseEntity.UNKNOWN);
+            if(optSponsor.isPresent()){
+                study.setSponsor(optSponsor.get());
+            }else {
+                IqviaSponsor sponsor = new IqviaSponsor();
+                sponsor.setName(BaseEntity.UNKNOWN)
+                        .setAreStudyNamesSimilar(TrinaryBoolean.UNKNOWN);
+                this.sponsorRepository.save(sponsor);
+
+                study.setSponsor(sponsor);
+            }
+
+            IqviaEnvironment environment = new IqviaEnvironment();
+            environment.setPatientApps(new ArrayList<>())
+                    .setSiteApps(new ArrayList<>())
+                    .setIsSitePatientSeparated(TrinaryBoolean.UNKNOWN)
+                    .setIsDestinationSeparated(TrinaryBoolean.UNKNOWN);
+            this.environmentRepository.save(environment);
+
+            study.setEnvironment(environment);
+
+            this.studyRepository.save(study);
+        }
     }
 
     public void addStudy(IqviaStudyAddDto studyAddDto) {

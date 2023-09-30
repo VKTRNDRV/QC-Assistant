@@ -1,9 +1,9 @@
 package com.example.qcassistant.domain.dto.study.edit;
 
 import com.example.qcassistant.domain.dto.study.environment.add.IqviaEnvironmentAddDto;
+import com.example.qcassistant.domain.dto.study.environment.edit.IqviaEnvironmentEditDto;
 import com.example.qcassistant.domain.entity.app.BaseApp;
 import com.example.qcassistant.domain.entity.study.IqviaStudy;
-import com.example.qcassistant.domain.entity.study.MedidataStudy;
 
 import java.util.stream.Collectors;
 
@@ -13,7 +13,7 @@ public class IqviaStudyEditDto {
     private String name;
     private String folderURL;
     private String sponsor;
-    private IqviaEnvironmentAddDto environment;
+    private IqviaEnvironmentEditDto environment;
     private String containsTranslatedLabels;
     private String containsTranslatedDocs;
     private String containsSepSitePatientLabels;
@@ -59,11 +59,11 @@ public class IqviaStudyEditDto {
         return this;
     }
 
-    public IqviaEnvironmentAddDto getEnvironment() {
+    public IqviaEnvironmentEditDto getEnvironment() {
         return environment;
     }
 
-    public IqviaStudyEditDto setEnvironment(IqviaEnvironmentAddDto environment) {
+    public IqviaStudyEditDto setEnvironment(IqviaEnvironmentEditDto environment) {
         this.environment = environment;
         return this;
     }

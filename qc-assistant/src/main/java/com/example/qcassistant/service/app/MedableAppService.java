@@ -26,6 +26,14 @@ public class MedableAppService extends BaseAppService{
         this.appRepository = appRepository;
     }
 
+//    @Override
+//    public List<AppEditDto> getAllEditApps() {
+//        return this.getEntities().stream().map((a) -> this.modelMapper
+//                        .map(a, AppEditDto.class))
+//                .sorted((a1,a2) -> a1.getName().compareTo(a2.getName()))
+//                .collect(Collectors.toList());
+//    }
+
     @Override
     public void addApp(AppAddDto appAddDto) {
         validateNewApp(appAddDto);

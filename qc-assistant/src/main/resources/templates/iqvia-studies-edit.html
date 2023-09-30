@@ -58,6 +58,8 @@
                 <hr class="my-4">
 
                 <h5 class="mb-3">Environment:</h5>
+                <input type="hidden" th:field="*{environment.id}" />
+
                 <div class="col-md-12">
                     <label for="containsTranslatedLabels" class="form-label">Are the study's AirWatch groups separated by Site & Patient devices:</label>
                     <select class="form-select" id="environment.isSitePatientSeparated" th:field="*{environment.isSitePatientSeparated}" required>

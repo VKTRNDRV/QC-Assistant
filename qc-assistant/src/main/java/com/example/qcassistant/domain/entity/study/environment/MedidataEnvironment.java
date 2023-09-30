@@ -14,7 +14,7 @@ public class MedidataEnvironment extends BaseEnvironment{
     @Column(name = "is_legacy")
     private TrinaryBoolean isLegacy;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "medidata_environments_patient_apps",
             joinColumns = { @JoinColumn(name = "environment_id") },
@@ -23,7 +23,7 @@ public class MedidataEnvironment extends BaseEnvironment{
     private List<MedidataApp> patientApps;
 
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "medidata_environments_site_apps",
             joinColumns = { @JoinColumn(name = "environment_id") },

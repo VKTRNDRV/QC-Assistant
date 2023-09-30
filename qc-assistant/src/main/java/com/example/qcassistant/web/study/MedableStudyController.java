@@ -1,28 +1,31 @@
 package com.example.qcassistant.web.study;
 
-import com.example.qcassistant.domain.dto.study.info.IqviaStudyInfoDto;
 import com.example.qcassistant.domain.dto.study.add.IqviaStudyAddDto;
+import com.example.qcassistant.domain.dto.study.add.MedableStudyAddDto;
 import com.example.qcassistant.domain.dto.study.edit.IqviaStudyEditDto;
+import com.example.qcassistant.domain.dto.study.edit.MedableStudyEditDto;
 import com.example.qcassistant.service.app.IqviaAppService;
-import com.example.qcassistant.service.sponsor.IqviaSponsorService;
-import com.example.qcassistant.service.study.IqviaStudyService;
+import com.example.qcassistant.service.app.MedableAppService;
+import com.example.qcassistant.service.sponsor.MedableSponsorService;
+import com.example.qcassistant.service.study.MedableStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("iqvia/studies")
-public class IqviaStudyController {
+@RequestMapping("medable/studies")
+public class MedableStudyController {
 
-    private IqviaStudyService studyService;
-    private IqviaSponsorService sponsorService;
-    private IqviaAppService appService;
+    private MedableStudyService studyService;
+    private MedableSponsorService sponsorService;
+    private MedableAppService appService;
 
     @Autowired
-    public IqviaStudyController(IqviaStudyService studyService, IqviaSponsorService sponsorService, IqviaAppService appService) {
+    public MedableStudyController(MedableStudyService studyService,
+                                  MedableSponsorService sponsorService,
+                                  MedableAppService appService) {
         this.studyService = studyService;
         this.sponsorService = sponsorService;
         this.appService = appService;
@@ -32,13 +35,13 @@ public class IqviaStudyController {
     public String getAddStudy(Model model){
         addSponsorsAndApps(model);
         model.addAttribute("studyAddDto",
-                new IqviaStudyAddDto());
+                new MedableStudyAddDto());
 
-        return "iqvia-studies-add";
+        return "medable-studies-add";
     }
 
     @PostMapping("/add")
-    public String addStudy(@ModelAttribute IqviaStudyAddDto studyAddDto,
+    public String addStudy(@ModelAttribute MedableStudyAddDto studyAddDto,
                            Model model, RedirectAttributes redirectAttributes){
         try {
             this.studyService.addStudy(studyAddDto);
@@ -49,39 +52,22 @@ public class IqviaStudyController {
             this.appService.getAllEditApps();
             model.addAttribute("error", true);
             model.addAttribute("message", exc.getMessage());
-            return "iqvia-studies-add";
+            return "medable-studies-add";
         }
 
         redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/";
     }
 
-    @GetMapping
-    public String getViewEditStudies(Model model){
-        model.addAttribute("studies", this.studyService.displayAllStudies());
-        return "iqvia-studies";
-    }
-
     @GetMapping("/edit/{id}")
     public String getEditStudy(@PathVariable Long id, Model model){
         addSponsorsAndApps(model);
         model.addAttribute("studyEditDto", this.studyService.getStudyEditById(id));
-        return "iqvia-studies-edit";
-    }
-
-    @GetMapping("/info/{id}")
-    public ResponseEntity<IqviaStudyInfoDto> getStudyInfo(@PathVariable Long id){
-        try {
-            IqviaStudyInfoDto studyInfoDto = this
-                    .studyService.getStudyInfoById(id);
-            return ResponseEntity.ok(studyInfoDto);
-        }catch (Exception e){
-            return ResponseEntity.notFound().build();
-        }
+        return "medable-studies-edit";
     }
 
     @PostMapping("/edit")
-    public String editStudy(@ModelAttribute IqviaStudyEditDto studyEditDto,
+    public String editStudy(@ModelAttribute MedableStudyEditDto studyEditDto,
                             Model model, RedirectAttributes redirectAttributes){
         try {
             this.studyService.editStudy(studyEditDto);
@@ -90,7 +76,7 @@ public class IqviaStudyController {
             addSponsorsAndApps(model);
             model.addAttribute("error", true);
             model.addAttribute("message", exc.getMessage());
-            return "iqvia-studies-edit";
+            return "medable-studies-edit";
         }
 
         redirectAttributes.addFlashAttribute("success", true);
