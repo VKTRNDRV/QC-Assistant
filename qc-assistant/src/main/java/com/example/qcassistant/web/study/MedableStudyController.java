@@ -4,11 +4,14 @@ import com.example.qcassistant.domain.dto.study.add.IqviaStudyAddDto;
 import com.example.qcassistant.domain.dto.study.add.MedableStudyAddDto;
 import com.example.qcassistant.domain.dto.study.edit.IqviaStudyEditDto;
 import com.example.qcassistant.domain.dto.study.edit.MedableStudyEditDto;
+import com.example.qcassistant.domain.dto.study.info.IqviaStudyInfoDto;
+import com.example.qcassistant.domain.dto.study.info.MedableStudyInfoDto;
 import com.example.qcassistant.service.app.IqviaAppService;
 import com.example.qcassistant.service.app.MedableAppService;
 import com.example.qcassistant.service.sponsor.MedableSponsorService;
 import com.example.qcassistant.service.study.MedableStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +62,12 @@ public class MedableStudyController {
         return "redirect:/";
     }
 
+    @GetMapping
+    public String getViewEditStudies(Model model){
+        model.addAttribute("studies", this.studyService.displayAllStudies());
+        return "medable-studies";
+    }
+
     @GetMapping("/edit/{id}")
     public String getEditStudy(@PathVariable Long id, Model model){
         addSponsorsAndApps(model);
@@ -81,6 +90,17 @@ public class MedableStudyController {
 
         redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/";
+    }
+
+    @GetMapping("/info/{id}")
+    public ResponseEntity<MedableStudyInfoDto> getStudyInfo(@PathVariable Long id){
+        try {
+            MedableStudyInfoDto studyInfoDto = this
+                    .studyService.getStudyInfoById(id);
+            return ResponseEntity.ok(studyInfoDto);
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     private Model addSponsorsAndApps(Model model) {

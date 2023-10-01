@@ -28,7 +28,6 @@ import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.LanguageService;
 import com.example.qcassistant.service.study.MedidataStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -144,8 +143,8 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
         return phones;
     }
 
-    private Collection<IPad> getIPads(String items) {
-        Collection<IPad> iPads = new ArrayList<>();
+    private Collection<Device> getIPads(String items) {
+        Collection<Device> iPads = new ArrayList<>();
         Pattern pattern;
         Matcher matcher;
         for(MedidataIPad iPadConst : MedidataIPad.values()){
@@ -163,8 +162,8 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
         return iPads;
     }
 
-    private Collection<IPhone> getIPhones(String items) {
-        Collection<IPhone> iPhones = new ArrayList<>();
+    private Collection<Device> getIPhones(String items) {
+        Collection<Device> iPhones = new ArrayList<>();
         Pattern pattern;
         Matcher matcher;
         for(MedidataIPhone iPhoneConst : MedidataIPhone.values()){
@@ -222,21 +221,10 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
     }
 
     private MedidataStudy getStudy(SegmentedOrderInput segmentedInput) {
-        Pattern studyPattern = Pattern.compile(
-                MedidataOrderInputRegex.STUDY_REGEX);
-        Matcher matcher = studyPattern.matcher(segmentedInput.getBasicInfo());
-        String studyName;
-        if(matcher.find()){
-            studyName = matcher.group(
-                    MedidataOrderInputRegex.STUDY_GROUP)
-                    .trim();
-        }else{
-            throw new OrderParsingException(
-                    "Study Name could not be detected");
-        }
+        String studyNameRange = super.getStudyRangeString(segmentedInput);
 
         for (MedidataStudy study : this.studyService.getEntities()){
-            if(studyName.contains(study.getName())){
+            if(studyNameRange.contains(study.getName())){
                 return study;
             }
         }

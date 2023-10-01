@@ -30,4 +30,5 @@ public abstract class BaseStudyService {
             throw new RuntimeException("No Patient apps selected");
         }
     }
+
 }

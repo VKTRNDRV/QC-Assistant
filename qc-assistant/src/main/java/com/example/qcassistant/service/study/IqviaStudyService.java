@@ -180,7 +180,7 @@ public class IqviaStudyService extends BaseStudyService{
                 studyEditDto.getEnvironment().getPatientApps());
     }
 
-    private List<IqviaStudy> getEntities() {
+    public List<IqviaStudy> getEntities() {
         return this.studyRepository.findAllByNameNot(BaseEntity.UNKNOWN);
     }
 
@@ -209,5 +209,11 @@ public class IqviaStudyService extends BaseStudyService{
         dto.setSpecialFields(study);
 
         return dto;
+    }
+
+    public IqviaStudy getUnknownStudy() {
+        return this.studyRepository
+                .findFirstByName(BaseEntity.UNKNOWN)
+                .get();
     }
 }

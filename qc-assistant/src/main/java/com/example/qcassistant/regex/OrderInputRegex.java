@@ -20,4 +20,7 @@ public class OrderInputRegex {
 
     public static final String ITEMS_LIST_REGEX = "OLine(?<itemsList>.+)";
     public static final String ITEMS_LIST_GROUP = "itemsList";
+
+    public static final String STUDY_REGEX = "Study\\s*(?<studyName>.+)\\s*Site";
+    public static final String STUDY_GROUP = "studyName";
 }

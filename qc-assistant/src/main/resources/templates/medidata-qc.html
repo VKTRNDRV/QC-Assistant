@@ -25,19 +25,22 @@
 </nav>
 
 <div class="container" style="max-width: 999px; padding-top: 33px; padding-bottom: 66px;">
+    <div class="row">
+        <h4>Generate Notes - Medidata</h4>
+    </div>
     <main>
         <form th:method="POST" th:action="@{/medidata/qc}" th:object="${rawOrderInput}">
             <div class="form-group">
                 <div class="col-md-12">
                     <label for="rawText" class="form-label" >Paste Order Info:</label>
-                    <textarea class="form-control" id="rawText" rows="25" th:field="*{rawText}" required></textarea>
+                    <textarea class="form-control" id="rawText" rows="20" th:field="*{rawText}" required></textarea>
                 </div>
             </div>
             <hr class="my-4">
             <p th:if="${error}"
                class="errors alert alert-danger" th:text="${message}">
             </p>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Generate QC Notes</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Generate Notes</button>
         </form>
     </main>
 </div>

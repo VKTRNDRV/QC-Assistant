@@ -1,9 +1,12 @@
 package com.example.qcassistant.service.study;
 
+import com.example.qcassistant.domain.dto.study.StudyDisplayDto;
 import com.example.qcassistant.domain.dto.study.add.IqviaStudyAddDto;
 import com.example.qcassistant.domain.dto.study.add.MedableStudyAddDto;
 import com.example.qcassistant.domain.dto.study.edit.IqviaStudyEditDto;
 import com.example.qcassistant.domain.dto.study.edit.MedableStudyEditDto;
+import com.example.qcassistant.domain.dto.study.info.IqviaStudyInfoDto;
+import com.example.qcassistant.domain.dto.study.info.MedableStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.IqviaApp;
 import com.example.qcassistant.domain.entity.app.MedableApp;
@@ -26,6 +29,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MedableStudyService extends BaseStudyService{
@@ -173,5 +177,41 @@ public class MedableStudyService extends BaseStudyService{
                 .setSiteApps(siteApps)
                 .setPatientApps(patientApps);
         return study;
+    }
+
+    public List<StudyDisplayDto> displayAllStudies() {
+        return getEntities().stream()
+                .map(s -> new StudyDisplayDto()
+                        .setId(s.getId())
+                        .setSponsor(s.getSponsor().getName())
+                        .setName(s.getName()))
+                .sorted((s1,s2) -> {
+                    int result = s1.getSponsor().compareTo(s2.getSponsor());
+                    if(result == 0){
+                        result = s1.getName().compareTo(s2.getName());
+                    }
+                    return result;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<MedableStudy> getEntities(){
+        return this.studyRepository.findAllByNameNot(BaseEntity.UNKNOWN);
+    }
+
+    public MedableStudyInfoDto getStudyInfoById(Long id) {
+        MedableStudy study = this.studyRepository
+                .findById(id).orElseThrow();
+
+        MedableStudyInfoDto dto = this.modelMapper
+                .map(study, MedableStudyInfoDto.class);
+        dto.setSpecialFields(study);
+
+        return dto;
+    }
+
+    public MedableStudy getUnknownStudy() {
+        return this.studyRepository.findFirstByName(
+                BaseEntity.UNKNOWN).get();
     }
 }

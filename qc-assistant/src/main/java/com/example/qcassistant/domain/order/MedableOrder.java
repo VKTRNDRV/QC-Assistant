@@ -20,4 +20,31 @@ public class MedableOrder extends ClinicalOrder{
 
         return this.study.isUnknown();
     }
+
+    public MedableStudy getStudy() {
+        return study;
+    }
+
+    public MedableOrder setStudy(MedableStudy study) {
+        this.study = study;
+        return this;
+    }
+
+    public MedableSponsor getSponsor() {
+        return sponsor;
+    }
+
+    public MedableOrder setSponsor(MedableSponsor sponsor) {
+        this.sponsor = sponsor;
+        return this;
+    }
+
+    public SimRepository getSimRepository() {
+        return simRepository;
+    }
+
+    public MedableOrder setSimRepository(SimRepository simRepository) {
+        this.simRepository = simRepository;
+        return this;
+    }
 }

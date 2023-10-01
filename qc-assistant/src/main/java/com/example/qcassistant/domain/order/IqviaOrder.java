@@ -21,4 +21,40 @@ public class IqviaOrder extends ClinicalOrder{
 
         return this.study.isUnknown();
     }
+
+    public IqviaStudy getStudy() {
+        return study;
+    }
+
+    public IqviaOrder setStudy(IqviaStudy study) {
+        this.study = study;
+        return this;
+    }
+
+    public IqviaSponsor getSponsor() {
+        return sponsor;
+    }
+
+    public IqviaOrder setSponsor(IqviaSponsor sponsor) {
+        this.sponsor = sponsor;
+        return this;
+    }
+
+    public SimRepository getSimRepository() {
+        return simRepository;
+    }
+
+    public IqviaOrder setSimRepository(SimRepository simRepository) {
+        this.simRepository = simRepository;
+        return this;
+    }
+
+    public DocumentRepository getDocumentRepository() {
+        return documentRepository;
+    }
+
+    public IqviaOrder setDocumentRepository(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
+        return this;
+    }
 }

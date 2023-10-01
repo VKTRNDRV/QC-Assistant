@@ -103,4 +103,22 @@ public abstract class ClinicalOrderParseService {
                     "Order Type NOT 'New Hire'/'Advance Send'");
         }
     }
+
+    protected String getStudyRangeString(SegmentedOrderInput segmentedInput) {
+
+        Pattern studyPattern = Pattern.compile(
+                OrderInputRegex.STUDY_REGEX);
+        Matcher matcher = studyPattern.matcher(segmentedInput.getBasicInfo());
+        String studyName;
+        if(matcher.find()){
+            studyName = matcher.group(
+                            OrderInputRegex.STUDY_GROUP)
+                    .trim();
+
+            return studyName;
+        }else{
+            throw new OrderParsingException(
+                    "Study Name could not be detected");
+        }
+    }
 }

@@ -12,4 +12,8 @@ public class SimRepository {
     public SimRepository(){
         this.sims = new ArrayList<>();
     }
+
+    public void addSim(SerializedSIM serializedSIM) {
+        sims.add(serializedSIM);
+    }
 }
