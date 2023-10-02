@@ -16,16 +16,12 @@ public abstract class OrderNotesDto {
     protected Collection<Note> iosNotes;
     protected Collection<Note> androidNotes;
 
-//    protected Collection<Note> windowsNotes;
-
-
     public OrderNotesDto() {
         this.items = new ArrayList<>();
         this.shellCheckNotes = new ArrayList<>();
         this.documentationNotes = new ArrayList<>();
         this.iosNotes = new ArrayList<>();
         this.androidNotes = new ArrayList<>();
-//        this.windowsNotes = new ArrayList<>();
     }
 
     public Collection<ItemNameSerialDto> getItems() {
@@ -73,15 +69,6 @@ public abstract class OrderNotesDto {
         return this;
     }
 
-//    public Collection<Note> getWindowsNotes() {
-//        return windowsNotes;
-//    }
-//
-//    public OrderNotesDto setWindowsNotes(Collection<Note> windowsNotes) {
-//        this.windowsNotes = windowsNotes;
-//        return this;
-//    }
-
     public void addDevice(Device device){
         this.items.add(new ItemNameSerialDto()
                 .setShortName(device.getShortName())
@@ -95,10 +82,6 @@ public abstract class OrderNotesDto {
     public boolean containsAndroidDevices(){
         return this.androidNotes.size() > 0;
     }
-
-//    public boolean containsWindowsDevices(){
-//        return this.windowsNotes.size() > 0;
-//    }
 
     public void sortItems() {
         this.setItems(items.stream()

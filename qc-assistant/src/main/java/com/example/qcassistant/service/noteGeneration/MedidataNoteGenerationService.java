@@ -34,7 +34,6 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
 
     private MedidataStudyService studyService;
 
-    private static final int LARGE_ORDER_COUNT = 10;
     private static final String ABBVIE = "Abbvie";
 
     @Autowired
@@ -71,10 +70,8 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         if(order.getDestination().isUnknown()){
             notes.add(new Note(Severity.HIGH, NoteText.ADD_UNKNOWN_DESTINATION));
         }
-
         notes.addAll(this.genShellCheckAccessoryNotes(order));
         notes.addAll(this.genShellCheckDeviceNotes(order));
-
         return notes;
     }
 
@@ -427,59 +424,22 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
                     String.join(", ", duplicates.get()))));
         }
 
-        notes.addAll(this.genSpecialDeviceReqNotes(order));
-        return notes;
-    }
-
-    private Collection<Note> genSpecialDeviceReqNotes(MedidataOrder order) {
-        Collection<Note> notes = new ArrayList<>();
-        notes.add(new Note(Severity.LOW, NoteText.VERIFY_SERIALS));
-        Destination destination = order.getDestination();
-
-        switch (destination.getRequiresSpecialModels()){
-            case TRUE: notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_DVC_MODELS));
-                break;
-            case UNKNOWN: notes.add(new Note(Severity.MEDIUM, NoteText.CHECK_DESTINATION_FOR_SPECIAL_MODELS));
-                break;
-            default:
-                break;
-        }
-
-        if(destination.getRequiresUnusedDevices()
-                .equals(TrinaryBoolean.TRUE)){
-            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_UNUSED_DEVICES));
-            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_BOX_SERIALS));
-        }
-
-        if(destination.getName().equals(Destination.TURKEY)){
-            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_CE_MARKS));
-        }
-
+        notes.addAll(super.genSpecialDeviceReqNotes(order));
         return notes;
     }
 
     private Collection<Note> genShellCheckAccessoryNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
         Destination destination = order.getDestination();
-
-        if(order.getDeviceRepository().count() > LARGE_ORDER_COUNT &&
-                !destination.getName().equals(Destination.ISRAEL)){
-            notes.add(new Note(Severity.LOW, NoteText.VERIFY_CHARGER_COUNT));
-        }
+        notes.addAll(super.getDestinationAccessoryNotes(order));
 
         if(!destination.isUnknown()){
             if(!destination.getSimType()
                     .equals(order.getSimType())){
                 notes.add(new Note(Severity.HIGH, NoteText.SIM_TYPE_NOT_MATCHING));
             }
-
-            if(!destination.getPlugType().equals(PlugType.C)){
-                notes.add(new Note(Severity.MEDIUM, String.format(
-                        NoteText.VERIFY_PLUG_TYPE, destination.getPlugType().name())));
-            }
         }else{
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_SIM_TYPE));
-            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_UNKNOWN_PLUG_TYPE));
         }
 
 

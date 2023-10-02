@@ -12,6 +12,9 @@ public class NoteText {
     public static final String VERIFY_CHARGER_COUNT = "Verify correct count of chargers";
     public static final String VERIFY_PLUG_TYPE = "Verify chargers of plug type %s are present";
     public static final String VERIFY_UNKNOWN_PLUG_TYPE = "(Unknown Destination) Verify chargers are of appropriate Plug type";
+    public static final String MEDICAL_DVCS_TL_QC = "Orders with Medical Devices require additional QC by Nedko or Asparuh after 2nd";
+    public static final String CONFIRM_IWATCHES_CHARGED = "Verify Apple Watch(es) are charged";
+
 
 
 
@@ -22,6 +25,9 @@ public class NoteText {
     public static final String STYLUSES_NOT_DETECTED = "Styluses not detected in order (study marked as requiring styluses)";
     public static final String CONFIRM_IF_HEADPH_STYLUSES_NEEDED = "Confirm if headphones and styluses not required for Site Device(s)";
     public static final String IPAD_PATIENT_DEVICE_CASE = "Studies with iPad Patient devices usually use distinct cases for them";
+    public static final String VERIFY_STANDS_PRESENT = "Verify Phone/Tablet Stand(s) present in bin";
+    public static final String VERIFY_SCREEN_PROTECTOR_PRESENT = "Verify Screen protector(s) present in bin";
+
 
 
 
@@ -49,6 +55,8 @@ public class NoteText {
     public static final String INCLUDE_RAVE_ECONSENT_INSERTS = "Verify Rave eConsent Insert(s) included for every Site Device w/ the app installed";
     public static final String PATIENT_CLOUD_INSERT_UNKNOWN = "If Patient Cloud present on Site Devices - include Insert(s)";
     public static final String RAVE_ECONSENT_INSERT_UNKNOWN = "If Rave eConsent present on Site Devices - include Insert(s)";
+    public static final String BUILD_DOCS_BY_HAND = "Build docs in orders w/ Medical devices - 100% filled out by hand!!";
+    public static final String CONFIRM_MEDABLE_SITE_CARTONS = "Verify Medable carton inserts included for all Site devices";
 
 
 
@@ -61,7 +69,8 @@ public class NoteText {
     public static final String CONFIRM_NO_PRINTING_ERRORS = "Verify no printing errors on the labels (e.g. text overflowing)";
     public static final String SPECIAL_INSTRUCTIONS = "Special Instructions detected in Order Term Comments";
     public static final String VERIFY_STUDY_NAME_DOCS = "Verify correct Study Name on all documents";
-
+    public static final String CONFIRM_ASSET_LABEL = "Verify Asset Number labels are present on all devices";
+    public static final String CONFIRM_ASSET_NUM_ON_LABEL = "Confirm Asset Number pasted on Main Medable Label (above device serial)";
 
 
     public static final String VERIFY_P_CLOUD_MULTIUSER_MODE = "Verify Patient Cloud set to Multi-User Mode on Site Devices";

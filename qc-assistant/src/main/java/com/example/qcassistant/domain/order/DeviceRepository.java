@@ -1,5 +1,6 @@
 package com.example.qcassistant.domain.order;
 
+import com.example.qcassistant.domain.enums.item.ConnectorType;
 import com.example.qcassistant.domain.enums.item.OperatingSystem;
 import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.item.device.Device;
@@ -96,5 +97,35 @@ public class DeviceRepository {
         }else{
             return Optional.of(duplicates);
         }
+    }
+
+    public boolean containsDvcsWithConnector(ConnectorType connectorType) {
+        for(Device device : devices){
+            if (device.getConnectorType().equals(connectorType)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean containsMedicalDevices() {
+        for(Device device : devices){
+            if(device.getShellType().equals(ShellType.MEDICAL)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean containsAnyOfTheFollowing(Collection<String> deviceNames) {
+        for(String shortName : deviceNames){
+            if(this.containsDevice(shortName)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

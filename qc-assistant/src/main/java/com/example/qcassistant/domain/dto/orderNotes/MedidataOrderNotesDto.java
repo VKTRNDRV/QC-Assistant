@@ -1,6 +1,7 @@
 package com.example.qcassistant.domain.dto.orderNotes;
 
 import com.example.qcassistant.domain.dto.study.info.MedidataStudyInfoDto;
+import com.example.qcassistant.domain.entity.BaseEntity;
 
 public class MedidataOrderNotesDto extends OrderNotesDto{
 
@@ -21,7 +22,7 @@ public class MedidataOrderNotesDto extends OrderNotesDto{
             return true;
         }
 
-        if(this.study.getName().equals("UNKNOWN")){
+        if(this.study.getName().equals(BaseEntity.UNKNOWN)){
             return true;
         }
 

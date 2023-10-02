@@ -26,4 +26,14 @@ public class AccessoryRepository {
 
         return false;
     }
+
+    public boolean containsAnyOfTheFollowing(Collection<String> itemNames) {
+        for(String itemName : itemNames){
+            if(this.containsAccessory(itemName)){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

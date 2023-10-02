@@ -29,7 +29,7 @@ public enum MedableAndroidPhone {
     A_14("Medable\\s*Samsung\\s*.{0,16}A14\\s*.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
             "Samsung A14", ConnectorType.TYPE_C),
     S_10("Medable\\s*Samsung\\s*Galaxy\\s*S10\\s+.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
-            "Samsung S10", ConnectorType.MICRO_USB),
+            "Samsung S10", ConnectorType.TYPE_C),
     S_10E("Medable\\s*Samsung\\s*Galaxy\\s*S10e\\s*.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
             "Samsung S10e", ConnectorType.TYPE_C),
 

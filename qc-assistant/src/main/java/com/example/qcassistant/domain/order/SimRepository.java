@@ -16,4 +16,13 @@ public class SimRepository {
     public void addSim(SerializedSIM serializedSIM) {
         sims.add(serializedSIM);
     }
+
+    public Collection<SerializedSIM> getSims() {
+        return sims;
+    }
+
+    public SimRepository setSims(Collection<SerializedSIM> sims) {
+        this.sims = sims;
+        return this;
+    }
 }
