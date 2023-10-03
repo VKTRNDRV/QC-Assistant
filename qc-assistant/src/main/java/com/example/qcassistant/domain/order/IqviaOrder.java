@@ -22,6 +22,7 @@ public class IqviaOrder extends ClinicalOrder{
         return this.study.isUnknown();
     }
 
+    @Override
     public IqviaStudy getStudy() {
         return study;
     }

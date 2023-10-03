@@ -34,9 +34,9 @@ public class DeviceRepository {
         return false;
     }
 
-    public boolean containsTablets() {
-        for(Device device : devices){
-            if(device.getShellType().equals(ShellType.TABLET)){
+    public boolean containsShellType(ShellType shellType){
+        for (Device device : devices){
+            if(device.getShellType().equals(shellType)){
                 return true;
             }
         }
@@ -54,16 +54,6 @@ public class DeviceRepository {
         return false;
     }
 
-    public boolean containsPhones() {
-        for(Device device : devices){
-            if(device.getShellType().equals(ShellType.PHONE)){
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public int count(){
         return devices.size();
     }
@@ -71,6 +61,16 @@ public class DeviceRepository {
     public boolean containsIosDevices() {
         for(Device device : devices){
             if(device.getOperatingSystem().equals(OperatingSystem.IOS)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean containsWindowsDevices() {
+        for(Device device : devices){
+            if(device.getOperatingSystem().equals(OperatingSystem.WINDOWS)){
                 return true;
             }
         }
@@ -109,9 +109,9 @@ public class DeviceRepository {
         return false;
     }
 
-    public boolean containsMedicalDevices() {
-        for(Device device : devices){
-            if(device.getShellType().equals(ShellType.MEDICAL)){
+    public boolean containsAnyOfTheFollowing(Collection<String> deviceNames) {
+        for(String shortName : deviceNames){
+            if(this.containsDevice(shortName)){
                 return true;
             }
         }
@@ -119,9 +119,10 @@ public class DeviceRepository {
         return false;
     }
 
-    public boolean containsAnyOfTheFollowing(Collection<String> deviceNames) {
-        for(String shortName : deviceNames){
-            if(this.containsDevice(shortName)){
+    public boolean containsDevicesOfOsAndShell(OperatingSystem operatingSystem, ShellType shellType) {
+        for (Device device : devices){
+            if(device.getOperatingSystem().equals(operatingSystem) &&
+                    device.getShellType().equals(shellType)){
                 return true;
             }
         }

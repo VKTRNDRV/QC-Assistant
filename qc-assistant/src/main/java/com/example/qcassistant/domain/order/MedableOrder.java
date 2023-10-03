@@ -21,6 +21,7 @@ public class MedableOrder extends ClinicalOrder{
         return this.study.isUnknown();
     }
 
+    @Override
     public MedableStudy getStudy() {
         return study;
     }

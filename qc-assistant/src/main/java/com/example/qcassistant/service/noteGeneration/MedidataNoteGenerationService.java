@@ -8,7 +8,6 @@ import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.Severity;
-import com.example.qcassistant.domain.enums.item.PlugType;
 import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.domain.item.accessory.MedidataAccessory;
 import com.example.qcassistant.domain.item.device.android.phone.MedidataAndroidPhone;
@@ -140,7 +139,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         return notes;
     }
 
-    private Collection<? extends Note> genIosDeviceNotes(MedidataOrder order) {
+    private Collection<Note> genIosDeviceNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
 
         notes.addAll(this.genHubLoggingNotes(order));
@@ -173,21 +172,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
                 }
             }
 
-            TrinaryBoolean isSitePatientSeparated = environment.getIsSitePatientSeparated();
-            TrinaryBoolean isDestinationSeparated = environment.getIsDestinationSeparated();
-            if(!(isDestinationSeparated.equals(TrinaryBoolean.FALSE) &&
-                    isSitePatientSeparated.equals(TrinaryBoolean.FALSE))){
-
-                notes.add(new Note(Severity.MEDIUM, NoteText.CONFIRM_APPROPRIATE_GROUP));
-
-                if(isSitePatientSeparated.equals(TrinaryBoolean.TRUE)){
-                    notes.add(new Note(Severity.MEDIUM, NoteText.IS_SITE_PATIENT_SEPARATED));
-                }
-
-                if(isDestinationSeparated.equals(TrinaryBoolean.TRUE)){
-                    notes.add(new Note(Severity.MEDIUM, NoteText.IS_DESTINATION_SEPARATED));
-                }
-            }
+            notes.addAll(super.getBaseEnvironmentNotes(order));
         }else{
             notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_UAT_ENVIRONMENT));
         }
@@ -359,7 +344,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         }
 
         if(documents.areMultipleCopiesRequested()){
-            notes.add(new Note(Severity.MEDIUM, NoteText.MULTIPLE_DOCS_REQ));
+            notes.add(new Note(Severity.MEDIUM, NoteText.MULTIPLE_COPIES_DOCS_REQ));
         }
 
         if(documents.areUserGuidesRequested()){

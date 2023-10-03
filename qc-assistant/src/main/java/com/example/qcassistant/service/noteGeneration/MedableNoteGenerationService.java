@@ -6,6 +6,7 @@ import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.ConnectorType;
 import com.example.qcassistant.domain.enums.item.PlugType;
+import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.item.accessory.MedableAccessory;
 import com.example.qcassistant.domain.item.device.medical.MedableMedicalDevice;
 import com.example.qcassistant.domain.note.Note;
@@ -42,7 +43,6 @@ public class MedableNoteGenerationService extends NoteGenerationService{
         notes.setItems(serializedItems)
                 .sortItems();
 
-
         notes.setShellCheckNotes(this.genShellCheckNotes(order))
                 .setDocumentationNotes(this.genDocumentationNotes(order));
 
@@ -59,7 +59,7 @@ public class MedableNoteGenerationService extends NoteGenerationService{
         if(order.containsSiteDevices()){
             notes.add(new Note(Severity.MEDIUM, NoteText.CONFIRM_MEDABLE_SITE_CARTONS));
         }
-        if(order.getDeviceRepository().containsMedicalDevices()){
+        if(order.getDeviceRepository().containsShellType(ShellType.MEDICAL)){
             notes.add(new Note(Severity.MEDIUM, NoteText.BUILD_DOCS_BY_HAND));
         }
 
@@ -114,7 +114,7 @@ public class MedableNoteGenerationService extends NoteGenerationService{
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_SCREEN_PROTECTOR_PRESENT));
         }
 
-        if(devices.containsMedicalDevices()){
+        if(devices.containsShellType(ShellType.MEDICAL)){
             notes.add(new Note(Severity.MEDIUM, NoteText.MEDICAL_DVCS_TL_QC));
 
             if(devices.containsAnyOfTheFollowing(List.of(

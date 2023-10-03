@@ -25,4 +25,8 @@ public class SimRepository {
         this.sims = sims;
         return this;
     }
+
+    public boolean isEmpty() {
+        return this.sims.isEmpty();
+    }
 }

@@ -3,6 +3,8 @@ package com.example.qcassistant.service.noteGeneration;
 import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
 import com.example.qcassistant.domain.entity.app.BaseApp;
 import com.example.qcassistant.domain.entity.destination.Destination;
+import com.example.qcassistant.domain.entity.study.BaseStudy;
+import com.example.qcassistant.domain.entity.study.environment.BaseEnvironment;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.PlugType;
 import com.example.qcassistant.domain.item.device.Device;
@@ -122,5 +124,47 @@ public abstract class NoteGenerationService {
         }
 
         return notes;
+    }
+
+    protected <T extends ClinicalOrder> Collection<Note> getBaseEnvironmentNotes(T order){
+        Collection<Note> notes = new ArrayList<>();
+        BaseEnvironment environment = order.getStudy().getEnvironment();
+        TrinaryBoolean isSitePatientSeparated = environment.getIsSitePatientSeparated();
+        TrinaryBoolean isDestinationSeparated = environment.getIsDestinationSeparated();
+        if(!(isDestinationSeparated.equals(TrinaryBoolean.FALSE) &&
+                isSitePatientSeparated.equals(TrinaryBoolean.FALSE))){
+
+            notes.add(new Note(Severity.MEDIUM, NoteText.CONFIRM_APPROPRIATE_GROUP));
+
+            if(isSitePatientSeparated.equals(TrinaryBoolean.TRUE)){
+                notes.add(new Note(Severity.MEDIUM, NoteText.IS_SITE_PATIENT_SEPARATED));
+            }
+
+            if(isDestinationSeparated.equals(TrinaryBoolean.TRUE)){
+                notes.add(new Note(Severity.MEDIUM, NoteText.IS_DESTINATION_SEPARATED));
+            }
+        }
+
+        if(order.containsSiteDevices() && this
+                .anyRequiresCamera(environment.getSiteApps())){
+            notes.add(new Note(Severity.LOW, NoteText.SITE_APPS_CAMERA));
+        }
+
+        if(order.containsPatientDevices() && this
+                .anyRequiresCamera(environment.getPatientApps())){
+            notes.add(new Note(Severity.LOW, NoteText.PATIENT_APPS_CAMERA));
+        }
+
+        return notes;
+    }
+
+    protected <T extends BaseApp> boolean anyRequiresCamera(Collection<T> apps){
+        for(T app : apps){
+            if(app.getRequiresCamera().equals(TrinaryBoolean.TRUE)){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

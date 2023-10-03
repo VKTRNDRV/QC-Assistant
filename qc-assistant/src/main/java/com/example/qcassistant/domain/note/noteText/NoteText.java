@@ -45,7 +45,7 @@ public class NoteText {
     public static final String INCLUDE_ABBVIE_DOC = "Verify Device Decontamination Document is included (sponsor Abbvie)";
     public static final String VERIFY_WELCOME_LETTER = "Verify Welcome Letter fields are populated properly (if necessary at all)";
     public static final String SEPARATE_BUILD_DOCS = "Verify all devices have separate build docs";
-    public static final String MULTIPLE_DOCS_REQ = "Multiple copies of documents requested";
+    public static final String MULTIPLE_COPIES_DOCS_REQ = "Multiple copies of documents requested";
     public static final String CHECK_FOR_TRANSLATED_DOCS = "Check Study folder for Translated Documents";
     public static final String STUDY_CONTAINS_TRANSLATED_DOCS = "Study marked as containing Translated Documents";
     public static final String CONFIRM_DOCS_PRINTED = "Confirm all requested documents are printed";
@@ -57,6 +57,7 @@ public class NoteText {
     public static final String RAVE_ECONSENT_INSERT_UNKNOWN = "If Rave eConsent present on Site Devices - include Insert(s)";
     public static final String BUILD_DOCS_BY_HAND = "Build docs in orders w/ Medical devices - 100% filled out by hand!!";
     public static final String CONFIRM_MEDABLE_SITE_CARTONS = "Verify Medable carton inserts included for all Site devices";
+    public static final String VERIFY_MODEL_GSG = "Verify the device type/model is present on the GSG(s) (Phone/Tablet or iOS/AFW)";
 
 
 
@@ -66,11 +67,22 @@ public class NoteText {
     public static final String CHECK_FOR_TRANSLATED_LABELS = "Check Study folder for translated labels";
     public static final String CONTAINS_TRANSLATED_LABELS = "Study contains translated labels";
     public static final String VERIFY_LABEL_TYPE = "(if transl. labels required) Verify correct label type used (Site/Patient)";
+    public static final String ENGLISH_LABELS_OK = "(Unless otherwise requested in order comments) English labels can be used";
+    public static final String SITE_PATIENT_SEP_LABELS = "Study contains separate labels for Site/Patient devices - verify ones used";
+    public static final String CHECK_SEP_SITE_PATIENT_LABELS = "Check Study Folder for separate site/patient labels";
     public static final String CONFIRM_NO_PRINTING_ERRORS = "Verify no printing errors on the labels (e.g. text overflowing)";
     public static final String SPECIAL_INSTRUCTIONS = "Special Instructions detected in Order Term Comments";
     public static final String VERIFY_STUDY_NAME_DOCS = "Verify correct Study Name on all documents";
     public static final String CONFIRM_ASSET_LABEL = "Verify Asset Number labels are present on all devices";
     public static final String CONFIRM_ASSET_NUM_ON_LABEL = "Confirm Asset Number pasted on Main Medable Label (above device serial)";
+    public static final String NO_DOCS_LABELS_UAT = "IQVIA UAT orders have NO study labels and GSGs by default";
+    public static final String VERIFY_UAT_BUILD_DOC = "Verify UAT Build docs printed for devices";
+    public static final String SIM_LABELS = "Verify SIM labels on devices";
+    public static final String VERIFY_STUDY_GSG = "Verify correct study name on GSG(s)";
+    public static final String VERIFY_PHONE_GSG = "Verify the Destination's phone number is present on the GSG(s)";
+
+
+
 
 
     public static final String VERIFY_P_CLOUD_MULTIUSER_MODE = "Verify Patient Cloud set to Multi-User Mode on Site Devices";
@@ -99,6 +111,7 @@ public class NoteText {
     public static final String IS_SITE_PATIENT_SEPARATED = "Study's AW groups marked as Site-Patient separated";
     public static final String IS_DESTINATION_SEPARATED = "Study's AW groups marked as Destination separated";
     public static final String CONFIRM_APPROPRIATE_GROUP = "(If study has multiple groups) Confirm devices are located in the appropriate AW group";
+    public static final String VERIFY_LOGGED_STUDY_MATCHES = "Verify Hub logged with correct Credentials as per respective AW group";
 
 
 
@@ -108,4 +121,9 @@ public class NoteText {
     public static final String VERIFY_NO_DUPLICATES_AW = "Verify devices have NO duplicate enrollments in AirWatch";
     public static final String CAREFUL_UAT_ENVIRONMENT = "Careful with the UAT AirWatch groups";
     public static final String DUPLICATE_SERIALS = "Duplicate Serials detected - %s";
+    public static final String VERIFY_LUNA_STEPS = "(If Scribe app assigned) Perform Luna Steps";
+    public static final String VERIFY_SIMS_ACTIVE = "Verify SIMs are active";
+    public static final String SITE_APPS_CAMERA = "One or more Site apps requires camera - verify camera works on site devices";
+    public static final String PATIENT_APPS_CAMERA = "One or more Patient apps requires camera - verify camera works on patient devices";
+    public static final String VERIFY_SWITCH_TO_MOBILE = "Verify 'Switch to Mobile Data' toggle is ON in settings (use SIM trick if necessary)";
 }

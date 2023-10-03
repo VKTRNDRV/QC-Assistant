@@ -15,6 +15,7 @@ public class MedidataOrder extends ClinicalOrder{
 
 
 
+    @Override
     public MedidataStudy getStudy() {
         return study;
     }
