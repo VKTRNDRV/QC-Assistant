@@ -68,6 +68,9 @@ public class IqviaNoteGenerationService extends NoteGenerationService{
                 OperatingSystem.ANDROID, ShellType.TABLET)){
             notes.add(new Note(Severity.LOW, NoteText.VERIFY_SWITCH_TO_MOBILE));
         }
+        if(order.getDeviceRepository().containsAndroidDevices()){
+            notes.add(new Note(Severity.LOW, NoteText.VERIFY_NO_DUPLICATES_AW));
+        }
 
         notes.addAll(this.genAirWatchNotes(order));
 
@@ -84,10 +87,6 @@ public class IqviaNoteGenerationService extends NoteGenerationService{
 
     private Collection<Note> genAirWatchNotes(IqviaOrder order) {
         Collection<Note> notes = new ArrayList<>();
-        if(!order.getSponsor().getAreStudyNamesSimilar()
-                .equals(TrinaryBoolean.FALSE)){
-            notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_SIMILAR_STUDY_NAMES));
-        }
 
         if(order.getOrderType().equals(OrderType.PROD)){
             notes.addAll(super.getBaseEnvironmentNotes(order));
@@ -101,14 +100,15 @@ public class IqviaNoteGenerationService extends NoteGenerationService{
     private Collection<Note> genStandardDeviceNotes(IqviaOrder order) {
         Collection<Note> notes = new ArrayList<>();
         notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_LOGGED_STUDY_MATCHES));
-        if(order.getOrderType().equals(OrderType.PROD)){
-            if(!order.getSimRepository().isEmpty()){
-                notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_SIMS_ACTIVE));
-            }
-
-        }else{
+        if(!order.getSimRepository().isEmpty()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_SIMS_ACTIVE));
+        }
+        if(order.getOrderType().equals(OrderType.UAT)){
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_LUNA_STEPS));
         }
+
+        notes.addAll(super.genLanguageNotes(order));
+
         return notes;
     }
 

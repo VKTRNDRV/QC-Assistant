@@ -44,10 +44,12 @@ public class Destination extends BaseEntity {
     @Column(name = "requires_invoice")
     private TrinaryBoolean requiresInvoice;
 
-    private static final String UNKNOWN = "UNKNOWN";
     public static final String EGYPT = "Egypt";
     public static final String ISRAEL = "Israel";
     public static final String TURKEY = "Turkey";
+    public static final String HONG_KONG = "Hong Kong";
+    public static final String CHINA = "China";
+
 
     public String getName() {
         return name;
@@ -113,7 +115,7 @@ public class Destination extends BaseEntity {
     }
 
     public boolean isUnknown() {
-        return this.name.equals(UNKNOWN);
+        return this.name.equals(BaseEntity.UNKNOWN);
     }
 
     public boolean isEnglishSpeaking() {

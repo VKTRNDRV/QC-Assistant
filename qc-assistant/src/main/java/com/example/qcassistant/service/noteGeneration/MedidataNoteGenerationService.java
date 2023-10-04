@@ -113,7 +113,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_NO_DUPLICATES_AW));
 
         notes.addAll(this.genHubLoggingNotes(order));
-        notes.addAll(this.genLanguageNotes(order));
+        notes.addAll(super.genLanguageNotes(order));
 
         if(order.getOrderType().equals(OrderType.PROD)){
             notes.addAll(this.genAndroidAppNotes(order));
@@ -143,7 +143,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         Collection<Note> notes = new ArrayList<>();
 
         notes.addAll(this.genHubLoggingNotes(order));
-        notes.addAll(this.genLanguageNotes(order));
+        notes.addAll(super.genLanguageNotes(order));
 
         if(order.getOrderType().equals(OrderType.PROD)){
             notes.addAll(this.genIosAppNotes(order));
@@ -160,15 +160,13 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
 
         notes.add(new Note(Severity.LOW, NoteText.VERIFY_NO_DECOM_TAG));
 
-        if(!order.getSponsor().getAreStudyNamesSimilar().equals(TrinaryBoolean.FALSE)){
-            notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_SIMILAR_STUDY_NAMES));
-        }
-
         if(order.getOrderType().equals(OrderType.PROD)){
             if(environment.getIsLegacy().equals(TrinaryBoolean.TRUE)){
-                notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_RETROFIT_TAG));
+                notes.add(new Note(Severity.MEDIUM,
+                        NoteText.VERIFY_RETROFIT_TAG));
                 if(order.getSimType().equals(SimType.NONE)){
-                    notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_LEGACY_APN_TAG));
+                    notes.add(new Note(Severity.MEDIUM,
+                            NoteText.VERIFY_LEGACY_APN_TAG));
                 }
             }
 
@@ -216,40 +214,6 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
         }
 
         notes.add(new Note(Severity.LOW, NoteText.VERIFY_APPS_GREEN_CHECK));
-
-        return notes;
-    }
-
-    private Collection<Note> genLanguageNotes(MedidataOrder order) {
-        Collection<Note> notes = new ArrayList<>();
-
-        if(order.getDestination().isUnknown()){
-            notes.add(new Note(Severity.MEDIUM, NoteText.UNKNOWN_DESTINATION));
-        }
-
-        if(order.areNoLanguagesDetected()){
-            notes.add(new Note(Severity.MEDIUM, NoteText.NO_LANGUAGES_DETECTED));
-            return notes;
-        }
-
-        if(order.isEnglishRequested()){
-            Note note = new Note(Severity.MEDIUM, NoteText.ENGLISH_REQUESTED);
-            if(order.getDestination().isEnglishSpeaking()){
-                note.setSeverity(Severity.LOW);
-            }
-            notes.add(note);
-
-        }else{
-            if(order.areMultipleLanguagesRequested()){
-                notes.add(new Note(Severity.MEDIUM, NoteText.MULTIPLE_LANGS_REQUESTED));
-            }else {
-                notes.add(new Note(Severity.LOW, NoteText.CHANGE_DEVICE_LANGUAGE));
-            }
-
-            if(order.requestsUnusualLanguages()){
-                notes.add(new Note(Severity.HIGH, NoteText.UNUSUAL_LANGUAGES_REQUESTED));
-            }
-        }
 
         return notes;
     }
@@ -325,7 +289,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
 
     private Collection<Note> genDocsNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
-        MedidataSponsor sponsor = order.getSponsor();
+        MedidataSponsor sponsor = order.getStudy().getSponsor();
         DocumentRepository documents = order.getDocumentRepository();
 
         notes.add(new Note(Severity.LOW, NoteText.SEPARATE_BUILD_DOCS));

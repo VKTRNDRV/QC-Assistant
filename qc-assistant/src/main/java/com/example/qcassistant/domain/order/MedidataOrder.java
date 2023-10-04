@@ -25,10 +25,6 @@ public class MedidataOrder extends ClinicalOrder{
         return this;
     }
 
-    public MedidataSponsor getSponsor() {
-        return sponsor;
-    }
-
     public MedidataOrder setSponsor(MedidataSponsor sponsor) {
         this.sponsor = sponsor;
         return this;

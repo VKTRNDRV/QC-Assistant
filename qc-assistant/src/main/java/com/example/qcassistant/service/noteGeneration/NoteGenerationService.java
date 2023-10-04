@@ -128,6 +128,14 @@ public abstract class NoteGenerationService {
 
     protected <T extends ClinicalOrder> Collection<Note> getBaseEnvironmentNotes(T order){
         Collection<Note> notes = new ArrayList<>();
+
+        notes.add(new Note(Severity.LOW, NoteText.VERIFY_APPS_GREEN_CHECK));
+
+        if(!order.getStudy().getSponsor().getAreStudyNamesSimilar()
+                .equals(TrinaryBoolean.FALSE)){
+            notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_SIMILAR_STUDY_NAMES));
+        }
+
         BaseEnvironment environment = order.getStudy().getEnvironment();
         TrinaryBoolean isSitePatientSeparated = environment.getIsSitePatientSeparated();
         TrinaryBoolean isDestinationSeparated = environment.getIsDestinationSeparated();
@@ -166,5 +174,39 @@ public abstract class NoteGenerationService {
         }
 
         return false;
+    }
+
+    protected <T extends ClinicalOrder> Collection<Note> genLanguageNotes(T order) {
+        Collection<Note> notes = new ArrayList<>();
+
+        if(order.getDestination().isUnknown()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.UNKNOWN_DESTINATION));
+        }
+
+        if(order.areNoLanguagesDetected()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.NO_LANGUAGES_DETECTED));
+            return notes;
+        }
+
+        if(order.isEnglishRequested()){
+            Note note = new Note(Severity.MEDIUM, NoteText.ENGLISH_REQUESTED);
+            if(order.getDestination().isEnglishSpeaking()){
+                note.setSeverity(Severity.LOW);
+            }
+            notes.add(note);
+
+        }else{
+            if(order.areMultipleLanguagesRequested()){
+                notes.add(new Note(Severity.MEDIUM, NoteText.MULTIPLE_LANGS_REQUESTED));
+            }else {
+                notes.add(new Note(Severity.LOW, NoteText.CHANGE_DEVICE_LANGUAGE));
+            }
+
+            if(order.requestsUnusualLanguages()){
+                notes.add(new Note(Severity.HIGH, NoteText.UNUSUAL_LANGUAGES_REQUESTED));
+            }
+        }
+
+        return notes;
     }
 }

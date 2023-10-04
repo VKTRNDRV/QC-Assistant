@@ -2,6 +2,7 @@ package com.example.qcassistant.domain.order;
 
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
+import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.item.ShellType;

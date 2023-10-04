@@ -3,8 +3,10 @@ package com.example.qcassistant.service.noteGeneration;
 import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
 import com.example.qcassistant.domain.dto.orderNotes.MedableOrderNotesDto;
 import com.example.qcassistant.domain.entity.destination.Destination;
+import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.ConnectorType;
+import com.example.qcassistant.domain.enums.item.OperatingSystem;
 import com.example.qcassistant.domain.enums.item.PlugType;
 import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.item.accessory.MedableAccessory;
@@ -46,7 +48,113 @@ public class MedableNoteGenerationService extends NoteGenerationService{
         notes.setShellCheckNotes(this.genShellCheckNotes(order))
                 .setDocumentationNotes(this.genDocumentationNotes(order));
 
+        if(order.getDeviceRepository().containsIosDevices()){
+            notes.setIosNotes(this.genIosNotes(order));
+        }
 
+        if(order.getDeviceRepository().containsAndroidDevices()){
+            notes.setAndroidNotes(this.genAndroidNotes(order));
+        }
+
+
+
+        return notes;
+    }
+
+    private Collection<Note> genAndroidNotes(MedableOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        notes.addAll(this.genStandardDeviceNotes(order));
+        notes.add(new Note(Severity.LOW, NoteText.VERIFY_AFW_UPDATED));
+        if(order.getDeviceRepository().containsAndroidDevices()){
+            notes.add(new Note(Severity.LOW, NoteText.VERIFY_NO_DUPLICATES_AW));
+        }
+        if(order.getDeviceRepository().containsDevicesOfOsAndShell(
+                OperatingSystem.ANDROID, ShellType.TABLET)){
+            notes.add(new Note(Severity.LOW, NoteText.VERIFY_SWITCH_TO_MOBILE));
+        }
+
+        notes.addAll(this.genAirWatchNotes(order));
+
+        return notes;
+    }
+
+    private Collection<Note> genIosNotes(MedableOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        notes.addAll(this.genStandardDeviceNotes(order));
+        notes.addAll(this.genAirWatchNotes(order));
+
+        return notes;
+    }
+
+    private Collection<Note> genAirWatchNotes(MedableOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        if(order.getOrderType().equals(OrderType.PROD)){
+            notes.addAll(super.getBaseEnvironmentNotes(order));
+        }else {
+            notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_UAT_ENVIRONMENT));
+        }
+
+        Note checkChinaGroup = new Note(Severity.LOW, NoteText.CHECK_CHINA_GROUP);
+        Note containsChinaGroup = new Note(Severity.MEDIUM, NoteText.CONTAINS_CHINA_GROUP);
+        Note confirmHongKong = new Note(Severity.LOW, NoteText.CONFIRM_CHINA_GROUP_HONG_KONG);
+
+        if(order.getDestination().getName().equals(Destination.HONG_KONG)){
+            switch (order.getStudy().getEnvironment().getContainsChinaGroup()){
+                case TRUE:
+                    confirmHongKong.setSeverity(Severity.HIGH);
+                    notes.add(containsChinaGroup);
+                    notes.add(confirmHongKong);
+                    break;
+                case UNKNOWN:
+                    checkChinaGroup.setSeverity(Severity.MEDIUM);
+                    notes.add(checkChinaGroup);
+                    notes.add(confirmHongKong);
+                    break;
+                default:
+                    break;
+            }
+        }else if(order.getDestination().getName().equals(Destination.CHINA)) {
+            switch (order.getStudy().getEnvironment().getContainsChinaGroup()) {
+                case TRUE:
+                    confirmHongKong.setSeverity(Severity.HIGH);
+                    notes.add(confirmHongKong);
+                    break;
+                case UNKNOWN:
+                    notes.add(checkChinaGroup);
+                    break;
+                default:
+                    break;
+            }
+        }else {
+            switch (order.getStudy().getEnvironment().getContainsChinaGroup()) {
+                case TRUE:
+                    notes.add(containsChinaGroup);
+                    break;
+                case UNKNOWN:
+                    notes.add(checkChinaGroup);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return notes;
+    }
+
+    private Collection<Note> genStandardDeviceNotes(MedableOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        notes.add(new Note(Severity.LOW, NoteText.OS_APPS_LANGS_MIGHT_DIFFER));
+        notes.addAll(super.genLanguageNotes(order));
+        notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_LOGGED_STUDY_MATCHES));
+        if(!order.isEnglishRequested()){
+            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_APPS_LANGUAGES));
+        }
+
+        if(order.getOrderType().equals(OrderType.UAT)){
+            notes.add(new Note(Severity.MEDIUM, NoteText.UAT_SIMS_DEACTIVATED));
+        }else{
+            notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_SIMS_ACTIVE));
+        }
 
         return notes;
     }
