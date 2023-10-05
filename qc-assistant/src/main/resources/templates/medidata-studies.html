@@ -57,8 +57,6 @@
                     <div class="card-body" th:object="${study}">
                         <h5>Study Info:</h5>
 
-                        <hr class="my-4">
-
                         <div class="input-group mb-3">
                             <span class="input-group-text">Name:</span>
                             <input type="text" class="form-control"  id="name" readonly>
@@ -83,6 +81,11 @@
                         <div class="input-group mb-3">
                             <span class="input-group-text">Destination separated:</span>
                             <input type="text" class="form-control"  id="isDestinationSeparated" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">OS separated:</span>
+                            <input type="text" class="form-control"  id="isOsSeparated" readonly>
                         </div>
 
                         <div class="input-group mb-3">
@@ -146,6 +149,7 @@
                     $("#isLegacy").val(data.environment.isLegacy);
                     $("#isSitePatientSeparated").val(data.environment.isSitePatientSeparated);
                     $("#isDestinationSeparated").val(data.environment.isDestinationSeparated);
+                    $("#isOsSeparated").val(data.environment.isOsSeparated);
                     $("#siteApps").val(data.environment.siteApps);
                     $("#patientApps").val(data.environment.patientApps);
                     $("#containsTranslatedLabels").val(data.containsTranslatedLabels);

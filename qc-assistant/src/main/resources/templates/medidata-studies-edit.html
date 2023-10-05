@@ -45,8 +45,8 @@
                 </div>
 
                 <div class="col-md-12">
-                    <label for="country" class="form-label" >Sponsor:</label>
-                    <select class="form-select" id="country" th:field="*{sponsor}" required>
+                    <label for="sponsor" class="form-label" >Sponsor:</label>
+                    <select class="form-select" id="sponsor" th:field="*{sponsor}" required>
                         <div th:each="s : ${sponsors}">
                             <option th:value="${s.name}" th:text="${s.name}"></option>
                         </div>
@@ -60,7 +60,7 @@
 
                 <h5 class="mb-3">Environment:</h5>
                 <div class="col-md-12">
-                    <label for="containsTranslatedLabels" class="form-label">Are the study's AirWatch groups separated by Site & Patient devices:</label>
+                    <label for="environment.isSitePatientSeparated" class="form-label">Are the study's AirWatch groups separated by Site & Patient devices:</label>
                     <select class="form-select" id="environment.isSitePatientSeparated" th:field="*{environment.isSitePatientSeparated}" required>
                         <option value="UNKNOWN">Unknown</option>
                         <option value="TRUE">Yes</option>
@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="col-md-12">
-                    <label for="containsTranslatedLabels" class="form-label">Are the study's AirWatch groups separated by Destination:</label>
+                    <label for="environment.isDestinationSeparated" class="form-label">Are the study's AirWatch groups separated by Destination:</label>
                     <select class="form-select" id="environment.isDestinationSeparated" th:field="*{environment.isDestinationSeparated}" required>
                         <option value="UNKNOWN">Unknown</option>
                         <option value="TRUE">Yes</option>
@@ -79,7 +79,17 @@
                 </div>
 
                 <div class="col-md-12">
-                    <label for="containsTranslatedLabels" class="form-label">Are the study's AirWatch groups Legacy:</label>
+                    <label for="environment.isOsSeparated" class="form-label">Are the study's AirWatch groups separated by devices' OS:</label>
+                    <select class="form-select" id="environment.isOsSeparated" th:field="*{environment.isOsSeparated}" required>
+                        <option value="UNKNOWN">Unknown</option>
+                        <option value="TRUE">Yes</option>
+                        <option value="FALSE">No</option>
+                    </select>
+                    <small class="text-body-secondary" style="color: gray">Separate iOS and Android (AFW) groups</small>
+                </div>
+
+                <div class="col-md-12">
+                    <label for="environment.isLegacy" class="form-label">Are the study's AirWatch groups Legacy:</label>
                     <select class="form-select" id="environment.isLegacy" th:field="*{environment.isLegacy}" required>
                         <option value="UNKNOWN">Unknown</option>
                         <option value="TRUE">Yes</option>

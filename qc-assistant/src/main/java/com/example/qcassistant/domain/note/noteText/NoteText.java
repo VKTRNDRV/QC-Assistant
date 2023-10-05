@@ -4,7 +4,7 @@ public class NoteText {
 
     public static final String SIM_TYPE_NOT_MATCHING = "Destination SIM Type does not match Order SIM type (confirm with Senior).";
     public static final String VERIFY_SIM_TYPE = "Verify Destination SIM Type (Unknown Destination).";
-
+    public static final String CONFIRM_INVOICE_APPROVED = "Confirm if Invoice approved before forwarding to ship";
 
 
     public static final String ADD_UNKNOWN_DESTINATION = "Unknown Destination - consider adding it to the database.";
@@ -110,8 +110,9 @@ public class NoteText {
     public static final String VERIFY_LEGACY_APN_TAG = "(study marked as Legacy) Verify all devices have APN Tag (as per SIM) in AW.";
     public static final String IS_SITE_PATIENT_SEPARATED = "Study's AW groups marked as Site-Patient separated.";
     public static final String IS_DESTINATION_SEPARATED = "Study's AW groups marked as Destination separated.";
-    public static final String CONFIRM_APPROPRIATE_GROUP = "(If study has multiple groups) Confirm devices are located in the appropriate AW group.";
-    public static final String VERIFY_LOGGED_STUDY_MATCHES = "Verify Hub logged with correct Credentials as per respective AW group.";
+    public static final String IS_OS_SEPARATED = "Study's AW groups marked as OS separated.";
+    public static final String CONFIRM_APPROPRIATE_GROUP = "Confirm devices are located in the appropriate AW group.";
+    public static final String VERIFY_HUB_CREDENTIALS = "Verify Hub logged with correct Credentials as per respective AW group.";
 
 
 
@@ -133,4 +134,6 @@ public class NoteText {
     public static final String CHECK_CHINA_GROUP = "Check if order contains China group";
     public static final String CONTAINS_CHINA_GROUP = "Study contains China group in AW";
     public static final String VERIFY_AFW_UPDATED = "Verify Android devices' OS is updated!";
+    public static final String TEST_CAMERA_VOICE = "Test Camera and Voice Recorder.";
+    public static final String CONFIRM_BATTERY_BEFORE_ENROLL = "Confirm devices have >40% battery before enrolling";
 }

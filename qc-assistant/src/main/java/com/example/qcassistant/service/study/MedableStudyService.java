@@ -79,7 +79,8 @@ public class MedableStudyService extends BaseStudyService{
                     .setSiteApps(new ArrayList<>())
                     .setContainsChinaGroup(TrinaryBoolean.UNKNOWN)
                     .setIsSitePatientSeparated(TrinaryBoolean.UNKNOWN)
-                    .setIsDestinationSeparated(TrinaryBoolean.UNKNOWN);
+                    .setIsDestinationSeparated(TrinaryBoolean.UNKNOWN)
+                    .setIsOsSeparated(TrinaryBoolean.UNKNOWN);
             this.environmentRepository.save(environment);
 
             study.setEnvironment(environment);

@@ -79,7 +79,8 @@ public class IqviaStudyService extends BaseStudyService{
             environment.setPatientApps(new ArrayList<>())
                     .setSiteApps(new ArrayList<>())
                     .setIsSitePatientSeparated(TrinaryBoolean.UNKNOWN)
-                    .setIsDestinationSeparated(TrinaryBoolean.UNKNOWN);
+                    .setIsDestinationSeparated(TrinaryBoolean.UNKNOWN)
+                    .setIsOsSeparated(TrinaryBoolean.UNKNOWN);
             this.environmentRepository.save(environment);
 
             study.setEnvironment(environment);

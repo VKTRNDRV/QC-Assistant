@@ -78,7 +78,8 @@ public class MedidataStudyService extends BaseStudyService{
                     .setSiteApps(new ArrayList<>())
                     .setIsLegacy(TrinaryBoolean.UNKNOWN)
                     .setIsSitePatientSeparated(TrinaryBoolean.UNKNOWN)
-                    .setIsDestinationSeparated(TrinaryBoolean.UNKNOWN);
+                    .setIsDestinationSeparated(TrinaryBoolean.UNKNOWN)
+                    .setIsOsSeparated(TrinaryBoolean.UNKNOWN);
             this.environmentRepository.save(environment);
 
             study.setEnvironment(environment);

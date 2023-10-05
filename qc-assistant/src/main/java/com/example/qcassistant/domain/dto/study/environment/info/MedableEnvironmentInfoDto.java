@@ -11,6 +11,7 @@ public class MedableEnvironmentInfoDto{
 
     private String isSitePatientSeparated;
     private String isDestinationSeparated;
+    private String isOsSeparated;
     private String patientApps;
     private String siteApps;
     private String containsChinaGroup;
@@ -60,6 +61,15 @@ public class MedableEnvironmentInfoDto{
 
     public MedableEnvironmentInfoDto setIsDestinationSeparated(String isDestinationSeparated) {
         this.isDestinationSeparated = isDestinationSeparated;
+        return this;
+    }
+
+    public String getIsOsSeparated() {
+        return isOsSeparated;
+    }
+
+    public MedableEnvironmentInfoDto setIsOsSeparated(String isOsSeparated) {
+        this.isOsSeparated = isOsSeparated;
         return this;
     }
 

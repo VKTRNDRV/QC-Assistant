@@ -81,6 +81,11 @@
                         </div>
 
                         <div class="input-group mb-3">
+                            <span class="input-group-text">OS separated:</span>
+                            <input type="text" class="form-control"  id="isOsSeparated" readonly>
+                        </div>
+
+                        <div class="input-group mb-3">
                             <span class="input-group-text">Has China AW group:</span>
                             <input type="text" class="form-control"  id="containsChinaGroup" readonly>
                         </div>
@@ -119,6 +124,7 @@
                     $("#folderURL").val(data.folderURL);
                     $("#isSitePatientSeparated").val(data.environment.isSitePatientSeparated);
                     $("#isDestinationSeparated").val(data.environment.isDestinationSeparated);
+                    $("#isOsSeparated").val(data.environment.isOsSeparated);
                     $("#containsChinaGroup").val(data.environment.containsChinaGroup);
                     $("#siteApps").val(data.environment.siteApps);
                     $("#patientApps").val(data.environment.patientApps);

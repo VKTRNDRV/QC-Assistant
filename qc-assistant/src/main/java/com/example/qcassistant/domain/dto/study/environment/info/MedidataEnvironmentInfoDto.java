@@ -11,6 +11,7 @@ public class MedidataEnvironmentInfoDto {
 
     private String isSitePatientSeparated;
     private String isDestinationSeparated;
+    private String isOsSeparated;
     private String isLegacy;
     private String patientApps;
     private String siteApps;
@@ -57,6 +58,15 @@ public class MedidataEnvironmentInfoDto {
 
     public MedidataEnvironmentInfoDto setSiteApps(String siteApps) {
         this.siteApps = siteApps;
+        return this;
+    }
+
+    public String getIsOsSeparated() {
+        return isOsSeparated;
+    }
+
+    public MedidataEnvironmentInfoDto setIsOsSeparated(String isOsSeparated) {
+        this.isOsSeparated = isOsSeparated;
         return this;
     }
 

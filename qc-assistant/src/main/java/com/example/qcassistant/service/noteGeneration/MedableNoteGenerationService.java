@@ -7,7 +7,6 @@ import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.ConnectorType;
 import com.example.qcassistant.domain.enums.item.OperatingSystem;
-import com.example.qcassistant.domain.enums.item.PlugType;
 import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.item.accessory.MedableAccessory;
 import com.example.qcassistant.domain.item.device.medical.MedableMedicalDevice;
@@ -145,7 +144,7 @@ public class MedableNoteGenerationService extends NoteGenerationService{
         Collection<Note> notes = new ArrayList<>();
         notes.add(new Note(Severity.LOW, NoteText.OS_APPS_LANGS_MIGHT_DIFFER));
         notes.addAll(super.genLanguageNotes(order));
-        notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_LOGGED_STUDY_MATCHES));
+        notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_HUB_CREDENTIALS));
         if(!order.isEnglishRequested()){
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_APPS_LANGUAGES));
         }

@@ -7,6 +7,7 @@ public class MedableEnvironmentEditDto {
     private Long id;
     private String isSitePatientSeparated;
     private String isDestinationSeparated;
+    private String isOsSeparated;
     private List<String> patientApps;
     private List<String> siteApps;
     private String containsChinaGroup;
@@ -64,6 +65,15 @@ public class MedableEnvironmentEditDto {
 
     public MedableEnvironmentEditDto setContainsChinaGroup(String containsChinaGroup) {
         this.containsChinaGroup = containsChinaGroup;
+        return this;
+    }
+
+    public String getIsOsSeparated() {
+        return isOsSeparated;
+    }
+
+    public MedableEnvironmentEditDto setIsOsSeparated(String isOsSeparated) {
+        this.isOsSeparated = isOsSeparated;
         return this;
     }
 }

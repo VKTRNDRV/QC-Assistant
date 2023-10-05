@@ -12,6 +12,7 @@ public class IqviaEnvironmentInfoDto {
 
     private String isSitePatientSeparated;
     private String isDestinationSeparated;
+    private String isOsSeparated;
     private String patientApps;
     private String siteApps;
 
@@ -50,6 +51,15 @@ public class IqviaEnvironmentInfoDto {
 
     public IqviaEnvironmentInfoDto setSiteApps(String siteApps) {
         this.siteApps = siteApps;
+        return this;
+    }
+
+    public String getIsOsSeparated() {
+        return isOsSeparated;
+    }
+
+    public IqviaEnvironmentInfoDto setIsOsSeparated(String isOsSeparated) {
+        this.isOsSeparated = isOsSeparated;
         return this;
     }
 

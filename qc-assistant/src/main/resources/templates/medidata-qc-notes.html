@@ -80,6 +80,11 @@
                     </div>
 
                     <div class="input-group mb-3">
+                        <span class="input-group-text" >OS separated:</span>
+                        <input type="text" class="form-control"  id="isOsSeparated" th:value="*{environment.isOsSeparated}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
                         <span class="input-group-text" >Site Apps:</span>
                         <input type="text" class="form-control" id="siteApps" th:value="*{environment.siteApps}" readonly>
                     </div>

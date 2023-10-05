@@ -54,9 +54,23 @@ public class IqviaNoteGenerationService extends NoteGenerationService{
             notes.setAndroidNotes(this.genAndroidNotes(order));
         }
         if(devices.containsWindowsDevices()){
-
+            notes.setWindowsNotes(this.genWindowsNotes(order));
         }
 
+
+        return notes;
+    }
+
+    private Collection<Note> genWindowsNotes(IqviaOrder order) {
+        Collection<Note> notes = new ArrayList<>();
+        notes.add(new Note(Severity.LOW, NoteText.TEST_CAMERA_VOICE));
+        notes.add(new Note(Severity.MEDIUM, NoteText.CONFIRM_BATTERY_BEFORE_ENROLL));
+        notes.addAll(this.genStandardDeviceNotes(order));
+        if(order.getOrderType().equals(OrderType.PROD)){
+            notes.addAll(super.getBaseEnvironmentNotes(order));
+        }else{
+            notes.add(new Note(Severity.MEDIUM, NoteText.CAREFUL_UAT_ENVIRONMENT));
+        }
 
         return notes;
     }
@@ -99,7 +113,7 @@ public class IqviaNoteGenerationService extends NoteGenerationService{
 
     private Collection<Note> genStandardDeviceNotes(IqviaOrder order) {
         Collection<Note> notes = new ArrayList<>();
-        notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_LOGGED_STUDY_MATCHES));
+        notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_HUB_CREDENTIALS));
         if(!order.getSimRepository().isEmpty()){
             notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_SIMS_ACTIVE));
         }

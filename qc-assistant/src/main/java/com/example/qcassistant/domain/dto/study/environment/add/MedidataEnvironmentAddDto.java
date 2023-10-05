@@ -6,6 +6,7 @@ public class MedidataEnvironmentAddDto {
 
     private String isSitePatientSeparated;
     private String isDestinationSeparated;
+    private String isOsSeparated;
     private String isLegacy;
     private List<String> patientApps;
     private List<String> siteApps;
@@ -56,6 +57,15 @@ public class MedidataEnvironmentAddDto {
 
     public MedidataEnvironmentAddDto setSiteApps(List<String> siteApps) {
         this.siteApps = siteApps;
+        return this;
+    }
+
+    public String getIsOsSeparated() {
+        return isOsSeparated;
+    }
+
+    public MedidataEnvironmentAddDto setIsOsSeparated(String isOsSeparated) {
+        this.isOsSeparated = isOsSeparated;
         return this;
     }
 }

@@ -7,6 +7,7 @@ public class IqviaEnvironmentEditDto {
     private Long id;
     private String isSitePatientSeparated;
     private String isDestinationSeparated;
+    private String isOsSeparated;
     private List<String> patientApps;
     private List<String> siteApps;
 
@@ -54,6 +55,15 @@ public class IqviaEnvironmentEditDto {
 
     public IqviaEnvironmentEditDto setSiteApps(List<String> siteApps) {
         this.siteApps = siteApps;
+        return this;
+    }
+
+    public String getIsOsSeparated() {
+        return isOsSeparated;
+    }
+
+    public IqviaEnvironmentEditDto setIsOsSeparated(String isOsSeparated) {
+        this.isOsSeparated = isOsSeparated;
         return this;
     }
 }

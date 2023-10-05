@@ -4,13 +4,17 @@ import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum MedidataAndroidPhone {
 
-    GALAXY_S7("Medidata\\s*Samsung\\s*Galaxy\\s*S7.{0,16}\\s*SmartPhone Shell\\s*(?<serial>[A-Z0-9]{11})",
+    GALAXY_S7("Medidata\\s*Samsung\\s*Galaxy\\s*S7.{0,32}(?<serial>[A-Z0-9]{11})",
             "Galaxy S7",
             ConnectorType.MICRO_USB),
-    GALAXY_J3("Medidata\\s*Samsung\\s*Galaxy\\s*J3.{0,32}\\s*SmartPhone Shell\\s*(?<serial>[A-Z0-9]{11})",
+
+    GALAXY_J2("Medidata\\s*Samsung\\s*Galaxy\\s*J2.{0,32}(?<serial>[A-Z0-9]{11})",
+            "Galaxy J2",
+            ConnectorType.MICRO_USB),
+    GALAXY_J3("Medidata\\s*Samsung\\s*Galaxy\\s*J3\\s2.{0,40}(?<serial>[A-Z0-9]{11})",
             "Galaxy J3",
             ConnectorType.MICRO_USB),
-    GALAXY_J3_STAR("Medidata\\s*Samsung\\s*Galaxy\\s*J3\\s*Star.{0,16}SmartPhone Shell\\s*(?<serial>[A-Z0-9]{11})",
+    GALAXY_J3_STAR("Medidata\\s*Samsung\\s*Galaxy\\s*J3\\sStar.{0,40}(?<serial>[A-Z0-9]{11})",
             "Galaxy J3 Star",
             ConnectorType.MICRO_USB)
     ;

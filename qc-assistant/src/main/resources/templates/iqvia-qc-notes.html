@@ -66,44 +66,49 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Site-Patient separated:</span>
-                        <input type="text" class="form-control"  id="isSitePatientSeparated" readonly>
+                        <input type="text" class="form-control"  id="isSitePatientSeparated" th:value="*{environment.isSitePatientSeparated}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Destination separated:</span>
-                        <input type="text" class="form-control"  id="isDestinationSeparated" readonly>
+                        <input type="text" class="form-control"  id="isDestinationSeparated" th:value="*{environment.isDestinationSeparated}" readonly>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" >OS separated:</span>
+                        <input type="text" class="form-control"  id="isOsSeparated" th:value="*{environment.isOsSeparated}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Site Apps:</span>
-                        <input type="text" class="form-control" id="siteApps" readonly>
+                        <input type="text" class="form-control" id="siteApps" th:value="*{environment.siteApps}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Patient Apps:</span>
-                        <input type="text" class="form-control"  id="patientApps" readonly>
+                        <input type="text" class="form-control"  id="patientApps" th:value="*{environment.patientApps}" readonly>
                     </div>
 
                     <h6>Docs & Labels:</h6>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Translated Labels:</span>
-                        <input type="text" class="form-control"  id="containsTranslatedLabels" readonly>
+                        <input type="text" class="form-control"  id="containsTranslatedLabels" th:value="*{containsTranslatedLabels}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Translated User Guides:</span>
-                        <input type="text" class="form-control"  id="containsTranslatedDocs" readonly>
+                        <input type="text" class="form-control"  id="containsTranslatedDocs" th:value="*{containsTranslatedDocs}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Separate Site/Patient Labels:</span>
-                        <input type="text" class="form-control" id="containsSepSitePatientLabels" readonly>
+                        <input type="text" class="form-control" id="containsSepSitePatientLabels" th:value="*{containsSepSitePatientLabels}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Is GSG plain:</span>
-                        <input type="text" class="form-control" id="isGsgPlain" readonly>
+                        <input type="text" class="form-control" id="isGsgPlain" th:value="*{isGsgPlain}" readonly>
                     </div>
                 </div>
             </div>

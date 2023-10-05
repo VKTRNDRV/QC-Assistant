@@ -5,8 +5,8 @@ import com.example.qcassistant.domain.item.device.Device;
 
 public enum MedidataSIM {
 
-    VF_GLOBAL("Medidata\\s*VF\\s*Global\\s*4FF\\s*Nano\\s*SIM\\s*Card", SimType.VF_GLOBAL),
-    SIMON_IOT("Medidata\\s*Simon\\s*TMO\\s*SIM\\s*Card", SimType.SIMON_IOT);
+    VF_GLOBAL("Medidata\\s*VF", SimType.VF_GLOBAL),
+    SIMON_IOT("Medidata\\s*Simon\\s*TMO", SimType.SIMON_IOT);
     private String regexPattern;
     private SimType simType;
 

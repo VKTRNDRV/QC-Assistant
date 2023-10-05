@@ -76,6 +76,16 @@
         </div>
 
         <div class="col-md-12">
+          <label for="environment.isOsSeparated" class="form-label">Are the study's AirWatch groups separated by devices' OS:</label>
+          <select class="form-select" id="environment.isOsSeparated" th:field="*{environment.isOsSeparated}" required>
+            <option value="UNKNOWN">Unknown</option>
+            <option value="TRUE">Yes</option>
+            <option value="FALSE">No</option>
+          </select>
+          <small class="text-body-secondary" style="color: gray">Separate iOS and Android (AFW) groups</small>
+        </div>
+
+        <div class="col-md-12">
           <label for="containsChinaGroup" class="form-label">Does the study have a dedicated China group in AW:</label>
           <select class="form-select" id="containsChinaGroup" th:field="*{environment.containsChinaGroup}" required>
             <option value="UNKNOWN">Unknown</option>

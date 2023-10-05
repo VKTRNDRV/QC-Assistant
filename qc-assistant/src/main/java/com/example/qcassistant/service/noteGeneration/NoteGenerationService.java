@@ -3,7 +3,6 @@ package com.example.qcassistant.service.noteGeneration;
 import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
 import com.example.qcassistant.domain.entity.app.BaseApp;
 import com.example.qcassistant.domain.entity.destination.Destination;
-import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.study.environment.BaseEnvironment;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.PlugType;
@@ -12,8 +11,6 @@ import com.example.qcassistant.domain.item.sim.SerializedSIM;
 import com.example.qcassistant.domain.note.Note;
 import com.example.qcassistant.domain.note.noteText.NoteText;
 import com.example.qcassistant.domain.order.ClinicalOrder;
-import com.example.qcassistant.domain.order.IqviaOrder;
-import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.domain.order.SimRepository;
 import com.example.qcassistant.regex.OrderInputRegex;
 import com.example.qcassistant.util.TrinaryBoolean;
@@ -82,6 +79,10 @@ public abstract class NoteGenerationService {
         Collection<Note> notes = new ArrayList<>();
         Destination destination = order.getDestination();
 
+        if(destination.getRequiresInvoice().equals(TrinaryBoolean.TRUE)){
+            notes.add(new Note(Severity.LOW, NoteText.CONFIRM_INVOICE_APPROVED));
+        }
+
         if(order.getDeviceRepository().count() > LARGE_ORDER_COUNT &&
                 !destination.getName().equals(Destination.ISRAEL)){
             notes.add(new Note(Severity.LOW, NoteText.VERIFY_CHARGER_COUNT));
@@ -139,8 +140,10 @@ public abstract class NoteGenerationService {
         BaseEnvironment environment = order.getStudy().getEnvironment();
         TrinaryBoolean isSitePatientSeparated = environment.getIsSitePatientSeparated();
         TrinaryBoolean isDestinationSeparated = environment.getIsDestinationSeparated();
+        TrinaryBoolean isOsSeparated = environment.getIsOsSeparated();
         if(!(isDestinationSeparated.equals(TrinaryBoolean.FALSE) &&
-                isSitePatientSeparated.equals(TrinaryBoolean.FALSE))){
+                isSitePatientSeparated.equals(TrinaryBoolean.FALSE) &&
+                isOsSeparated.equals(TrinaryBoolean.FALSE))){
 
             notes.add(new Note(Severity.MEDIUM, NoteText.CONFIRM_APPROPRIATE_GROUP));
 
@@ -150,6 +153,10 @@ public abstract class NoteGenerationService {
 
             if(isDestinationSeparated.equals(TrinaryBoolean.TRUE)){
                 notes.add(new Note(Severity.MEDIUM, NoteText.IS_DESTINATION_SEPARATED));
+            }
+
+            if(isOsSeparated.equals(TrinaryBoolean.TRUE)){
+                notes.add(new Note(Severity.MEDIUM, NoteText.IS_OS_SEPARATED));
             }
         }
 

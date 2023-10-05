@@ -12,6 +12,6 @@ public class MedidataOrderInputRegex {
     public static final String DOC_COPIES_COUNT_GROUP = "copiesCount";
     public static final String DOC_SHORTNAME = "Document";
 
-    public static final String WELCOME_LETTER_REGEX = "Medidata\\s*Custom\\s*Study\\s*Welcome\\s*Letter\\s*Document";
+    public static final String WELCOME_LETTER_REGEX = "Medidata\\s*Custom\\s*Study\\s*Welcome";
     public static final String WELCOME_LETTER_SHORTNAME = "Welcome Letter";
 }

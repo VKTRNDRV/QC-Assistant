@@ -3,17 +3,27 @@ package com.example.qcassistant.domain.item.device.ios.ipad;
 import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum MedidataIPad {
-    SIXTH_GEN("Medidata\\s*Apple\\s*iPad\\s*6th Gen.{0,16}\\s*Tablet Shell\\s*(?<serial>[A-Z0-9]{12})",
-            "iPad 6th Gen",
-            ConnectorType.LIGHTNING),
 
-    AIR_2("Medidata\\s*Apple\\s*iPad\\s*Air\\s*2.{0,16}\\s*Tablet\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
-            "iPad Air 2",
-            ConnectorType.LIGHTNING),
+    FIFTH_GEN("Medidata\\s*Apple\\s*iPad\\s*5th.{0,32}(?<serial>[A-Z0-9]{12})",
+            "iPad 5th Gen", ConnectorType.LIGHTNING),
 
-    MINI("Medidata\\s*Apple\\s*iPad\\s*Mini\\s*.{0,16}\\s*Tablet\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
-            "iPad Mini",
-            ConnectorType.LIGHTNING);
+    SIXTH_GEN("Medidata\\s*Apple\\s*iPad\\s*6th.{0,32}(?<serial>[A-Z0-9]{12})",
+            "iPad 6th Gen", ConnectorType.LIGHTNING),
+
+    SEVENTH_GEN("Medidata\\s*Apple.{0,16}iPad\\s*7th.{0,32}(?<serial>[A-Z0-9]{12})",
+            "iPad 7th Gen", ConnectorType.LIGHTNING),
+
+    EIGHTH_GEN("Medidata.{0,16}Apple\\s*iPad\\s*8th.{0,32}(?<serial>[A-Z0-9]{12})",
+            "iPad 8th Gen", ConnectorType.LIGHTNING),
+
+    NINTH_GEN("Medidata\\s*Apple.{0,16}iPad\\s*9th.{0,32}(?<serial>[A-Z0-9]{10})",
+            "iPad 9th Gen", ConnectorType.LIGHTNING),
+
+    AIR_2("Medidata.{0,16}Apple\\s*iPad\\s*Air\\s*2.{0,24}(?<serial>[A-Z0-9]{12})",
+            "iPad Air 2", ConnectorType.LIGHTNING),
+
+    MINI("Medidata\\s*Apple\\s*iPad\\s*Mini.{0,16}(?<serial>[A-Z0-9]{12})",
+            "iPad Mini", ConnectorType.LIGHTNING);
 
     private String regexPattern;
     private String shortName;

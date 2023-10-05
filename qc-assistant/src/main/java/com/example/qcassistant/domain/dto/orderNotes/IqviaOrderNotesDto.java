@@ -41,4 +41,13 @@ public class IqviaOrderNotesDto extends OrderNotesDto{
     public boolean containsWindowsDevices(){
         return this.windowsNotes.size() > 0;
     }
+
+    public Collection<Note> getWindowsNotes() {
+        return windowsNotes;
+    }
+
+    public IqviaOrderNotesDto setWindowsNotes(Collection<Note> windowsNotes) {
+        this.windowsNotes = windowsNotes;
+        return this;
+    }
 }

@@ -5,15 +5,11 @@ import java.util.List;
 public class MedidataEnvironmentEditDto {
 
     private Long id;
-
     private String isSitePatientSeparated;
-
     private String isDestinationSeparated;
-
+    private String isOsSeparated;
     private String isLegacy;
-
     private List<String> patientApps;
-
     private List<String> siteApps;
 
 
@@ -71,6 +67,15 @@ public class MedidataEnvironmentEditDto {
 
     public MedidataEnvironmentEditDto setSiteApps(List<String> siteApps) {
         this.siteApps = siteApps;
+        return this;
+    }
+
+    public String getIsOsSeparated() {
+        return isOsSeparated;
+    }
+
+    public MedidataEnvironmentEditDto setIsOsSeparated(String isOsSeparated) {
+        this.isOsSeparated = isOsSeparated;
         return this;
     }
 }

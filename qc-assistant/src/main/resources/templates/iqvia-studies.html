@@ -81,6 +81,11 @@
             </div>
 
             <div class="input-group mb-3">
+              <span class="input-group-text">OS separated:</span>
+              <input type="text" class="form-control"  id="isOsSeparated" readonly>
+            </div>
+
+            <div class="input-group mb-3">
               <span class="input-group-text">Site Apps:</span>
               <input type="text" class="form-control" id="siteApps" readonly>
             </div>
@@ -135,6 +140,7 @@
           $("#folderURL").val(data.folderURL);
           $("#isSitePatientSeparated").val(data.environment.isSitePatientSeparated);
           $("#isDestinationSeparated").val(data.environment.isDestinationSeparated);
+          $("#isOsSeparated").val(data.environment.isOsSeparated);
           $("#siteApps").val(data.environment.siteApps);
           $("#patientApps").val(data.environment.patientApps);
           $("#containsTranslatedLabels").val(data.containsTranslatedLabels);
