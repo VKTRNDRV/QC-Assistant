@@ -9,7 +9,7 @@ public class IqviaOrderInputRegex {
     public static final String SIM_SERIAL_GROUP_NAME = "serial";
 
 
-    public static final String DOCUMENT_REGEX = "IQVIA\\s*Custom\\s*Study\\s*Welcome\\s*Letter\\s*Document\\s*55934-DNI\\s*(?<copiesCount>[0-9]{1,3})";
+    public static final String DOCUMENT_REGEX = "IQVIA\\s*Custom\\s*Study\\s*Welcome.{0,32}55934-DNI\\s*(?<copiesCount>[0-9]{1,3})";
     public static final String DOC_COPIES_COUNT_GROUP = "copiesCount";
     public static final String DOC_SHORTNAME = "Document";
 }

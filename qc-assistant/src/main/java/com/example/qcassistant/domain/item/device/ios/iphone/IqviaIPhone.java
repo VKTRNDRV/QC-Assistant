@@ -4,15 +4,15 @@ import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum IqviaIPhone {
 
-    IPHONE_7("IQVIA\\s*Apple\\s*iPhone\\s*7.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    IPHONE_7("IQVIA\\s*Apple\\s*iPhone\\s*7.{0,32}(?<serial>[A-Z0-9]{12})",
             "iPhone 7", ConnectorType.LIGHTNING),
-    IPHONE_8("IQVIA\\s*Apple\\s*iPhone\\s*8.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    IPHONE_8("IQVIA\\s*Apple\\s*iPhone\\s*8.{0,32}(?<serial>[A-Z0-9]{12})",
             "iPhone 8", ConnectorType.LIGHTNING),
-    IPHONE_SE_2ND_GEN("IQVIA\\s*Apple\\s*iPhone\\s*SE\\s*2nd\\s*Gen\\s*.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    IPHONE_SE_2ND_GEN("IQVIA\\s*Apple\\s*iPhone\\s*SE\\s*2nd.{0,32}(?<serial>[A-Z0-9]{12})",
             "iPhone SE 2nd Gen", ConnectorType.LIGHTNING),
-    IPHONE_SE_3RD_GEN("IQVIA\\s*Apple\\s*iPhone\\s*SE\\s*3rd\\s*Gen\\s*.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{10})",
+    IPHONE_SE_3RD_GEN("IQVIA\\s*Apple\\s*iPhone\\s*SE\\s*3rd.{0,32}(?<serial>[A-Z0-9]{10})",
             "iPhone SE 3rd Gen", ConnectorType.LIGHTNING),
-    IPHONE_X("IQVIA\\s*Apple\\s*iPhone\\s*X\\s+.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    IPHONE_X("IQVIA\\s*Apple\\s*iPhone\\s*X\\s+.{0,32}(?<serial>[A-Z0-9]{12})",
             "iPhone X", ConnectorType.LIGHTNING)
     ;
 

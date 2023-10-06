@@ -4,23 +4,23 @@ import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum IqviaAndroidPhone {
 
-    NOKIA_G20("IQVIA\\s*Nokia\\s*G20.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{19})",
+    NOKIA_G20("IQVIA\\s*Nokia\\s*G20.{0,32}(?<serial>[A-Z0-9]{19})",
             "Nokia G20", ConnectorType.TYPE_C),
-    MOTO_E7("IQVIA\\s*Motorola\\s*Moto\\s*E7\\s*Power.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{10})",
+    MOTO_E7("IQVIA\\s*Motorola\\s*Moto\\s*E7.{0,48}(?<serial>[A-Z0-9]{10})",
             "Moto E7", ConnectorType.TYPE_C),
-    GALAXY_J3("IQVIA\\s*Samsung\\s*Galaxy\\s*J3\\s*.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
+    GALAXY_J3("IQVIA\\s*Samsung\\s*Galaxy\\s*J3\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Galaxy J3", ConnectorType.MICRO_USB),
-    A_10("IQVIA\\s*Samsung\\s*Galaxy\\s*A10\\s+.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
+    A_10("IQVIA\\s*Samsung\\s*Galaxy\\s*A10\\s+.{0,32}(?<serial>[A-Z0-9]{11})",
             "Samsung A10", ConnectorType.MICRO_USB),
-    A_10E("IQVIA\\s*Samsung\\s*Galaxy\\s*A10e\\s*.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
+    A_10E("IQVIA\\s*Samsung\\s*Galaxy\\s*A10e\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Samsung A10e", ConnectorType.TYPE_C),
-    A_11("IQVIA\\s*Samsung\\s*Galaxy\\s*A11\\s*.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
+    A_11("IQVIA\\s*Samsung\\s*Galaxy\\s*A11\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Samsung A11", ConnectorType.TYPE_C),
-    A_12("IQVIA\\s*Samsung\\s*A12\\s*.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
+    A_12("IQVIA\\s*Samsung\\s*A12\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Samsung A12", ConnectorType.TYPE_C),
-    A_13("IQVIA\\s*Samsung\\s*.{0,16}A13\\s*.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
+    A_13("IQVIA\\s*Samsung\\s*.{0,16}A13\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Samsung A13", ConnectorType.TYPE_C),
-    A_14("IQVIA\\s*Samsung\\s*.{0,16}A14\\s*.{0,16}SmartPhone\\s*Shell\\s*(?<serial>[A-Z0-9]{11})",
+    A_14("IQVIA\\s*Samsung\\s*.{0,16}A14\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Samsung A14", ConnectorType.TYPE_C),
 
     ;

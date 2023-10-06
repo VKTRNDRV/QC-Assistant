@@ -4,15 +4,15 @@ import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum MedableIPhone {
 
-    IPHONE_8("Medable\\s*Apple\\s*iPhone\\s*8.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    IPHONE_8("Medable\\s*Apple\\s*iPhone\\s*8.{0,16}\\s*(?<serial>[A-Z0-9]{12})",
             "iPhone 8", ConnectorType.LIGHTNING),
-    IPHONE_X("Medable\\s*Apple\\s*iPhone\\s*X\\s+.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    IPHONE_X("Medable\\s*Apple\\s*iPhone\\s*X\\s+.{0,32}(?<serial>[A-Z0-9]{12})",
             "iPhone X", ConnectorType.LIGHTNING),
     IPHONE_XR("Medable\\s*Apple\\s*iPhone\\s*XR\\s*.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
             "iPhone XR", ConnectorType.LIGHTNING),
-    IPHONE_11("Medable\\s*Apple\\s*iPhone\\s*11\\s*.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    IPHONE_11("Medable\\s*Apple\\s*iPhone\\s*XR\\s*.{0,16}(?<serial>[A-Z0-9]{12})",
             "iPhone 11", ConnectorType.LIGHTNING),
-    IPHONE_SE_2ND_GEN("Medable\\s*Apple\\s*iPhone\\s*SE\\s*2nd\\s*Gen\\s*.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    IPHONE_SE_2ND_GEN("Medable\\s*Apple\\s*iPhone\\s*SE\\s*2nd.{0,16}(?<serial>[A-Z0-9]{12})",
             "iPhone SE 2nd Gen", ConnectorType.LIGHTNING),
     IPHONE_SE_3RD_GEN("Medable\\s*Apple\\s*iPhone\\s*SE\\s*3rd\\s*Gen\\s*.{0,16}\\s*Shell\\s*(?<serial>[A-Z0-9]{10})",
             "iPhone SE 3rd Gen", ConnectorType.LIGHTNING)

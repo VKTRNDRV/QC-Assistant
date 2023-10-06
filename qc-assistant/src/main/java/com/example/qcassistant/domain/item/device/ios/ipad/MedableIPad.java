@@ -4,13 +4,13 @@ import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum MedableIPad {
 
-    SIXTH_GEN("Medable\\s*Cellular\\s*Apple\\s*iPad\\s*6th\\s*Gen.{0,16}Tablet\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    SIXTH_GEN("Medable\\s*Cellular\\s*Apple\\s*iPad\\s*6th.{0,32}(?<serial>[A-Z0-9]{12})",
             "iPad 6th Gen", ConnectorType.LIGHTNING),
-    SEVENTH_GEN("Medable\\s*Cellular\\s*Apple\\s*iPad\\s*7th\\s*Gen.{0,16}Tablet\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    SEVENTH_GEN("Medable\\s*Cellular\\s*Apple\\s*iPad\\s*7th.{0,32}(?<serial>[A-Z0-9]{12})",
             "iPad 7th Gen", ConnectorType.LIGHTNING),
-    EIGHT_GEN("Medable\\s*Cellular\\s*Apple\\s*iPad\\s*8th\\s*Gen.{0,16}Tablet\\s*Shell\\s*(?<serial>[A-Z0-9]{12})",
+    EIGHT_GEN("Medable\\s*Cellular\\s*Apple\\s*iPad\\s*8th.{0,32}(?<serial>[A-Z0-9]{12})",
             "iPad 8th Gen", ConnectorType.LIGHTNING),
-    NINTH_GEN("Medable\\s*.{0,16}\\s*Apple\\s*iPad\\s*9th\\s*Gen.{0,16}Tablet\\s*Shell\\s*(?<serial>[A-Z0-9]{10})",
+    NINTH_GEN("Medable\\s*.{0,16}\\s*Apple\\s*iPad\\s*9th.{0,32}(?<serial>[A-Z0-9]{10})",
             "iPad 9th Gen", ConnectorType.LIGHTNING),
     ;
 
