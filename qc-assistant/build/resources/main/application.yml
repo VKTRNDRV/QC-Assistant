@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/qc_assistant_ db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true"
+    url: "jdbc:mysql://localhost:3306/qc_assistant_db_test01?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true"
     username: root
     password: novaparola
   jpa:
