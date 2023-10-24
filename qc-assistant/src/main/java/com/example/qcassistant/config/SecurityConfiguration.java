@@ -37,14 +37,17 @@ public class SecurityConfiguration {
                         "/medidata/studies/add/**", "/medidata/studies/edit/**",
                         "/medidata/sponsors/add/**", "/medidata/sponsors/edit/**",
                         "/medidata/apps/add/**", "/medidata/apps/edit/**",
+                        "/medidata/tags/add/**", "medidata/tags/edit/**",
 
                         "/iqvia/studies/add/**", "/iqvia/studies/edit/**",
                         "/iqvia/sponsors/add/**", "/iqvia/sponsors/edit/**",
                         "/iqvia/apps/add/**", "/iqvia/apps/edit/**",
+                        "/iqvia/tags/add/**", "iqvia/tags/edit/**",
 
                         "/medable/studies/add/**", "/medable/studies/edit/**",
                         "/medable/sponsors/add/**", "/medable/sponsors/edit/**",
-                        "/medable/apps/add/**", "/medable/apps/edit/**"
+                        "/medable/apps/add/**", "/medable/apps/edit/**",
+                        "/medable/tags/add/**", "medable/tags/edit/**"
                 )
                 .hasRole(RoleEnum.MODERATOR.name())
                 .requestMatchers("/users/**")

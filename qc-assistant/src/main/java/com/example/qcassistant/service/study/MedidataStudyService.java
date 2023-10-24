@@ -216,4 +216,8 @@ public class MedidataStudyService extends BaseStudyService{
 
         return dto;
     }
+
+    public List<StudyDisplayDto> getTagStudies() {
+        return this.displayAllStudies();
+    }
 }

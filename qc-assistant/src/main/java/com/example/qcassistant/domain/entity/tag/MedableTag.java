@@ -2,6 +2,7 @@ package com.example.qcassistant.domain.entity.tag;
 
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.study.MedableStudy;
+import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -54,5 +55,13 @@ public class MedableTag extends BaseTag{
     @Override
     public List<MedableStudy> getStudies() {
         return studies;
+    }
+
+    public void setDestinations(List<Destination> destinations){
+        this.destinations = destinations;
+    }
+
+    public void setStudies(List<MedableStudy> studies){
+        this.studies = studies;
     }
 }

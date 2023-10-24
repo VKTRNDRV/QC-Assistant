@@ -2,6 +2,7 @@ package com.example.qcassistant.domain.entity.tag;
 
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.study.IqviaStudy;
+import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -54,5 +55,13 @@ public class IqviaTag extends BaseTag{
     @Override
     public List<IqviaStudy> getStudies() {
         return studies;
+    }
+
+    public void setDestinations(List<Destination> destinations){
+        this.destinations = destinations;
+    }
+
+    public void setStudies(List<IqviaStudy> studies){
+        this.studies = studies;
     }
 }

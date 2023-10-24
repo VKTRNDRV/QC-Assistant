@@ -26,7 +26,6 @@ public class MedidataTag extends BaseTag{
     )
     private List<MedidataStudy> studies;
 
-
     @Override
     public boolean hasDestinationPrecondition() {
         if(this.destinations == null || this
@@ -40,6 +39,14 @@ public class MedidataTag extends BaseTag{
     @Override
     public List<Destination> getDestinations() {
         return destinations;
+    }
+
+    public void setDestinations(List<Destination> destinations){
+        this.destinations = destinations;
+    }
+
+    public void setStudies(List<MedidataStudy> studies){
+        this.studies = studies;
     }
 
     @Override

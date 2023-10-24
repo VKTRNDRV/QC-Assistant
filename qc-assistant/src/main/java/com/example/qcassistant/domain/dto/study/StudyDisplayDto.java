@@ -35,4 +35,8 @@ public class StudyDisplayDto {
         this.name = name;
         return this;
     }
+
+    public String displayName(){
+        return sponsor + " // " + name;
+    }
 }

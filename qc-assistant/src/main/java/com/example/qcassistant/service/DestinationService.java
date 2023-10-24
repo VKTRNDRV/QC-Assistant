@@ -3,6 +3,7 @@ package com.example.qcassistant.service;
 import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
 import com.example.qcassistant.domain.dto.destination.DestinationDisplayDto;
 import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
+import com.example.qcassistant.domain.dto.destination.DestinationNameDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
@@ -134,7 +135,7 @@ public class DestinationService {
 
     private void validateUniqueName(String name){
         if(this.destinationRepository.findFirstByName(name).isPresent()){
-            throw new RuntimeException("Destination \"" + name + "\" already present");
+            throw new RuntimeException("Destination '" + name + "' already present");
         }
     }
 
@@ -147,5 +148,16 @@ public class DestinationService {
         return this.destinationRepository
                 .findFirstByName(BaseEntity.UNKNOWN)
                 .get();
+    }
+
+    public List<DestinationNameDto> getTagDestinations() {
+        List<DestinationNameDto> destinationDTOs = this.getEntities().stream()
+                .map(d -> this.modelMapper
+                        .map(d, DestinationNameDto.class))
+                .sorted((d1, d2) -> d1.getName()
+                        .compareTo(d2.getName()))
+                .collect(Collectors.toList());
+
+        return destinationDTOs;
     }
 }
