@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.115.4">
     <link rel="icon" type="image/x-icon" th:href="@{/images/favicon-32x32.png}">
-    <title>Add Tag - Medidata</title>
+    <title>Add Tag - Medable</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
@@ -26,7 +26,7 @@
 </nav>
 <div class="container" style="max-width: 666px; padding-top: 66px; padding-bottom: 66px;">
     <main>
-        <form th:object="${tagAddDto}" th:method="POST" th:action="@{/medidata/tags/add}">
+        <form th:object="${tagAddDto}" th:method="POST" th:action="@{/medable/tags/add}">
             <div class="row g-3">
 
                 <h4 class="mb-3">Add New Medidata Tag</h4>
@@ -87,8 +87,9 @@
                         <option value="OTHER">N/A</option>
                         <option value="TABLET">Tablet</option>
                         <option value="PHONE">Phone</option>
+                        <option value="MEDICAL">Medical</option>
                     </select>
-                    <small class="text-body-secondary" style="color: gray">(e.g. select 'Phone' to display this tag's note only if an order contains phones (iOS or AFW)) Leave 'N/A' if the shell type of devices in the order are irrelevant to the tag's logic.</small>
+                    <small class="text-body-secondary" style="color: gray">(e.g. select 'Medical' to display this tag's note only if an order contains Medical devices) Leave 'N/A' if the shell type of devices in the order are irrelevant to the tag's logic.</small>
                 </div>
 
                 <div class="col-md-12" >

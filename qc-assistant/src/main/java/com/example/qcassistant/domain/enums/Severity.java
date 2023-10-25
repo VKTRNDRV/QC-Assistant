@@ -1,8 +1,7 @@
 package com.example.qcassistant.domain.enums;
 
 public enum Severity {
-
-    LOW,
+    HIGH,
     MEDIUM,
-    HIGH
+    LOW,
 }

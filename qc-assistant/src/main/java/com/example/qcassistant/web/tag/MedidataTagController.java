@@ -58,6 +58,14 @@ public class MedidataTagController {
         return mav;
     }
 
+    @GetMapping
+    public ModelAndView modelAndView(ModelAndView mav){
+        mav.addObject("tags", this.tagService.getDisplayTags());
+
+        mav.setViewName("medidata-tags");
+        return mav;
+    }
+
     //@PutMapping for editing tags!!!!
 
     private ModelAndView addStudiesAndDestinations(ModelAndView modelAndView){

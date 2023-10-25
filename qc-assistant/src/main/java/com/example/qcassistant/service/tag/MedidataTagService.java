@@ -1,6 +1,7 @@
 package com.example.qcassistant.service.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
+import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.repository.DestinationRepository;
@@ -60,6 +61,11 @@ public class MedidataTagService extends BaseTagService{
         }
 
         return studies;
+    }
+
+    @Override
+    public List<TagDisplayDto> getDisplayTags(){
+        return super.mapToDisplayDto(this.tagRepository.findAll());
     }
 
     @Override

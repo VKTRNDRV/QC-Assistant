@@ -2,21 +2,26 @@ package com.example.qcassistant.service.tag;
 
 import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
+import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
 import com.example.qcassistant.domain.entity.destination.Destination;
+import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.tag.BaseTag;
+import com.example.qcassistant.domain.enums.OrderType;
+import com.example.qcassistant.domain.enums.item.OperatingSystem;
+import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.repository.DestinationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public abstract class BaseTagService {
+
+    private static final int MAX_NOTE_LENGTH = 254;
+    private static final String N_A = "N/A";
 
     protected ModelMapper modelMapper;
 
@@ -32,10 +37,16 @@ public abstract class BaseTagService {
     public abstract void addTag(TagAddDto tagAddDto);
     public abstract void editTag();
     public abstract <T extends BaseTag> T getTagById(Long id);
+    public abstract List<TagDisplayDto> getDisplayTags();
 
     protected void validateTagAdd(TagAddDto tagAddDto) {
-        if(tagAddDto.getText().trim().isEmpty()){
+        String noteText = tagAddDto.getText();
+        if(noteText.trim().isEmpty()){
             throw new RuntimeException("Note text cannot be blank");
+        }
+
+        if(noteText.length() > MAX_NOTE_LENGTH){
+            throw new RuntimeException("Note text length cannot be over 254");
         }
     }
     protected List<Destination> getDestinationsByNames(Collection<String> destinationNames){
@@ -47,5 +58,69 @@ public abstract class BaseTagService {
         }
 
         return destinations;
+    }
+
+    protected <T extends BaseTag> List<T> sortTagsForDisplay(List<T> tags){
+        return tags.stream().sorted(Comparator
+                        .comparingInt((T t) -> t.getSeverity().ordinal())
+                        .thenComparingInt(t -> t.getType().ordinal()))
+                .collect(Collectors.toList());
+    }
+
+    protected <T extends BaseTag> List<TagDisplayDto> mapToDisplayDto(List<T> tags){
+        tags = sortTagsForDisplay(tags);
+
+        List<TagDisplayDto> displayDTOs = new ArrayList<>();
+        for(T tag : tags){
+            displayDTOs.add(this.mapToDisplayDTO(tag));
+        }
+
+        return displayDTOs;
+    }
+
+    private <T extends BaseTag> TagDisplayDto mapToDisplayDTO(T tag) {
+        TagDisplayDto dto = new TagDisplayDto();
+        dto.setId(tag.getId())
+                .setText(tag.getText())
+                .setSeverity(tag.getSeverity().name())
+                .setType(tag.getType().name());
+
+        if(tag.getOrderType().equals(OrderType.OTHER)){
+            dto.setOrderType(N_A);
+        }else{
+            dto.setOrderType(tag.getOrderType().name());
+        }
+
+        if(tag.getShellType().equals(ShellType.OTHER)){
+            dto.setShellType(N_A);
+        }else{
+            dto.setShellType(tag.getShellType().name());
+        }
+
+        if(tag.getOperatingSystem().equals(OperatingSystem.OTHER)){
+            dto.setOperatingSystem(N_A);
+        }else{
+            dto.setOperatingSystem(tag.getOperatingSystem().name());
+        }
+
+        List<String> destinationNames = tag.getDestinations()
+                .stream().map(Destination::getName)
+                .collect(Collectors.toList());
+        if(destinationNames.isEmpty()){
+            dto.setDestinations(N_A);
+        }else{
+            dto.setDestinations(String.join(", ", destinationNames));
+        }
+
+        List<String> studyNames = tag.getStudies().stream()
+                .map(BaseStudy::getName)
+                .collect(Collectors.toList());
+        if(studyNames.isEmpty()){
+            dto.setStudies(N_A);
+        }else{
+            dto.setStudies(String.join(", ", studyNames));
+        }
+
+        return dto;
     }
 }

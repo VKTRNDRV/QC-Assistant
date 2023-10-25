@@ -2,7 +2,6 @@ package com.example.qcassistant.domain.entity.tag;
 
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.study.MedableStudy;
-import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import jakarta.persistence.*;
 
 import java.util.List;

@@ -217,4 +217,8 @@ public class IqviaStudyService extends BaseStudyService{
                 .findFirstByName(BaseEntity.UNKNOWN)
                 .get();
     }
+
+    public List<StudyDisplayDto> getTagStudies() {
+        return this.displayAllStudies();
+    }
 }

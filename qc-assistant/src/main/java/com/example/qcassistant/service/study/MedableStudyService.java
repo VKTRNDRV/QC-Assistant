@@ -215,4 +215,8 @@ public class MedableStudyService extends BaseStudyService{
         return this.studyRepository.findFirstByName(
                 BaseEntity.UNKNOWN).get();
     }
+
+    public List<StudyDisplayDto> getTagStudies() {
+        return this.displayAllStudies();
+    }
 }

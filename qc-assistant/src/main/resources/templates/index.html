@@ -55,6 +55,9 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/medidata/apps">View/Edit Apps</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/apps/add">Add App</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/medidata/tags">View/Edit Tags</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medidata/tags/add">Add Tag</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown mx-2">
@@ -70,6 +73,9 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/iqvia/apps">View/Edit Apps</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/iqvia/apps/add">Add App</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/iqvia/tags">View/Edit Tags</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/iqvia/tags/add">Add Tag</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown mx-2">
@@ -83,8 +89,11 @@
                         <li><a class="dropdown-item" href="/medable/sponsors">View/Edit Sponsors</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medable/sponsors/add">Add Sponsor</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/medable/apps">View/Edit Apps</a></li>
+                        <li><a class="dropdown-item" href="/medable/tags">View/Edit Apps</a></li>
                         <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medable/apps/add">Add App</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/medable/tags">View/Edit Tags</a></li>
+                        <li sec:authorize="hasRole('ROLE_MODERATOR')"><a class="dropdown-item" href="/medable/tags/add">Add Tag</a></li>
                     </ul>
                 </li>
             </ul>

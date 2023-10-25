@@ -1,25 +1,32 @@
 package com.example.qcassistant.service.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
-import com.example.qcassistant.domain.entity.tag.BaseTag;
+import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
+import com.example.qcassistant.domain.entity.study.IqviaStudy;
 import com.example.qcassistant.domain.entity.tag.IqviaTag;
 import com.example.qcassistant.repository.DestinationRepository;
+import com.example.qcassistant.repository.study.IqviaStudyRepository;
 import com.example.qcassistant.repository.tag.IqviaTagRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IqviaTagService extends BaseTagService{
 
     private IqviaTagRepository tagRepository;
 
+    private IqviaStudyRepository studyRepository;
+
     @Autowired
-    public IqviaTagService(ModelMapper modelMapper, DestinationRepository destinationRepository, IqviaTagRepository tagRepository) {
+    public IqviaTagService(ModelMapper modelMapper, DestinationRepository destinationRepository, IqviaTagRepository tagRepository, IqviaStudyRepository studyRepository) {
         super(modelMapper, destinationRepository);
         this.tagRepository = tagRepository;
+        this.studyRepository = studyRepository;
     }
 
     @Override
@@ -29,7 +36,36 @@ public class IqviaTagService extends BaseTagService{
 
     @Override
     public void addTag(TagAddDto tagAddDto) {
+        super.validateTagAdd(tagAddDto);
+        IqviaTag tag = this.mapToEntity(tagAddDto);
+        this.tagRepository.save(tag);
+    }
 
+    private IqviaTag mapToEntity(TagAddDto tagAddDto) {
+        IqviaTag tag = super.modelMapper
+                .map(tagAddDto, IqviaTag.class);
+        tag.setDestinations(super.getDestinationsByNames(
+                tagAddDto.getDestinations()));
+        tag.setStudies(this.getStudiesByNames(
+                tagAddDto.getStudies()));
+
+        return tag;
+    }
+
+    private List<IqviaStudy> getStudiesByNames(List<String> studyNames) {
+        List<IqviaStudy> studies = new ArrayList<>();
+        for(String studyName : studyNames){
+            Optional<IqviaStudy> study = this.studyRepository
+                    .findFirstByName(studyName);
+            study.ifPresent(studies::add);
+        }
+
+        return studies;
+    }
+
+    @Override
+    public List<TagDisplayDto> getDisplayTags(){
+        return super.mapToDisplayDto(this.tagRepository.findAll());
     }
 
     @Override
