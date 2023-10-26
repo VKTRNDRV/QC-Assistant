@@ -4,6 +4,7 @@ import com.example.qcassistant.domain.enums.item.ConnectorType;
 import com.example.qcassistant.domain.enums.item.OperatingSystem;
 import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.item.device.Device;
+import org.springframework.security.core.parameters.P;
 
 import java.util.*;
 
@@ -24,14 +25,8 @@ public class DeviceRepository {
     }
 
     public boolean containsAndroidDevices() {
-        for(Device device : devices){
-            if(device.getOperatingSystem()
-                    .equals(OperatingSystem.ANDROID)){
-                return true;
-            }
-        }
-
-        return false;
+        return this.containsOperatingSystem(
+                OperatingSystem.ANDROID);
     }
 
     public boolean containsShellType(ShellType shellType){
@@ -59,23 +54,11 @@ public class DeviceRepository {
     }
 
     public boolean containsIosDevices() {
-        for(Device device : devices){
-            if(device.getOperatingSystem().equals(OperatingSystem.IOS)){
-                return true;
-            }
-        }
-
-        return false;
+        return containsOperatingSystem(OperatingSystem.IOS);
     }
 
     public boolean containsWindowsDevices() {
-        for(Device device : devices){
-            if(device.getOperatingSystem().equals(OperatingSystem.WINDOWS)){
-                return true;
-            }
-        }
-
-        return false;
+        return containsOperatingSystem(OperatingSystem.WINDOWS);
     }
 
     public Optional<List<String>> getDuplicateSerials() {
@@ -123,6 +106,16 @@ public class DeviceRepository {
         for (Device device : devices){
             if(device.getOperatingSystem().equals(operatingSystem) &&
                     device.getShellType().equals(shellType)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean containsOperatingSystem(OperatingSystem operatingSystem) {
+        for(Device device : devices){
+            if(device.getOperatingSystem().equals(operatingSystem)){
                 return true;
             }
         }

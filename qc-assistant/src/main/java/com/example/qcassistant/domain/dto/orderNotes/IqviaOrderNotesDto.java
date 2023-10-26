@@ -2,6 +2,8 @@ package com.example.qcassistant.domain.dto.orderNotes;
 
 import com.example.qcassistant.domain.dto.study.info.IqviaStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
+import com.example.qcassistant.domain.entity.tag.BaseTag;
+import com.example.qcassistant.domain.enums.TagType;
 import com.example.qcassistant.domain.note.Note;
 
 import java.util.ArrayList;
@@ -49,5 +51,15 @@ public class IqviaOrderNotesDto extends OrderNotesDto{
     public IqviaOrderNotesDto setWindowsNotes(Collection<Note> windowsNotes) {
         this.windowsNotes = windowsNotes;
         return this;
+    }
+
+    @Override
+    public <T extends BaseTag> void addTagNote(T tag) {
+        if(!tag.getType().equals(TagType.WIN)){
+            super.addTagNote(tag);
+        }
+
+        Note note = new Note(tag.getSeverity(), tag.getText());
+        windowsNotes.add(note);
     }
 }

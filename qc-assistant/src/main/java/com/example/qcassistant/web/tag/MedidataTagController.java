@@ -1,15 +1,13 @@
 package com.example.qcassistant.web.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
+import com.example.qcassistant.domain.dto.tag.TagEditDto;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.study.MedidataStudyService;
 import com.example.qcassistant.service.tag.MedidataTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,14 +57,41 @@ public class MedidataTagController {
     }
 
     @GetMapping
-    public ModelAndView modelAndView(ModelAndView mav){
+    public ModelAndView getAllTags(ModelAndView mav){
         mav.addObject("tags", this.tagService.getDisplayTags());
-
         mav.setViewName("medidata-tags");
         return mav;
     }
 
-    //@PutMapping for editing tags!!!!
+    @GetMapping("/edit/{id}")
+    public ModelAndView getEditTag(@PathVariable Long id,
+                                   ModelAndView mav){
+        addStudiesAndDestinations(mav);
+        mav.addObject("tagEditDto", this.tagService.getTagEdit(id));
+        mav.setViewName("medidata-tags-edit");
+        return mav;
+    }
+
+    @PostMapping("/edit")
+    public ModelAndView putEditTag(@ModelAttribute("tagEditDto") TagEditDto tagEditDto,
+                                   ModelAndView mav,
+                                   RedirectAttributes redirectAttributes){
+
+        try{
+            this.tagService.editTag(tagEditDto);
+        }catch (RuntimeException exc){
+            mav.addObject("tagEditDto", tagEditDto);
+            mav.addObject("error", true);
+            mav.addObject("message", exc.getMessage());
+            addStudiesAndDestinations(mav);
+            mav.setViewName("medidata-tags-edit");
+            return mav;
+        }
+
+        redirectAttributes.addFlashAttribute("success", true);
+        mav.setViewName("redirect:/");
+        return mav;
+    }
 
     private ModelAndView addStudiesAndDestinations(ModelAndView modelAndView){
         modelAndView.addObject("destinations", this

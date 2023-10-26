@@ -5,6 +5,7 @@ import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.enums.OrderType;
+import com.example.qcassistant.domain.enums.item.OperatingSystem;
 import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.item.device.Device;
 
@@ -129,4 +130,12 @@ public abstract class ClinicalOrder {
     public abstract boolean isStudyUnknown();
 
     public abstract <T extends BaseStudy> T getStudy();
+
+    public boolean containsShellType(ShellType shellType) {
+        return this.deviceRepository.containsShellType(shellType);
+    }
+
+    public boolean containsOperatingSystem(OperatingSystem operatingSystem) {
+        return this.deviceRepository.containsOperatingSystem(operatingSystem);
+    }
 }

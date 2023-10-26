@@ -2,7 +2,9 @@ package com.example.qcassistant.service.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
 import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
+import com.example.qcassistant.domain.dto.tag.TagEditDto;
 import com.example.qcassistant.domain.entity.study.MedableStudy;
+import com.example.qcassistant.domain.entity.tag.IqviaTag;
 import com.example.qcassistant.domain.entity.tag.MedableTag;
 import com.example.qcassistant.repository.DestinationRepository;
 import com.example.qcassistant.repository.study.MedableStudyRepository;
@@ -65,16 +67,35 @@ public class MedableTagService extends BaseTagService{
 
     @Override
     public List<TagDisplayDto> getDisplayTags(){
-        return super.mapToDisplayDto(this.tagRepository.findAll());
+        return super.mapToDisplayDTOs(this.tagRepository.findAll());
     }
 
     @Override
-    public void editTag() {
-
+    public void editTag(TagEditDto tagEditDto) {
+        super.validateTagEdit(tagEditDto);
+        MedableTag tag = this.mapToEntity(tagEditDto);
+        this.tagRepository.save(tag);
     }
 
+    private MedableTag mapToEntity(TagEditDto tagAddDto) {
+        MedableTag tag = super.modelMapper
+                .map(tagAddDto, MedableTag.class);
+        tag.setDestinations(super.getDestinationsByNames(
+                tagAddDto.getDestinations()));
+        tag.setStudies(this.getStudiesByNames(
+                tagAddDto.getStudies()));
+
+        return tag;
+    }
+
+//    @Override
+//    public MedableTag getTagById(Long id) {
+//        return null;
+//    }
+
     @Override
-    public MedableTag getTagById(Long id) {
-        return null;
+    public TagEditDto getTagEdit(Long id) {
+        return super.mapToTagEditDto(this.tagRepository
+                .findById(id).orElseThrow());
     }
 }

@@ -6,6 +6,7 @@ import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
+import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.SimType;
@@ -18,6 +19,7 @@ import com.example.qcassistant.domain.order.AccessoryRepository;
 import com.example.qcassistant.domain.order.DocumentRepository;
 import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.service.study.MedidataStudyService;
+import com.example.qcassistant.service.tag.MedidataTagService;
 import com.example.qcassistant.util.TrinaryBoolean;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +29,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MedidataNoteGenerationService extends NoteGenerationService {
 
     private MedidataStudyService studyService;
 
+    private MedidataTagService tagService;
+
     private static final String ABBVIE = "Abbvie";
 
     @Autowired
-    public MedidataNoteGenerationService(ModelMapper modelMapper, MedidataStudyService studyService) {
+    public MedidataNoteGenerationService(ModelMapper modelMapper, MedidataStudyService studyService, MedidataTagService tagService) {
         super(modelMapper);
         this.studyService = studyService;
+        this.tagService = tagService;
     }
 
     public MedidataOrderNotesDto generateNotes(MedidataOrder order) {
@@ -56,12 +62,73 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
             notes.setAndroidNotes(this.genAndroidNotes(order));
         }
 
+        List<MedidataTag> applicableTags = this.getApplicableTags(order);
+        applicableTags.forEach(notes::addTagNote);
+
         if(!order.isStudyUnknown()){
             notes.setStudy(studyService.getStudyInfoById(
                     order.getStudy().getId()));
         }
 
         return notes;
+    }
+
+    private List<MedidataTag> getApplicableTags(MedidataOrder order) {
+        List<MedidataTag> tags = this.tagService.getEntities();
+        return tags.stream().filter(t ->
+                        this.isTagApplicable(t, order))
+                .collect(Collectors.toList());
+
+    }
+
+    private boolean isTagApplicable(MedidataTag tag, MedidataOrder order) {
+        if(tag.hasOrderTypePrecondition() && !order
+                .getOrderType().equals(tag.getOrderType())){
+            return false;
+        }
+
+        if(tag.hasShellTypePrecondition() && !order
+                .containsShellType(tag.getShellType())){
+            return false;
+        }
+
+        if(tag.hasOperatingSystemPrecondition() && !order
+                .containsOperatingSystem(tag.getOperatingSystem())){
+            return false;
+        }
+
+        if(tag.hasDestinationPrecondition() && !order.getDestination().isUnknown()){
+            boolean isDestinationMatched = false;
+            String orderDestinationName = order.getDestination().getName();
+            for(Destination tagDestination : tag.getDestinations()){
+                if(orderDestinationName.equals(
+                        tagDestination.getName())){
+                    isDestinationMatched = true;
+                    break;
+                }
+            }
+
+            if(!isDestinationMatched){
+                return false;
+            }
+        }
+
+        if(tag.hasStudyPrecondition() && !order.getStudy().isUnknown()){
+            boolean isStudyMatched = false;
+            String orderStudyName = order.getStudy().getName();
+            for(MedidataStudy tagStudy : tag.getStudies()){
+                if(orderStudyName.equals(tagStudy.getName())){
+                    isStudyMatched = true;
+                }
+            }
+
+            if(!isStudyMatched){
+                return false;
+            }
+        }
+
+        
+        return true;
     }
 
     private Collection<Note> genShellCheckNotes(MedidataOrder order) {

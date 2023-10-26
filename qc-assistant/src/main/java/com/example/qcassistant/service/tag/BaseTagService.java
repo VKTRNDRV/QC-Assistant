@@ -1,8 +1,8 @@
 package com.example.qcassistant.service.tag;
 
-import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
 import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
+import com.example.qcassistant.domain.dto.tag.TagEditDto;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.tag.BaseTag;
@@ -35,20 +35,31 @@ public abstract class BaseTagService {
 
     public abstract <T extends BaseTag> List<T> getEntities();
     public abstract void addTag(TagAddDto tagAddDto);
-    public abstract void editTag();
-    public abstract <T extends BaseTag> T getTagById(Long id);
+    public abstract void editTag(TagEditDto tagEditDto);
+//    public abstract <T extends BaseTag> T getTagById(Long id);
     public abstract List<TagDisplayDto> getDisplayTags();
+    public abstract TagEditDto getTagEdit(Long id);
 
     protected void validateTagAdd(TagAddDto tagAddDto) {
         String noteText = tagAddDto.getText();
-        if(noteText.trim().isEmpty()){
+        validateTagText(noteText);
+    }
+
+    protected void validateTagText(String tagText){
+        if(tagText.trim().isEmpty()){
             throw new RuntimeException("Note text cannot be blank");
         }
 
-        if(noteText.length() > MAX_NOTE_LENGTH){
+        if(tagText.length() > MAX_NOTE_LENGTH){
             throw new RuntimeException("Note text length cannot be over 254");
         }
     }
+
+    protected void validateTagEdit(TagEditDto tagEditDto){
+        validateTagText(tagEditDto.getText());
+    }
+
+
     protected List<Destination> getDestinationsByNames(Collection<String> destinationNames){
         List<Destination> destinations = new ArrayList<>();
         for(String destinationName : destinationNames){
@@ -67,7 +78,7 @@ public abstract class BaseTagService {
                 .collect(Collectors.toList());
     }
 
-    protected <T extends BaseTag> List<TagDisplayDto> mapToDisplayDto(List<T> tags){
+    protected <T extends BaseTag> List<TagDisplayDto> mapToDisplayDTOs(List<T> tags){
         tags = sortTagsForDisplay(tags);
 
         List<TagDisplayDto> displayDTOs = new ArrayList<>();
@@ -122,5 +133,14 @@ public abstract class BaseTagService {
         }
 
         return dto;
+    }
+
+    protected <T extends BaseTag> TagEditDto mapToTagEditDto(T tag){
+        TagEditDto editDto = this.modelMapper
+                .map(tag, TagEditDto.class);
+
+        editDto.setSpecialFields(tag);
+
+        return editDto;
     }
 }

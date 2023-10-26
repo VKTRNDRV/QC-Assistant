@@ -2,6 +2,7 @@ package com.example.qcassistant.service.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
 import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
+import com.example.qcassistant.domain.dto.tag.TagEditDto;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.repository.DestinationRepository;
@@ -52,6 +53,17 @@ public class MedidataTagService extends BaseTagService{
         return tag;
     }
 
+    private MedidataTag mapToEntity(TagEditDto tagAddDto) {
+        MedidataTag tag = super.modelMapper
+                .map(tagAddDto, MedidataTag.class);
+        tag.setDestinations(super.getDestinationsByNames(
+                tagAddDto.getDestinations()));
+        tag.setStudies(this.getStudiesByNames(
+                tagAddDto.getStudies()));
+
+        return tag;
+    }
+
     private List<MedidataStudy> getStudiesByNames(List<String> studyNames) {
         List<MedidataStudy> studies = new ArrayList<>();
         for(String studyName : studyNames){
@@ -65,16 +77,24 @@ public class MedidataTagService extends BaseTagService{
 
     @Override
     public List<TagDisplayDto> getDisplayTags(){
-        return super.mapToDisplayDto(this.tagRepository.findAll());
+        return super.mapToDisplayDTOs(this.tagRepository.findAll());
     }
 
     @Override
-    public void editTag() {
-
+    public void editTag(TagEditDto tagEditDto) {
+        super.validateTagEdit(tagEditDto);
+        MedidataTag tag = this.mapToEntity(tagEditDto);
+        this.tagRepository.save(tag);
     }
 
+//    @Override
+//    public MedidataTag getTagById(Long id) {
+//        return null;
+//    }
+
     @Override
-    public MedidataTag getTagById(Long id) {
-        return null;
+    public TagEditDto getTagEdit(Long id) {
+        return super.mapToTagEditDto(this.tagRepository
+                .findById(id).orElseThrow());
     }
 }

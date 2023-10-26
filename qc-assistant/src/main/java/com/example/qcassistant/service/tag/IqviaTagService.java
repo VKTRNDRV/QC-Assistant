@@ -2,8 +2,10 @@ package com.example.qcassistant.service.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
 import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
+import com.example.qcassistant.domain.dto.tag.TagEditDto;
 import com.example.qcassistant.domain.entity.study.IqviaStudy;
 import com.example.qcassistant.domain.entity.tag.IqviaTag;
+import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.repository.DestinationRepository;
 import com.example.qcassistant.repository.study.IqviaStudyRepository;
 import com.example.qcassistant.repository.tag.IqviaTagRepository;
@@ -52,6 +54,17 @@ public class IqviaTagService extends BaseTagService{
         return tag;
     }
 
+    private IqviaTag mapToEntity(TagEditDto tagAddDto) {
+        IqviaTag tag = super.modelMapper
+                .map(tagAddDto, IqviaTag.class);
+        tag.setDestinations(super.getDestinationsByNames(
+                tagAddDto.getDestinations()));
+        tag.setStudies(this.getStudiesByNames(
+                tagAddDto.getStudies()));
+
+        return tag;
+    }
+
     private List<IqviaStudy> getStudiesByNames(List<String> studyNames) {
         List<IqviaStudy> studies = new ArrayList<>();
         for(String studyName : studyNames){
@@ -65,16 +78,24 @@ public class IqviaTagService extends BaseTagService{
 
     @Override
     public List<TagDisplayDto> getDisplayTags(){
-        return super.mapToDisplayDto(this.tagRepository.findAll());
+        return super.mapToDisplayDTOs(this.tagRepository.findAll());
     }
 
     @Override
-    public void editTag() {
-
+    public void editTag(TagEditDto tagEditDto) {
+        super.validateTagEdit(tagEditDto);
+        IqviaTag tag = this.mapToEntity(tagEditDto);
+        this.tagRepository.save(tag);
     }
 
+//    @Override
+//    public IqviaTag getTagById(Long id) {
+//        return null;
+//    }
+
     @Override
-    public IqviaTag getTagById(Long id) {
-        return null;
+    public TagEditDto getTagEdit(Long id) {
+        return super.mapToTagEditDto(this.tagRepository
+                .findById(id).orElseThrow());
     }
 }

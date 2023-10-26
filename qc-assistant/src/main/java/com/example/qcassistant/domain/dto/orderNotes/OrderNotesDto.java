@@ -1,11 +1,14 @@
 package com.example.qcassistant.domain.dto.orderNotes;
 
 import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
+import com.example.qcassistant.domain.entity.tag.BaseTag;
+import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.domain.item.device.Device;
 import com.example.qcassistant.domain.note.Note;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class OrderNotesDto {
@@ -88,5 +91,19 @@ public abstract class OrderNotesDto {
                 .sorted((i1,i2) -> i1.getShortName()
                         .compareTo(i2.getShortName()))
                 .collect(Collectors.toList()));
+    }
+
+    public <T extends BaseTag> void addTagNote(T tag) {
+        Note note = new Note(tag.getSeverity(), tag.getText());
+        switch (tag.getType()){
+            case SHELLCHECK: shellCheckNotes.add(note);
+                break;
+            case DOCUMENTATION: documentationNotes.add(note);
+                break;
+            case IOS: iosNotes.add(note);
+                break;
+            case AFW: androidNotes.add(note);
+                break;
+        }
     }
 }
