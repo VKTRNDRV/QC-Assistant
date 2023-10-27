@@ -35,7 +35,7 @@
             <th>OS:</th>
             <th>Studies</th>
             <th>Destinations:</th>
-            <th>Edit:</th>
+            <th sec:authorize="hasRole('ROLE_MODERATOR')">Edit:</th>
         </tr>
         </thead>
         <tbody>
@@ -48,7 +48,7 @@
             <td th:text="${tag.operatingSystem}">WINDOWS</td>
             <td th:text="${tag.studies}">Study 1, Study 2, Study 3, Study 4, Study 5, Study 6, Study 7</td>
             <td th:text="${tag.destinations}">Destination 1, Destination 2, Destination 3, Destination 4</td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_MODERATOR')">
                 <a th:href="@{'/medidata/tags/edit/' + ${tag.id}}" >Edit</a>
             </td>
         </tr>

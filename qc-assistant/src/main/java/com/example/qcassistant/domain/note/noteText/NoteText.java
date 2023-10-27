@@ -72,6 +72,7 @@ public class NoteText {
     public static final String CHECK_SEP_SITE_PATIENT_LABELS = "Check Study Folder for separate site/patient labels.";
     public static final String CONFIRM_NO_PRINTING_ERRORS = "Verify no printing errors on the labels (e.g. text overflowing).";
     public static final String SPECIAL_INSTRUCTIONS = "Special Instructions detected in Order Term Comments.";
+    public static final String CHECK_NOTE_OTC = "Check NOTE in Order Term Comments";
     public static final String VERIFY_STUDY_NAME_DOCS = "Verify correct Study Name on all documents.";
     public static final String CONFIRM_ASSET_LABEL = "Verify Asset Number labels are present on all devices.";
     public static final String CONFIRM_ASSET_NUM_ON_LABEL = "Confirm Asset Number pasted on Main Medable Label (above device serial).";

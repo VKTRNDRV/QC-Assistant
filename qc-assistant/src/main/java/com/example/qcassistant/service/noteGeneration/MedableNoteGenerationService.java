@@ -3,6 +3,8 @@ package com.example.qcassistant.service.noteGeneration;
 import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
 import com.example.qcassistant.domain.dto.orderNotes.MedableOrderNotesDto;
 import com.example.qcassistant.domain.entity.destination.Destination;
+import com.example.qcassistant.domain.entity.tag.IqviaTag;
+import com.example.qcassistant.domain.entity.tag.MedableTag;
 import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.ConnectorType;
@@ -14,8 +16,10 @@ import com.example.qcassistant.domain.note.Note;
 import com.example.qcassistant.domain.note.noteText.NoteText;
 import com.example.qcassistant.domain.order.AccessoryRepository;
 import com.example.qcassistant.domain.order.DeviceRepository;
+import com.example.qcassistant.domain.order.IqviaOrder;
 import com.example.qcassistant.domain.order.MedableOrder;
 import com.example.qcassistant.service.study.MedableStudyService;
+import com.example.qcassistant.service.tag.MedableTagService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,16 +28,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MedableNoteGenerationService extends NoteGenerationService{
 
     private MedableStudyService studyService;
+    private MedableTagService tagService;
 
     @Autowired
-    public MedableNoteGenerationService(ModelMapper modelMapper, MedableStudyService studyService) {
+    public MedableNoteGenerationService(ModelMapper modelMapper, MedableStudyService studyService, MedableTagService tagService) {
         super(modelMapper);
         this.studyService = studyService;
+        this.tagService = tagService;
     }
 
     public MedableOrderNotesDto generateNotes(MedableOrder order){
@@ -55,9 +62,21 @@ public class MedableNoteGenerationService extends NoteGenerationService{
             notes.setAndroidNotes(this.genAndroidNotes(order));
         }
 
+        this.getApplicableTags(order).forEach(notes::addTagNote);
+
+        if(!order.getStudy().isUnknown()){
+            notes.setStudy(studyService.getStudyInfoById(
+                    order.getStudy().getId()));
+        }
 
 
         return notes;
+    }
+
+    private List<MedableTag> getApplicableTags(MedableOrder order) {
+        return this.tagService.getEntities().stream()
+                .filter(t -> super.isTagApplicable(t, order))
+                .collect(Collectors.toList());
     }
 
     private Collection<Note> genAndroidNotes(MedableOrder order) {

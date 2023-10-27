@@ -3,7 +3,11 @@ package com.example.qcassistant.service.noteGeneration;
 import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
 import com.example.qcassistant.domain.entity.app.BaseApp;
 import com.example.qcassistant.domain.entity.destination.Destination;
+import com.example.qcassistant.domain.entity.study.BaseStudy;
+import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.study.environment.BaseEnvironment;
+import com.example.qcassistant.domain.entity.tag.BaseTag;
+import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.PlugType;
 import com.example.qcassistant.domain.item.device.Device;
@@ -11,6 +15,7 @@ import com.example.qcassistant.domain.item.sim.SerializedSIM;
 import com.example.qcassistant.domain.note.Note;
 import com.example.qcassistant.domain.note.noteText.NoteText;
 import com.example.qcassistant.domain.order.ClinicalOrder;
+import com.example.qcassistant.domain.order.MedidataOrder;
 import com.example.qcassistant.domain.order.SimRepository;
 import com.example.qcassistant.regex.OrderInputRegex;
 import com.example.qcassistant.util.TrinaryBoolean;
@@ -49,10 +54,15 @@ public abstract class NoteGenerationService {
 
     protected <T extends ClinicalOrder> Collection<Note> genCommentNotes(T order) {
         Collection<Note> notes = new ArrayList<>();
+        String orderTermComments = order.getOrderTermComments();
         Pattern pattern = Pattern.compile(OrderInputRegex.SPECIAL_INSTRUCTIONS_REGEX);
-        Matcher matcher = pattern.matcher(order.getOrderTermComments());
+        Matcher matcher = pattern.matcher(orderTermComments);
         if(matcher.find()){
             notes.add(new Note(Severity.MEDIUM, NoteText.SPECIAL_INSTRUCTIONS));
+        }
+
+        if(orderTermComments.contains(OrderInputRegex.NOTE_STRING)){
+            notes.add(new Note(Severity.MEDIUM, NoteText.CHECK_NOTE_OTC));
         }
 
         return notes;
@@ -215,5 +225,56 @@ public abstract class NoteGenerationService {
         }
 
         return notes;
+    }
+
+    protected <T extends BaseTag, O extends ClinicalOrder> boolean isTagApplicable(T tag, O order) {
+        if(tag.hasOrderTypePrecondition() && !order
+                .getOrderType().equals(tag.getOrderType())){
+            return false;
+        }
+
+        if(tag.hasShellTypePrecondition() && !order
+                .containsShellType(tag.getShellType())){
+            return false;
+        }
+
+        if(tag.hasOperatingSystemPrecondition() && !order
+                .containsOperatingSystem(tag.getOperatingSystem())){
+            return false;
+        }
+
+        if(tag.hasDestinationPrecondition() && !order.getDestination().isUnknown()){
+            boolean isDestinationMatched = false;
+            String orderDestinationName = order.getDestination().getName();
+            for(Destination tagDestination : tag.getDestinations()){
+                if(orderDestinationName.equals(
+                        tagDestination.getName())){
+                    isDestinationMatched = true;
+                    break;
+                }
+            }
+
+            if(!isDestinationMatched){
+                return false;
+            }
+        }
+
+        if(tag.hasStudyPrecondition() && !order.getStudy().isUnknown()){
+            boolean isStudyMatched = false;
+            String orderStudyName = order.getStudy().getName();
+            for(BaseStudy tagStudy : tag.getStudies()){
+                if(orderStudyName.equals(tagStudy.getName())){
+                    isStudyMatched = true;
+                    break;
+                }
+            }
+
+            if(!isStudyMatched){
+                return false;
+            }
+        }
+
+
+        return true;
     }
 }

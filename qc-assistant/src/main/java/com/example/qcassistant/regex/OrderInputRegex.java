@@ -23,4 +23,5 @@ public class OrderInputRegex {
 
     public static final String STUDY_REGEX = "Study\\s*(?<studyName>.+)\\s*Site";
     public static final String STUDY_GROUP = "studyName";
+    public static final String NOTE_STRING = "NOTE";
 }

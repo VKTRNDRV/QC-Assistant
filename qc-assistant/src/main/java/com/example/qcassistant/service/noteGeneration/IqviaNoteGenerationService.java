@@ -2,6 +2,7 @@ package com.example.qcassistant.service.noteGeneration;
 
 import com.example.qcassistant.domain.dto.item.ItemNameSerialDto;
 import com.example.qcassistant.domain.dto.orderNotes.IqviaOrderNotesDto;
+import com.example.qcassistant.domain.entity.tag.IqviaTag;
 import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.Severity;
 import com.example.qcassistant.domain.enums.item.ConnectorType;
@@ -14,6 +15,7 @@ import com.example.qcassistant.domain.order.AccessoryRepository;
 import com.example.qcassistant.domain.order.DeviceRepository;
 import com.example.qcassistant.domain.order.IqviaOrder;
 import com.example.qcassistant.service.study.IqviaStudyService;
+import com.example.qcassistant.service.tag.IqviaTagService;
 import com.example.qcassistant.util.TrinaryBoolean;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +25,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class IqviaNoteGenerationService extends NoteGenerationService{
 
     private IqviaStudyService studyService;
+    private IqviaTagService tagService;
 
     @Autowired
-    public IqviaNoteGenerationService(ModelMapper modelMapper, IqviaStudyService studyService) {
+    public IqviaNoteGenerationService(ModelMapper modelMapper, IqviaStudyService studyService, IqviaTagService tagService) {
         super(modelMapper);
         this.studyService = studyService;
+        this.tagService = tagService;
     }
 
     public IqviaOrderNotesDto generateNotes(IqviaOrder order){
@@ -57,8 +62,21 @@ public class IqviaNoteGenerationService extends NoteGenerationService{
             notes.setWindowsNotes(this.genWindowsNotes(order));
         }
 
+        this.getApplicableTags(order).forEach(notes::addTagNote);
+
+        if(!order.getStudy().isUnknown()){
+            notes.setStudy(studyService.getStudyInfoById(
+                    order.getStudy().getId()));
+        }
+
 
         return notes;
+    }
+
+    private List<IqviaTag> getApplicableTags(IqviaOrder order) {
+        return this.tagService.getEntities().stream()
+                .filter(t -> super.isTagApplicable(t, order))
+                .collect(Collectors.toList());
     }
 
     private Collection<Note> genWindowsNotes(IqviaOrder order) {

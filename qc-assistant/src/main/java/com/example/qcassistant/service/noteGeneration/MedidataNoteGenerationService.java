@@ -62,8 +62,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
             notes.setAndroidNotes(this.genAndroidNotes(order));
         }
 
-        List<MedidataTag> applicableTags = this.getApplicableTags(order);
-        applicableTags.forEach(notes::addTagNote);
+        this.getApplicableTags(order).forEach(notes::addTagNote);
 
         if(!order.isStudyUnknown()){
             notes.setStudy(studyService.getStudyInfoById(
@@ -74,62 +73,61 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
     }
 
     private List<MedidataTag> getApplicableTags(MedidataOrder order) {
-        List<MedidataTag> tags = this.tagService.getEntities();
-        return tags.stream().filter(t ->
-                        this.isTagApplicable(t, order))
+        return this.tagService.getEntities().stream()
+                .filter(t -> super.isTagApplicable(t, order))
                 .collect(Collectors.toList());
 
     }
 
-    private boolean isTagApplicable(MedidataTag tag, MedidataOrder order) {
-        if(tag.hasOrderTypePrecondition() && !order
-                .getOrderType().equals(tag.getOrderType())){
-            return false;
-        }
-
-        if(tag.hasShellTypePrecondition() && !order
-                .containsShellType(tag.getShellType())){
-            return false;
-        }
-
-        if(tag.hasOperatingSystemPrecondition() && !order
-                .containsOperatingSystem(tag.getOperatingSystem())){
-            return false;
-        }
-
-        if(tag.hasDestinationPrecondition() && !order.getDestination().isUnknown()){
-            boolean isDestinationMatched = false;
-            String orderDestinationName = order.getDestination().getName();
-            for(Destination tagDestination : tag.getDestinations()){
-                if(orderDestinationName.equals(
-                        tagDestination.getName())){
-                    isDestinationMatched = true;
-                    break;
-                }
-            }
-
-            if(!isDestinationMatched){
-                return false;
-            }
-        }
-
-        if(tag.hasStudyPrecondition() && !order.getStudy().isUnknown()){
-            boolean isStudyMatched = false;
-            String orderStudyName = order.getStudy().getName();
-            for(MedidataStudy tagStudy : tag.getStudies()){
-                if(orderStudyName.equals(tagStudy.getName())){
-                    isStudyMatched = true;
-                }
-            }
-
-            if(!isStudyMatched){
-                return false;
-            }
-        }
-
-        
-        return true;
-    }
+//    private boolean isTagApplicable(MedidataTag tag, MedidataOrder order) {
+//        if(tag.hasOrderTypePrecondition() && !order
+//                .getOrderType().equals(tag.getOrderType())){
+//            return false;
+//        }
+//
+//        if(tag.hasShellTypePrecondition() && !order
+//                .containsShellType(tag.getShellType())){
+//            return false;
+//        }
+//
+//        if(tag.hasOperatingSystemPrecondition() && !order
+//                .containsOperatingSystem(tag.getOperatingSystem())){
+//            return false;
+//        }
+//
+//        if(tag.hasDestinationPrecondition() && !order.getDestination().isUnknown()){
+//            boolean isDestinationMatched = false;
+//            String orderDestinationName = order.getDestination().getName();
+//            for(Destination tagDestination : tag.getDestinations()){
+//                if(orderDestinationName.equals(
+//                        tagDestination.getName())){
+//                    isDestinationMatched = true;
+//                    break;
+//                }
+//            }
+//
+//            if(!isDestinationMatched){
+//                return false;
+//            }
+//        }
+//
+//        if(tag.hasStudyPrecondition() && !order.getStudy().isUnknown()){
+//            boolean isStudyMatched = false;
+//            String orderStudyName = order.getStudy().getName();
+//            for(MedidataStudy tagStudy : tag.getStudies()){
+//                if(orderStudyName.equals(tagStudy.getName())){
+//                    isStudyMatched = true;
+//                }
+//            }
+//
+//            if(!isStudyMatched){
+//                return false;
+//            }
+//        }
+//
+//
+//        return true;
+//    }
 
     private Collection<Note> genShellCheckNotes(MedidataOrder order) {
         Collection<Note> notes = new ArrayList<>();
