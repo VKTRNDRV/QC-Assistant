@@ -33,7 +33,7 @@ public class IqviaTagService extends BaseTagService{
 
     @Override
     public List<IqviaTag> getEntities() {
-        return null;
+        return this.tagRepository.findAll();
     }
 
     @Override

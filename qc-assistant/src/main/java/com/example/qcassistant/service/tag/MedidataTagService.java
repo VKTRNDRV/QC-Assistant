@@ -32,7 +32,7 @@ public class MedidataTagService extends BaseTagService{
 
     @Override
     public List<MedidataTag> getEntities() {
-        return null;
+        return this.tagRepository.findAll();
     }
 
     @Override

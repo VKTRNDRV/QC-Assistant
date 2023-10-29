@@ -146,6 +146,10 @@ public class IqviaNoteGenerationService extends NoteGenerationService{
 
     private Collection<Note> genDocumentationNotes(IqviaOrder order) {
         Collection<Note> notes = new ArrayList<>();
+        if(order.getStudy().isUnknown()){
+            notes.add(new Note(Severity.HIGH, NoteText.ADD_UNKNOWN_STUDY));
+        }
+
         notes.addAll(super.genCommentNotes(order));
 
         if(!order.getSimRepository().isEmpty()){

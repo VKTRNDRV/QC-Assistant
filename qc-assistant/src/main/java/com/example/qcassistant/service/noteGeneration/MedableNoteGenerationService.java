@@ -179,6 +179,9 @@ public class MedableNoteGenerationService extends NoteGenerationService{
 
     private Collection<Note> genDocumentationNotes(MedableOrder order) {
         Collection<Note> notes = new ArrayList<>();
+        if(order.getStudy().isUnknown()){
+            notes.add(new Note(Severity.HIGH, NoteText.ADD_UNKNOWN_STUDY));
+        }
 
         notes.add(new Note(Severity.LOW, NoteText.CONFIRM_ASSET_LABEL));
         notes.add(new Note(Severity.LOW, NoteText.CONFIRM_ASSET_NUM_ON_LABEL));

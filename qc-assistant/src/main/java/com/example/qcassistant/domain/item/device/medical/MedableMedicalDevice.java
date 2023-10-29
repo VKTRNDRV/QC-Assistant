@@ -17,6 +17,8 @@ public enum MedableMedicalDevice {
             "Everion Tracker", ConnectorType.TYPE_C),
     MARSDEN_SCALE("Medable\\s*Marsden.{0,32}(?<serial>[A-Z0-9-]{8})",
             "Marsden Floor Scale", ConnectorType.OTHER),
+    OXYMETER("Medable\\s*Masimo\\s*MightySat.{0,48}(?<serial>[0-9]{10})",
+            "Pulse Oxymeter", ConnectorType.OTHER),
     BLOOD_PRESSURE_MONITOR("Medable\\s*Omron\\s*Blood.{0,32}(?<serial>[A-Z0-9]{13})",
             "Blood Pr. Monitor", ConnectorType.OTHER)
 

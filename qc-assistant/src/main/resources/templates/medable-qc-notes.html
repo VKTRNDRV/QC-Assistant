@@ -59,34 +59,34 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Name:</span>
-                        <input type="text" class="form-control"  id="name" readonly>
+                        <input type="text" class="form-control"  id="name" th:value="*{name}" readonly>
                     </div>
 
                     <h6>Environment:</h6>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Site-Patient separated:</span>
-                        <input type="text" class="form-control"  id="isSitePatientSeparated" readonly>
+                        <input type="text" class="form-control"  id="isSitePatientSeparated" th:value="*{environment.isSitePatientSeparated}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Destination separated:</span>
-                        <input type="text" class="form-control"  id="isDestinationSeparated" readonly>
+                        <input type="text" class="form-control"  id="isDestinationSeparated" th:value="*{environment.isDestinationSeparated}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Has China AW group:</span>
-                        <input type="text" class="form-control"  id="containsChinaGroup" readonly>
+                        <input type="text" class="form-control"  id="containsChinaGroup" th:value="*{environment.containsChinaGroup}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Site Apps:</span>
-                        <input type="text" class="form-control" id="siteApps" readonly>
+                        <input type="text" class="form-control" id="siteApps" th:value="*{environment.siteApps}" readonly>
                     </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Patient Apps:</span>
-                        <input type="text" class="form-control"  id="patientApps" readonly>
+                        <input type="text" class="form-control"  id="patientApps" th:value="*{environment.patientApps}" readonly>
                     </div>
                 </div>
             </div>

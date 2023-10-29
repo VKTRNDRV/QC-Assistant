@@ -243,7 +243,7 @@ public abstract class NoteGenerationService {
             return false;
         }
 
-        if(tag.hasDestinationPrecondition() && !order.getDestination().isUnknown()){
+        if(tag.hasDestinationPrecondition()){
             boolean isDestinationMatched = false;
             String orderDestinationName = order.getDestination().getName();
             for(Destination tagDestination : tag.getDestinations()){
@@ -259,7 +259,7 @@ public abstract class NoteGenerationService {
             }
         }
 
-        if(tag.hasStudyPrecondition() && !order.getStudy().isUnknown()){
+        if(tag.hasStudyPrecondition()){
             boolean isStudyMatched = false;
             String orderStudyName = order.getStudy().getName();
             for(BaseStudy tagStudy : tag.getStudies()){

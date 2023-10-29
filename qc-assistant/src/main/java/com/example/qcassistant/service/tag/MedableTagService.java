@@ -33,7 +33,7 @@ public class MedableTagService extends BaseTagService{
 
     @Override
     public List<MedableTag> getEntities() {
-        return null;
+        return this.tagRepository.findAll();
     }
 
     @Override

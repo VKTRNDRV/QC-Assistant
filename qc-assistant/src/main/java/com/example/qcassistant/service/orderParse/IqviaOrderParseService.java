@@ -6,6 +6,7 @@ import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
 import com.example.qcassistant.domain.entity.study.IqviaStudy;
 import com.example.qcassistant.domain.enums.OrderType;
+import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.domain.item.accessory.Accessory;
 import com.example.qcassistant.domain.item.accessory.IqviaAccessory;
@@ -22,6 +23,7 @@ import com.example.qcassistant.domain.item.device.ios.iphone.IPhone;
 import com.example.qcassistant.domain.item.device.ios.iphone.IqviaIPhone;
 import com.example.qcassistant.domain.item.device.ios.iphone.MedidataIPhone;
 import com.example.qcassistant.domain.item.device.windows.IqviaWindowsDevice;
+import com.example.qcassistant.domain.item.device.windows.WindowsDevice;
 import com.example.qcassistant.domain.item.document.Document;
 import com.example.qcassistant.domain.item.sim.SerializedSIM;
 import com.example.qcassistant.domain.order.*;
@@ -106,9 +108,10 @@ public class IqviaOrderParseService extends ClinicalOrderParseService{
             matcher = pattern.matcher(items);
             while (matcher.find()){
                 String serial = matcher.group(IqviaWindowsDevice.SERIAL_GROUP_NAME);
-                devices.add(new AndroidPhone(
+                devices.add(new WindowsDevice(
                         deviceConst.getShortName(),
                         deviceConst.getConnectorType(),
+                        deviceConst.getShellType(),
                         serial));
             }
         }

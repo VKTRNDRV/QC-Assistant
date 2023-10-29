@@ -59,7 +59,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Name:</span>
-                        <input type="text" class="form-control"  id="name" readonly>
+                        <input type="text" class="form-control" id="name" th:value="*{name}" readonly>
                     </div>
 
                     <h6>Environment:</h6>
@@ -144,7 +144,7 @@
                 <div th:if="*{containsWindowsDevices()}" class="col-6 mb-3">
                     <div class="list-group">
                         <a href="#" class="list-group-item list-group-item-action list-group-item-dark"><strong>Windows notes:</strong></a>
-                        <div th:each="note : *{androidNotes}">
+                        <div th:each="note : *{windowsNotes}">
                             <a th:if="${note.isLowSeverity()}" th:text="${note.text}" href="#"
                                class="list-group-item list-group-item-action list-group-item-light">Test Low Severity</a>
                             <a th:if="${note.isMediumSeverity()}" th:text="${note.text}" href="#"

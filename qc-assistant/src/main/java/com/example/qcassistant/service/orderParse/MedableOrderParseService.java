@@ -100,7 +100,7 @@ public class MedableOrderParseService extends ClinicalOrderParseService{
             pattern = Pattern.compile(deviceConst.getRegexPattern());
             matcher = pattern.matcher(items);
             while (matcher.find()){
-                String serial = matcher.group(MedableIPad.SERIAL_GROUP_NAME);
+                String serial = matcher.group(MedableMedicalDevice.SERIAL_GROUP_NAME);
                 medicalDevices.add(new MedicalDevice(
                         deviceConst.getShortName(),
                         deviceConst.getConnectorType(),
