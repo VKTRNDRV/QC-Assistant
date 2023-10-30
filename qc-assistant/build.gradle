@@ -4,16 +4,16 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.3'
 }
 
-bootJar {
-    // Include your custom MANIFEST.MF file
-    from('src/main/resources') {
-        include 'META-INF/MANIFEST.MF'
-        into 'META-INF'
-    }
-
-    // Set the duplicatesStrategy to prioritize your custom MANIFEST.MF
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Exclude duplicates
-}
+//bootJar {
+//    // Include your custom MANIFEST.MF file
+//    from('src/main/resources') {
+//        include 'META-INF/MANIFEST.MF'
+//        into 'META-INF'
+//    }
+//
+//    // Set the duplicatesStrategy to prioritize your custom MANIFEST.MF
+//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Exclude duplicates
+//}
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
