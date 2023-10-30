@@ -39,7 +39,7 @@ public class LanguageService {
         }
 
         String[] langNames = OrderInputRegex.LANGUAGES_CSV
-                .split(", ");
+                .split(",");
         List<Language> languages = new ArrayList<>();
         for(String languageName : langNames){
             languages.add(new Language()
