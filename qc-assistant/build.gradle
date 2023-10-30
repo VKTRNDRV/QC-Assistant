@@ -15,8 +15,16 @@ plugins {
 //    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Exclude duplicates
 //}
 
-tasks.withType(Jar) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//tasks.withType(Jar) {
+//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.example.qcassistant.Main'
+        )
+    }
 }
 
 group = 'com.example'
