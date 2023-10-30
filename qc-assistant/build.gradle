@@ -16,7 +16,7 @@ plugins {
 //}
 
 tasks.withType(Jar) {
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 group = 'com.example'
