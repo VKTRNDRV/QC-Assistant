@@ -24,4 +24,7 @@ public class OrderInputRegex {
     public static final String STUDY_REGEX = "Study\\s*(?<studyName>.+)\\s*Site";
     public static final String STUDY_GROUP = "studyName";
     public static final String NOTE_STRING = "NOTE";
+
+    public static final String LANGUAGES_CSV =
+            "English,Spanish,French,German,Italian,Portuguese,Dutch,Sesotho,Xhosa,Zulu,Afrikaans,Hebrew,Chinese,Arabic,Malay,Thai,Korean,Slovenian,Slovakian,Ukrainian,Russian";
 }

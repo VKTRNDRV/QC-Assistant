@@ -2,12 +2,14 @@ package com.example.qcassistant.service;
 
 import com.example.qcassistant.domain.dto.LanguageDto;
 import com.example.qcassistant.domain.entity.destination.Language;
+import com.example.qcassistant.regex.OrderInputRegex;
 import com.example.qcassistant.repository.LanguageRepository;
 import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,11 +28,25 @@ public class LanguageService {
 
     @PostConstruct
     public void init(){
-        if(this.languageRepository.count() == 0){
-            Language eng = new Language();
-            eng.setName("English");
-            this.languageRepository.save(eng);
+//        if(this.languageRepository.count() == 0){
+//            Language eng = new Language();
+//            eng.setName("English");
+//            this.languageRepository.save(eng);
+//        }
+
+        if(this.languageRepository.count() > 0){
+            return;
         }
+
+        String[] langNames = OrderInputRegex.LANGUAGES_CSV
+                .split(", ");
+        List<Language> languages = new ArrayList<>();
+        for(String languageName : langNames){
+            languages.add(new Language()
+                    .setName(languageName));
+        }
+
+        this.languageRepository.saveAll(languages);
     }
 
     public List<LanguageDto> getAllLanguages(){

@@ -3,26 +3,46 @@ package com.example.qcassistant.service.app;
 import com.example.qcassistant.domain.dto.app.AppAddDto;
 import com.example.qcassistant.domain.dto.app.AppEditDto;
 import com.example.qcassistant.domain.entity.app.IqviaApp;
-import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.repository.app.IqviaAppRepository;
-import com.example.qcassistant.repository.app.MedidataAppRepository;
+import com.example.qcassistant.util.TrinaryBoolean;
+import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class IqviaAppService extends BaseAppService{
 
     private IqviaAppRepository appRepository;
 
+    private final String SCRIBE_APP_NAME = "Scribe";
+    private final String CONTENT_APP_NAME = "Content";
+
     @Autowired
     public IqviaAppService(ModelMapper modelMapper, IqviaAppRepository appRepository) {
         super(modelMapper);
         this.appRepository = appRepository;
+    }
+
+    @PostConstruct
+    public void init(){
+        if(this.appRepository.count() > 0){
+            return;
+        }
+
+        IqviaApp scribe = new IqviaApp();
+        scribe.setName(SCRIBE_APP_NAME)
+                .setRequiresCamera(TrinaryBoolean.TRUE);
+
+        IqviaApp content = new IqviaApp();
+        content.setName(CONTENT_APP_NAME)
+                .setRequiresCamera(TrinaryBoolean.FALSE);
+
+        this.appRepository.save(scribe);
+        this.appRepository.save(content);
     }
 
 //    @Override

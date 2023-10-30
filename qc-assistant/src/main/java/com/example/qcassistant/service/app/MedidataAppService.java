@@ -2,8 +2,11 @@ package com.example.qcassistant.service.app;
 
 import com.example.qcassistant.domain.dto.app.AppAddDto;
 import com.example.qcassistant.domain.dto.app.AppEditDto;
+import com.example.qcassistant.domain.entity.app.IqviaApp;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.repository.app.MedidataAppRepository;
+import com.example.qcassistant.util.TrinaryBoolean;
+import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,24 @@ public class MedidataAppService extends BaseAppService{
                               ModelMapper modelMapper) {
         super(modelMapper);
         this.appRepository = appRepository;
+    }
+
+    @PostConstruct
+    public void init(){
+        if(this.appRepository.count() > 0){
+            return;
+        }
+
+        MedidataApp patientCloud = new MedidataApp();
+        patientCloud.setName(MedidataApp.PATIENT_CLOUD)
+                .setRequiresCamera(TrinaryBoolean.TRUE);
+
+        MedidataApp content = new MedidataApp();
+        content.setName(MedidataApp.RAVE_ECONSENT)
+                .setRequiresCamera(TrinaryBoolean.FALSE);
+
+        this.appRepository.save(patientCloud);
+        this.appRepository.save(content);
     }
 
 
