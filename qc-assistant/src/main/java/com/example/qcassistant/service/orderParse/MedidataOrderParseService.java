@@ -212,7 +212,7 @@ public class MedidataOrderParseService extends ClinicalOrderParseService {
         Pattern pattern = Pattern.compile(MedidataOrderInputRegex
                 .CLIENT_VALIDATION_REGEX);
         Matcher matcher = pattern.matcher(
-                segmentedOrderInput.getBasicInfo());
+                segmentedOrderInput.getItemList());
 
         if(!matcher.find()){
             throw new OrderParsingException(

@@ -2,7 +2,7 @@ package com.example.qcassistant.regex;
 
 public class MedidataOrderInputRegex {
 
-    public static final String CLIENT_VALIDATION_REGEX = "Organization\\s*Medidata";
+    public static final String CLIENT_VALIDATION_REGEX = "Medidata";
 
 
     public static final String MULTI_USER = "Multi-User";
