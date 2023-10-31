@@ -57,6 +57,7 @@ public class IqviaOrderNotesDto extends OrderNotesDto{
     public <T extends BaseTag> void addTagNote(T tag) {
         if(!tag.getType().equals(TagType.WIN)){
             super.addTagNote(tag);
+            return;
         }
 
         Note note = new Note(tag.getSeverity(), tag.getText());

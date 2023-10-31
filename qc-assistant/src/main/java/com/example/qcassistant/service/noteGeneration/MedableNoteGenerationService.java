@@ -161,7 +161,12 @@ public class MedableNoteGenerationService extends NoteGenerationService{
 
     private Collection<Note> genStandardDeviceNotes(MedableOrder order) {
         Collection<Note> notes = new ArrayList<>();
-        notes.add(new Note(Severity.LOW, NoteText.OS_APPS_LANGS_MIGHT_DIFFER));
+        Note differentSitePatientLangs = new Note(Severity.LOW,
+                NoteText.OS_APPS_LANGS_MIGHT_DIFFER);
+        if(order.areMultipleLanguagesRequested()){
+            differentSitePatientLangs.setSeverity(Severity.MEDIUM);
+        }
+        notes.add(differentSitePatientLangs);
         notes.addAll(super.genLanguageNotes(order));
         notes.add(new Note(Severity.MEDIUM, NoteText.VERIFY_HUB_CREDENTIALS));
         if(!order.isEnglishRequested()){

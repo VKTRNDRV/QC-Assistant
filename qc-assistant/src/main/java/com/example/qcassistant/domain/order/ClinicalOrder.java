@@ -115,7 +115,7 @@ public abstract class ClinicalOrder {
     public boolean requestsUnusualLanguages() {
         if(destination.isUnknown()) return false;
         for(Language language : requestedLanguages){
-            if(!language.getName().equals(Language.ENGLISH)){
+            if(language.getName().equals(Language.ENGLISH)){
                 continue;
             }
 
