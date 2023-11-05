@@ -229,7 +229,7 @@ public class MedidataNoteGenerationService extends NoteGenerationService {
             if(environment.getIsLegacy().equals(TrinaryBoolean.TRUE)){
                 notes.add(new Note(Severity.MEDIUM,
                         NoteText.VERIFY_RETROFIT_TAG));
-                if(order.getSimType().equals(SimType.NONE)){
+                if(!order.getSimType().equals(SimType.NONE)){
                     notes.add(new Note(Severity.MEDIUM,
                             NoteText.VERIFY_LEGACY_APN_TAG));
                 }
