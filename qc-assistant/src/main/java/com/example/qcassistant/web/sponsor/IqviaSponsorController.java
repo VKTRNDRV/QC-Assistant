@@ -1,7 +1,7 @@
 package com.example.qcassistant.web.sponsor;
 
-import com.example.qcassistant.domain.dto.sponsor.sponsorAddDto;
-import com.example.qcassistant.domain.dto.sponsor.sponsorEditDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.service.sponsor.IqviaSponsorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,13 +29,13 @@ public class IqviaSponsorController {
     @GetMapping("/add")
     public String getAddSponsor(Model model){
         model.addAttribute("sponsorAddDto",
-                new sponsorAddDto());
+                new SponsorAddDto());
 
         return "iqvia-sponsors-add";
     }
 
     @PostMapping("/add")
-    public String addSponsor(@ModelAttribute sponsorAddDto sponsorAddDto,
+    public String addSponsor(@ModelAttribute SponsorAddDto sponsorAddDto,
                              Model model, RedirectAttributes redirectAttributes){
         try {
             this.sponsorService.addSponsor(sponsorAddDto);
@@ -58,7 +58,7 @@ public class IqviaSponsorController {
     }
 
     @PostMapping("/edit")
-    public String editSponsor(@ModelAttribute sponsorEditDto sponsorEditDto,
+    public String editSponsor(@ModelAttribute SponsorEditDto sponsorEditDto,
                               Model model, RedirectAttributes redirectAttributes){
         try {
             this.sponsorService.editSponsor(sponsorEditDto);

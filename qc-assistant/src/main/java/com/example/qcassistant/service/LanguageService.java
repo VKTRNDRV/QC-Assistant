@@ -28,12 +28,6 @@ public class LanguageService {
 
     @PostConstruct
     public void init(){
-//        if(this.languageRepository.count() == 0){
-//            Language eng = new Language();
-//            eng.setName("English");
-//            this.languageRepository.save(eng);
-//        }
-
         if(this.languageRepository.count() > 0){
             return;
         }
@@ -50,11 +44,10 @@ public class LanguageService {
     }
 
     public List<LanguageDto> getAllLanguages(){
-        List<LanguageDto> languages = this.languageRepository
-                .findAll().stream()
+        List<LanguageDto> languages = getEntities().stream()
                 .map(l -> this.modelMapper.map(l, LanguageDto.class))
+                .sorted((l1, l2) -> l1.getName().compareTo(l2.getName()))
                 .collect(Collectors.toList());
-        languages.sort((l1, l2) -> l1.getName().compareTo(l2.getName()));
         return languages;
     }
 

@@ -1,14 +1,9 @@
 package com.example.qcassistant.service.sponsor;
 
-import com.example.qcassistant.domain.dto.sponsor.sponsorAddDto;
-import com.example.qcassistant.domain.dto.sponsor.sponsorDisplayDto;
-import com.example.qcassistant.domain.dto.sponsor.sponsorEditDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
-import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
-import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
-import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
-import com.example.qcassistant.repository.sponsor.IqviaSponsorRepository;
 import com.example.qcassistant.repository.sponsor.MedableSponsorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class MedableSponsorService extends BaseSponsorService{
@@ -30,7 +24,7 @@ public class MedableSponsorService extends BaseSponsorService{
     }
 
     @Override
-    public void addSponsor(sponsorAddDto sponsorAddDto) {
+    public void addSponsor(SponsorAddDto sponsorAddDto) {
         validateAddSponsor(sponsorAddDto);
         MedableSponsor sponsor = this.modelMapper.map(
                 sponsorAddDto, MedableSponsor.class);
@@ -38,7 +32,7 @@ public class MedableSponsorService extends BaseSponsorService{
     }
 
     @Override
-    public void editSponsor(sponsorEditDto sponsorEditDto) {
+    public void editSponsor(SponsorEditDto sponsorEditDto) {
         validateEditSponsor(sponsorEditDto);
         MedableSponsor sponsor = this.modelMapper.map(sponsorEditDto, MedableSponsor.class);
         this.sponsorRepository.save(sponsor);

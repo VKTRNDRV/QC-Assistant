@@ -1,6 +1,6 @@
 package com.example.qcassistant.domain.dto.sponsor;
 
-public class sponsorEditDto {
+public class SponsorEditDto {
 
     private Long id;
     private String name;
@@ -11,7 +11,7 @@ public class sponsorEditDto {
         return id;
     }
 
-    public sponsorEditDto setId(Long id) {
+    public SponsorEditDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -20,7 +20,7 @@ public class sponsorEditDto {
         return name;
     }
 
-    public sponsorEditDto setName(String name) {
+    public SponsorEditDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -29,7 +29,7 @@ public class sponsorEditDto {
         return areStudyNamesSimilar;
     }
 
-    public sponsorEditDto setAreStudyNamesSimilar(String areStudyNamesSimilar) {
+    public SponsorEditDto setAreStudyNamesSimilar(String areStudyNamesSimilar) {
         this.areStudyNamesSimilar = areStudyNamesSimilar;
         return this;
     }

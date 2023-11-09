@@ -1,7 +1,7 @@
 package com.example.qcassistant.service.sponsor;
 
-import com.example.qcassistant.domain.dto.sponsor.sponsorAddDto;
-import com.example.qcassistant.domain.dto.sponsor.sponsorEditDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.repository.sponsor.MedidataSponsorRepository;
@@ -41,7 +41,7 @@ public class MedidataSponsorService extends BaseSponsorService{
     }
 
     @Override
-    public void addSponsor(sponsorAddDto sponsorAddDto) {
+    public void addSponsor(SponsorAddDto sponsorAddDto) {
         validateAddSponsor(sponsorAddDto);
         MedidataSponsor sponsor = this.modelMapper.map(
                 sponsorAddDto, MedidataSponsor.class);
@@ -49,7 +49,7 @@ public class MedidataSponsorService extends BaseSponsorService{
     }
 
     @Override
-    public void editSponsor(sponsorEditDto sponsorEditDto) {
+    public void editSponsor(SponsorEditDto sponsorEditDto) {
         validateEditSponsor(sponsorEditDto);
         MedidataSponsor sponsor = this.modelMapper.map(sponsorEditDto, MedidataSponsor.class);
         this.sponsorRepository.save(sponsor);

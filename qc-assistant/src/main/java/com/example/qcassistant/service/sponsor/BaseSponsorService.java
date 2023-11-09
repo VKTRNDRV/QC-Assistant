@@ -1,10 +1,9 @@
 package com.example.qcassistant.service.sponsor;
 
-import com.example.qcassistant.domain.dto.sponsor.sponsorAddDto;
-import com.example.qcassistant.domain.dto.sponsor.sponsorDisplayDto;
-import com.example.qcassistant.domain.dto.sponsor.sponsorEditDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorDisplayDto;
+import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
-import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -32,29 +31,29 @@ public abstract class BaseSponsorService {
 
     public abstract <T extends BaseSponsor> List<T> getEntities();
 
-    public sponsorEditDto getSponsorEditById(Long id) {
+    public SponsorEditDto getSponsorEditById(Long id) {
         return this.modelMapper.map(
                 getSponsorRepository().findById(id)
                         .orElseThrow(),
-                sponsorEditDto.class);
+                SponsorEditDto.class);
     }
 
-    public List<sponsorDisplayDto> displayAllSponsors() {
+    public List<SponsorDisplayDto> displayAllSponsors() {
         return this.getEntities().stream()
                 .map(s -> this.modelMapper
-                        .map(s, sponsorDisplayDto.class))
+                        .map(s, SponsorDisplayDto.class))
                 .sorted((s1,s2) -> s1.getName().compareTo(s2.getName()))
                 .collect(Collectors.toList());
     }
 
-    protected void validateAddSponsor(sponsorAddDto sponsorAddDto) {
+    protected void validateAddSponsor(SponsorAddDto sponsorAddDto) {
         sponsorAddDto.trimStringFields();
         String name = sponsorAddDto.getName();
         validateNameNotBlank(name);
         validateUniqueName(name);
     }
 
-    protected void validateEditSponsor(sponsorEditDto sponsorEditDto) {
+    protected void validateEditSponsor(SponsorEditDto sponsorEditDto) {
         sponsorEditDto.trimStringFields();
         String name = sponsorEditDto.getName();
         this.validateNameNotBlank(name);
@@ -77,7 +76,7 @@ public abstract class BaseSponsorService {
 
     protected abstract <T extends BaseSponsor> CrudRepository<T, Long> getSponsorRepository();
 
-    public abstract void addSponsor(sponsorAddDto sponsorAddDto);
+    public abstract void addSponsor(SponsorAddDto sponsorAddDto);
 
-    public abstract void editSponsor(sponsorEditDto sponsorEditDto);
+    public abstract void editSponsor(SponsorEditDto sponsorEditDto);
 }
