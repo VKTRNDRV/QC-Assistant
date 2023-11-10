@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public abstract class BaseTagService {
 
-    private static final int MAX_NOTE_LENGTH = 254;
+    public static final int MAX_NOTE_LENGTH = 254;
     private static final String N_A = "N/A";
 
     protected ModelMapper modelMapper;

@@ -18,8 +18,8 @@ public class IqviaAppService extends BaseAppService{
 
     private IqviaAppRepository appRepository;
 
-    private final String SCRIBE_APP_NAME = "Scribe";
-    private final String CONTENT_APP_NAME = "Content";
+    public static final String SCRIBE_APP_NAME = "Scribe";
+    private static final String CONTENT_APP_NAME = "Content";
 
     @Autowired
     public IqviaAppService(ModelMapper modelMapper, IqviaAppRepository appRepository) {

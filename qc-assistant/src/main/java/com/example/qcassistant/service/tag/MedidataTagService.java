@@ -87,11 +87,6 @@ public class MedidataTagService extends BaseTagService{
         this.tagRepository.save(tag);
     }
 
-//    @Override
-//    public MedidataTag getTagById(Long id) {
-//        return null;
-//    }
-
     @Override
     public TagEditDto getTagEdit(Long id) {
         return super.mapToTagEditDto(this.tagRepository

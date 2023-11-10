@@ -25,7 +25,7 @@ public abstract class BaseAppService {
 
     protected void validateNameNotBlank(String name){
         if(name == null || name.trim().isEmpty()){
-            throw new RuntimeException("Name cannot be null");
+            throw new RuntimeException("Name cannot be blank");
         }
     }
 
@@ -64,7 +64,7 @@ public abstract class BaseAppService {
 
     protected void validateUniqueName(String name){
         if(this.findFirstByName(name).isPresent()){
-            throw new RuntimeException("App \"" + name + "\" already present");
+            throw new RuntimeException("App '" + name + "' already present");
         }
     }
 

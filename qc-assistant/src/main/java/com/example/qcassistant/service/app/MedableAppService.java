@@ -7,6 +7,8 @@ import com.example.qcassistant.domain.entity.app.MedableApp;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.repository.app.IqviaAppRepository;
 import com.example.qcassistant.repository.app.MedableAppRepository;
+import com.example.qcassistant.util.TrinaryBoolean;
+import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,25 @@ public class MedableAppService extends BaseAppService{
 
     private MedableAppRepository appRepository;
 
+    public static final String CONTENT_APP_NAME = "Content";
+
     @Autowired
     public MedableAppService(ModelMapper modelMapper, MedableAppRepository appRepository) {
         super(modelMapper);
         this.appRepository = appRepository;
+    }
+
+    @PostConstruct
+    public void init(){
+        if(this.appRepository.count() > 0){
+            return;
+        }
+
+        MedableApp content = new MedableApp();
+        content.setName(CONTENT_APP_NAME)
+                .setRequiresCamera(TrinaryBoolean.FALSE);
+
+        this.appRepository.save(content);
     }
 
 //    @Override
