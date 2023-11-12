@@ -1,9 +1,6 @@
-package com.example.qcassistant.unit.entities;
+package com.example.qcassistant.unit.entityServices;
 
 import com.example.qcassistant.domain.dto.LanguageDto;
-import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
-import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
-import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.repository.LanguageRepository;
 import com.example.qcassistant.service.LanguageService;
@@ -12,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest

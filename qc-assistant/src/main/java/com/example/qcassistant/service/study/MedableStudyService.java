@@ -1,20 +1,13 @@
 package com.example.qcassistant.service.study;
 
 import com.example.qcassistant.domain.dto.study.StudyDisplayDto;
-import com.example.qcassistant.domain.dto.study.add.IqviaStudyAddDto;
 import com.example.qcassistant.domain.dto.study.add.MedableStudyAddDto;
-import com.example.qcassistant.domain.dto.study.edit.IqviaStudyEditDto;
 import com.example.qcassistant.domain.dto.study.edit.MedableStudyEditDto;
-import com.example.qcassistant.domain.dto.study.info.IqviaStudyInfoDto;
 import com.example.qcassistant.domain.dto.study.info.MedableStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
-import com.example.qcassistant.domain.entity.app.IqviaApp;
 import com.example.qcassistant.domain.entity.app.MedableApp;
-import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
-import com.example.qcassistant.domain.entity.study.IqviaStudy;
 import com.example.qcassistant.domain.entity.study.MedableStudy;
-import com.example.qcassistant.domain.entity.study.environment.IqviaEnvironment;
 import com.example.qcassistant.domain.entity.study.environment.MedableEnvironment;
 import com.example.qcassistant.repository.app.MedableAppRepository;
 import com.example.qcassistant.repository.sponsor.MedableSponsorRepository;
@@ -29,7 +22,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class MedableStudyService extends BaseStudyService{
@@ -180,22 +172,24 @@ public class MedableStudyService extends BaseStudyService{
         return study;
     }
 
-    public List<StudyDisplayDto> displayAllStudies() {
-        return getEntities().stream()
-                .map(s -> new StudyDisplayDto()
-                        .setId(s.getId())
-                        .setSponsor(s.getSponsor().getName())
-                        .setName(s.getName()))
-                .sorted((s1,s2) -> {
-                    int result = s1.getSponsor().compareTo(s2.getSponsor());
-                    if(result == 0){
-                        result = s1.getName().compareTo(s2.getName());
-                    }
-                    return result;
-                })
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<StudyDisplayDto> displayAllStudies() {
+//        return getEntities().stream()
+//                .map(s -> new StudyDisplayDto()
+//                        .setId(s.getId())
+//                        .setSponsor(s.getSponsor().getName())
+//                        .setName(s.getName()))
+//                .sorted((s1,s2) -> {
+//                    int result = s1.getSponsor().compareTo(s2.getSponsor());
+//                    if(result == 0){
+//                        result = s1.getName().compareTo(s2.getName());
+//                    }
+//                    return result;
+//                })
+//                .collect(Collectors.toList());
+//    }
 
+    @Override
     public List<MedableStudy> getEntities(){
         return this.studyRepository.findAllByNameNot(BaseEntity.UNKNOWN);
     }
@@ -211,11 +205,13 @@ public class MedableStudyService extends BaseStudyService{
         return dto;
     }
 
+    @Override
     public MedableStudy getUnknownStudy() {
         return this.studyRepository.findFirstByName(
                 BaseEntity.UNKNOWN).get();
     }
 
+    @Override
     public List<StudyDisplayDto> getTagStudies() {
         return this.displayAllStudies();
     }

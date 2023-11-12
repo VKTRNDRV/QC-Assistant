@@ -181,25 +181,27 @@ public class IqviaStudyService extends BaseStudyService{
                 studyEditDto.getEnvironment().getPatientApps());
     }
 
+    @Override
     public List<IqviaStudy> getEntities() {
         return this.studyRepository.findAllByNameNot(BaseEntity.UNKNOWN);
     }
 
-    public List<StudyDisplayDto> displayAllStudies() {
-        return getEntities().stream()
-                .map(s -> new StudyDisplayDto()
-                        .setId(s.getId())
-                        .setName(s.getName())
-                        .setSponsor(s.getSponsor().getName()))
-                .sorted((s1,s2) -> {
-                    int result = s1.getSponsor().compareTo(s2.getSponsor());
-                    if(result == 0){
-                        result = s1.getName().compareTo(s2.getName());
-                    }
-                    return result;
-                })
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<StudyDisplayDto> displayAllStudies() {
+//        return getEntities().stream()
+//                .map(s -> new StudyDisplayDto()
+//                        .setId(s.getId())
+//                        .setName(s.getName())
+//                        .setSponsor(s.getSponsor().getName()))
+//                .sorted((s1,s2) -> {
+//                    int result = s1.getSponsor().compareTo(s2.getSponsor());
+//                    if(result == 0){
+//                        result = s1.getName().compareTo(s2.getName());
+//                    }
+//                    return result;
+//                })
+//                .collect(Collectors.toList());
+//    }
 
     public IqviaStudyInfoDto getStudyInfoById(Long id) {
         IqviaStudy study = this.studyRepository
@@ -212,12 +214,14 @@ public class IqviaStudyService extends BaseStudyService{
         return dto;
     }
 
+    @Override
     public IqviaStudy getUnknownStudy() {
         return this.studyRepository
                 .findFirstByName(BaseEntity.UNKNOWN)
                 .get();
     }
 
+    @Override
     public List<StudyDisplayDto> getTagStudies() {
         return this.displayAllStudies();
     }

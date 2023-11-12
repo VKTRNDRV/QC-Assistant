@@ -1,7 +1,5 @@
-package com.example.qcassistant.unit.entities.sponsor;
+package com.example.qcassistant.unit.entityServices.sponsor;
 
-import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
-import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorDisplayDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
@@ -14,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest

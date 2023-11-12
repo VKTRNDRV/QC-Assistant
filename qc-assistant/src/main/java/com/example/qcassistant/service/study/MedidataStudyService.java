@@ -166,24 +166,8 @@ public class MedidataStudyService extends BaseStudyService{
 
     private void validateUniqueName(String name){
         if(this.studyRepository.findFirstByName(name).isPresent()){
-            throw new RuntimeException("Study \"" + name + "\" already present");
+            throw new RuntimeException("Study '" + name + "' already present");
         }
-    }
-
-    public List<StudyDisplayDto> displayAllStudies() {
-        return this.getEntities().stream()
-                .map(s -> new StudyDisplayDto()
-                        .setId(s.getId())
-                        .setName(s.getName())
-                        .setSponsor(s.getSponsor().getName()))
-                .sorted((s1,s2) -> {
-                    int result = s1.getSponsor().compareTo(s2.getSponsor());
-                    if(result == 0){
-                        result = s1.getName().compareTo(s2.getName());
-                    }
-                    return result;
-                })
-                .collect(Collectors.toList());
     }
 
     public MedidataStudyEditDto getStudyEditById(Long id) {
@@ -195,11 +179,13 @@ public class MedidataStudyService extends BaseStudyService{
         return editDto;
     }
 
+    @Override
     public List<MedidataStudy> getEntities() {
         return this.studyRepository
                 .findAllByNameNot(BaseEntity.UNKNOWN);
     }
 
+    @Override
     public MedidataStudy getUnknownStudy() {
         return this.studyRepository
                 .findFirstByName(BaseEntity.UNKNOWN)
@@ -217,6 +203,7 @@ public class MedidataStudyService extends BaseStudyService{
         return dto;
     }
 
+    @Override
     public List<StudyDisplayDto> getTagStudies() {
         return this.displayAllStudies();
     }

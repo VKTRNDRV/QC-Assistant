@@ -1,10 +1,14 @@
 package com.example.qcassistant.service.study;
 
+import com.example.qcassistant.domain.dto.study.StudyDisplayDto;
+import com.example.qcassistant.domain.entity.study.BaseStudy;
+import com.example.qcassistant.domain.entity.study.MedableStudy;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public abstract class BaseStudyService {
@@ -31,4 +35,25 @@ public abstract class BaseStudyService {
         }
     }
 
+    public List<StudyDisplayDto> displayAllStudies() {
+        return this.getEntities().stream()
+                .map(s -> new StudyDisplayDto()
+                        .setId(s.getId())
+                        .setName(s.getName())
+                        .setSponsor(s.getSponsor().getName()))
+                .sorted((s1,s2) -> {
+                    int result = s1.getSponsor().compareTo(s2.getSponsor());
+                    if(result == 0){
+                        result = s1.getName().compareTo(s2.getName());
+                    }
+                    return result;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public abstract <T extends BaseStudy> List<T> getEntities();
+
+    public abstract <T extends BaseStudy> T getUnknownStudy();
+
+    public abstract List<StudyDisplayDto> getTagStudies();
 }

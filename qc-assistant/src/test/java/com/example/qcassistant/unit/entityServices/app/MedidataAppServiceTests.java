@@ -1,12 +1,8 @@
-package com.example.qcassistant.unit.entities.app;
+package com.example.qcassistant.unit.entityServices.app;
 
 import com.example.qcassistant.domain.dto.app.AppAddDto;
 import com.example.qcassistant.domain.dto.app.AppEditDto;
-import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
-import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
-import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
-import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.repository.app.MedidataAppRepository;
 import com.example.qcassistant.service.app.MedidataAppService;
 import org.junit.jupiter.api.Assertions;

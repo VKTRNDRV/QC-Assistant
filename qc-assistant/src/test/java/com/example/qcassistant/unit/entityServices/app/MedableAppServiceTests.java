@@ -1,13 +1,11 @@
-package com.example.qcassistant.unit.entities.app;
+package com.example.qcassistant.unit.entityServices.app;
 
 import com.example.qcassistant.domain.dto.app.AppAddDto;
 import com.example.qcassistant.domain.dto.app.AppEditDto;
-import com.example.qcassistant.domain.entity.app.IqviaApp;
+import com.example.qcassistant.domain.entity.app.MedableApp;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
-import com.example.qcassistant.repository.app.IqviaAppRepository;
-import com.example.qcassistant.repository.app.MedidataAppRepository;
-import com.example.qcassistant.service.app.IqviaAppService;
-import com.example.qcassistant.service.app.MedidataAppService;
+import com.example.qcassistant.repository.app.MedableAppRepository;
+import com.example.qcassistant.service.app.MedableAppService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +14,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-public class IqviaAppServiceTests {
+public class MedableAppServiceTests {
 
-    private IqviaAppService appService;
+    private MedableAppService appService;
 
-    private IqviaAppRepository appRepository;
+    private MedableAppRepository appRepository;
 
     @Autowired
-    public IqviaAppServiceTests(IqviaAppService appService,
-                                   IqviaAppRepository appRepository) {
+    public MedableAppServiceTests(MedableAppService appService,
+                                  MedableAppRepository appRepository) {
         this.appService = appService;
         this.appRepository = appRepository;
     }
@@ -71,14 +69,14 @@ public class IqviaAppServiceTests {
 
     @Test
     public void getEditAppById_ReturnsCorrectApp(){
-        IqviaApp scribe = this.appRepository
-                .findFirstByName(IqviaAppService.SCRIBE_APP_NAME)
+        MedableApp content = this.appRepository
+                .findFirstByName(MedableAppService.CONTENT_APP_NAME)
                 .get();
 
         AppEditDto fromService = this.appService
-                .getEditAppById(scribe.getId());
+                .getEditAppById(content.getId());
 
-        Assertions.assertEquals(scribe.getName(),
+        Assertions.assertEquals(content.getName(),
                 fromService.getName());
     }
 }

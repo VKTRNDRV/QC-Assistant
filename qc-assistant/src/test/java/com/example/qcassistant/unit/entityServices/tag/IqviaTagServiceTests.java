@@ -1,30 +1,17 @@
-package com.example.qcassistant.unit.entities.tag;
+package com.example.qcassistant.unit.entityServices.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
 import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
 import com.example.qcassistant.domain.dto.tag.TagEditDto;
-import com.example.qcassistant.domain.entity.tag.IqviaTag;
-import com.example.qcassistant.domain.entity.tag.MedidataTag;
-import com.example.qcassistant.domain.enums.OrderType;
-import com.example.qcassistant.domain.enums.Severity;
-import com.example.qcassistant.domain.enums.TagType;
-import com.example.qcassistant.domain.enums.item.OperatingSystem;
-import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.repository.tag.IqviaTagRepository;
-import com.example.qcassistant.repository.tag.MedidataTagRepository;
 import com.example.qcassistant.service.tag.BaseTagService;
 import com.example.qcassistant.service.tag.IqviaTagService;
-import com.example.qcassistant.service.tag.MedidataTagService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 public class IqviaTagServiceTests {

@@ -1,12 +1,12 @@
-package com.example.qcassistant.unit.entities.sponsor;
+package com.example.qcassistant.unit.entityServices.sponsor;
 
 import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorDisplayDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
-import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
-import com.example.qcassistant.repository.sponsor.MedableSponsorRepository;
-import com.example.qcassistant.service.sponsor.MedableSponsorService;
+import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
+import com.example.qcassistant.repository.sponsor.IqviaSponsorRepository;
+import com.example.qcassistant.service.sponsor.IqviaSponsorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,25 +15,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-public class MedableSponsorServiceTests {
+public class IqviaSponsorServiceTests {
 
-    private MedableSponsorService sponsorService;
+    private IqviaSponsorService sponsorService;
 
-    private MedableSponsorRepository sponsorRepository;
+    private IqviaSponsorRepository sponsorRepository;
 
     @Autowired
-    public MedableSponsorServiceTests(MedableSponsorService sponsorService,
-                                      MedableSponsorRepository sponsorRepository) {
+    public IqviaSponsorServiceTests(IqviaSponsorService sponsorService, IqviaSponsorRepository sponsorRepository) {
         this.sponsorService = sponsorService;
         this.sponsorRepository = sponsorRepository;
     }
 
     @Test
     public void getEntities_DoesNotReturnUNKNOWN(){
-        List<MedableSponsor> sponsors = this
+        List<IqviaSponsor> sponsors = this
                 .sponsorService.getEntities();
 
-        for(MedableSponsor sponsor : sponsors){
+        for(IqviaSponsor sponsor : sponsors){
             if(sponsor.getName().equals(BaseEntity.UNKNOWN)){
                 Assertions.fail("UNKNOWN sponsor found");
             }
@@ -54,7 +53,7 @@ public class MedableSponsorServiceTests {
 
     @Test
     public void getSponsorEditById_ReturnsCorrectSponsor(){
-        MedableSponsor sponsor = this.sponsorRepository
+        IqviaSponsor sponsor = this.sponsorRepository
                 .findFirstByName(BaseEntity.UNKNOWN).get();
 
         SponsorEditDto fromService = this.sponsorService

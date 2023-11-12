@@ -1,9 +1,8 @@
-package com.example.qcassistant.unit.entities.tag;
+package com.example.qcassistant.unit.entityServices.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
 import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
 import com.example.qcassistant.domain.dto.tag.TagEditDto;
-import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.repository.tag.MedidataTagRepository;
 import com.example.qcassistant.service.tag.BaseTagService;
 import com.example.qcassistant.service.tag.MedidataTagService;

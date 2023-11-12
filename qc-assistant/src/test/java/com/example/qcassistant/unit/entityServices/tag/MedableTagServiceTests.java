@@ -1,12 +1,10 @@
-package com.example.qcassistant.unit.entities.tag;
+package com.example.qcassistant.unit.entityServices.tag;
 
 import com.example.qcassistant.domain.dto.tag.TagAddDto;
 import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
 import com.example.qcassistant.domain.dto.tag.TagEditDto;
-import com.example.qcassistant.repository.tag.IqviaTagRepository;
 import com.example.qcassistant.repository.tag.MedableTagRepository;
 import com.example.qcassistant.service.tag.BaseTagService;
-import com.example.qcassistant.service.tag.IqviaTagService;
 import com.example.qcassistant.service.tag.MedableTagService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
