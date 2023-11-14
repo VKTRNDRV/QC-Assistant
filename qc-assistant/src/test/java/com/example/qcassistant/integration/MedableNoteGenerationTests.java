@@ -1,20 +1,20 @@
 package com.example.qcassistant.integration;
 
-import com.example.qcassistant.domain.dto.orderNotes.IqviaOrderNotesDto;
+import com.example.qcassistant.domain.dto.orderNotes.MedableOrderNotesDto;
 import com.example.qcassistant.domain.dto.raw.RawOrderInputDto;
 import com.example.qcassistant.domain.entity.destination.Destination;
-import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
-import com.example.qcassistant.domain.entity.study.IqviaStudy;
-import com.example.qcassistant.domain.entity.study.environment.IqviaEnvironment;
+import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
+import com.example.qcassistant.domain.entity.study.MedableStudy;
+import com.example.qcassistant.domain.entity.study.environment.MedableEnvironment;
 import com.example.qcassistant.domain.enums.item.PlugType;
 import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.domain.note.Note;
 import com.example.qcassistant.domain.note.noteText.NoteText;
-import com.example.qcassistant.domain.order.IqviaOrder;
-import com.example.qcassistant.service.noteGeneration.IqviaNoteGenerationService;
-import com.example.qcassistant.service.orderParse.IqviaOrderParseService;
-import com.example.qcassistant.service.study.IqviaStudyService;
-import com.example.qcassistant.unit.orderParse.IqviaTestOrderInput;
+import com.example.qcassistant.domain.order.MedableOrder;
+import com.example.qcassistant.service.noteGeneration.MedableNoteGenerationService;
+import com.example.qcassistant.service.orderParse.MedableOrderParseService;
+import com.example.qcassistant.service.study.MedableStudyService;
+import com.example.qcassistant.unit.orderParse.MedableTestOrderInput;
 import com.example.qcassistant.util.TrinaryBoolean;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,26 +28,24 @@ import java.util.Collection;
 import java.util.List;
 
 @SpringBootTest
-public class IqviaNoteGenerationTests {
+public class MedableNoteGenerationTests {
 
-    private IqviaOrderParseService orderParseService;
+    private MedableOrderParseService orderParseService;
 
-    private IqviaNoteGenerationService noteGenerationService;
+    private MedableNoteGenerationService noteGenerationService;
 
-    private IqviaStudyService studyService;
+    private MedableStudyService studyService;
 
     private static Long UNKNOWN_STUDY_ID;
 
     private static Destination SPECIAL_REQUIREMENTS_DESTINATION;
 
-    private static IqviaStudy SPECIAL_DOCS_STUDY;
-
-    private static IqviaStudy SPECIAL_ENV_STUDY;
+    private static MedableStudy SPECIAL_ENV_STUDY;
 
     @Autowired
-    public IqviaNoteGenerationTests(IqviaOrderParseService orderParseService,
-                                    IqviaNoteGenerationService noteGenerationService,
-                                    IqviaStudyService studyService) {
+    public MedableNoteGenerationTests(MedableOrderParseService orderParseService,
+                                      MedableNoteGenerationService noteGenerationService,
+                                      MedableStudyService studyService) {
         this.orderParseService = orderParseService;
         this.noteGenerationService = noteGenerationService;
         this.studyService = studyService;
@@ -64,60 +62,38 @@ public class IqviaNoteGenerationTests {
                 .setRequiresUnusedDevices(TrinaryBoolean.TRUE)
                 .setRequiresInvoice(TrinaryBoolean.TRUE);
 
-        IqviaSponsor placeholderSponsor = new IqviaSponsor();
+        MedableSponsor placeholderSponsor = new MedableSponsor();
         placeholderSponsor.setName("Placeholder Sponsor")
                 .setAreStudyNamesSimilar(TrinaryBoolean.TRUE);
 
-        IqviaEnvironment placeholderEnvironment = new IqviaEnvironment()
+        MedableEnvironment specialEnvironment = new MedableEnvironment()
                 .setSiteApps(new ArrayList<>())
-                .setPatientApps(new ArrayList<>());
-
-        placeholderEnvironment.setIsOsSeparated(TrinaryBoolean.FALSE)
-                .setIsDestinationSeparated(TrinaryBoolean.FALSE)
-                .setIsSitePatientSeparated(TrinaryBoolean.FALSE);
-
-        SPECIAL_DOCS_STUDY = new IqviaStudy()
-                .setSponsor(placeholderSponsor)
-                .setEnvironment(placeholderEnvironment)
-                .setContainsTranslatedLabels(TrinaryBoolean.TRUE)
-                .setContainsTranslatedDocs(TrinaryBoolean.TRUE)
-                .setContainsSepSitePatientLabels(TrinaryBoolean.TRUE)
-                .setIsGsgPlain(TrinaryBoolean.FALSE);
-        SPECIAL_DOCS_STUDY.setName("Special Docs Study").setId(UNKNOWN_STUDY_ID);
-
-        IqviaEnvironment specialEnvironment = new IqviaEnvironment()
-                .setSiteApps(new ArrayList<>())
-                .setPatientApps(new ArrayList<>());
-
+                .setPatientApps(new ArrayList<>())
+                .setContainsChinaGroup(TrinaryBoolean.TRUE);
         specialEnvironment.setIsOsSeparated(TrinaryBoolean.TRUE)
                 .setIsDestinationSeparated(TrinaryBoolean.TRUE)
                 .setIsSitePatientSeparated(TrinaryBoolean.TRUE);
 
-        SPECIAL_ENV_STUDY = new IqviaStudy()
+        SPECIAL_ENV_STUDY = new MedableStudy()
                 .setSponsor(placeholderSponsor)
-                .setEnvironment(specialEnvironment)
-                .setContainsTranslatedLabels(TrinaryBoolean.FALSE)
-                .setContainsTranslatedDocs(TrinaryBoolean.FALSE)
-                .setContainsSepSitePatientLabels(TrinaryBoolean.TRUE)
-                .setIsGsgPlain(TrinaryBoolean.FALSE);
+                .setEnvironment(specialEnvironment);
         SPECIAL_ENV_STUDY.setName("Special Env Study").setId(UNKNOWN_STUDY_ID);
     }
 
     @BeforeEach
     public void setStudyIDs(){
         UNKNOWN_STUDY_ID = this.studyService.getUnknownStudy().getId();
-        SPECIAL_DOCS_STUDY.setId(UNKNOWN_STUDY_ID);
         SPECIAL_ENV_STUDY.setId(UNKNOWN_STUDY_ID);
     }
 
     @Test
     public void testDestinationNoteGeneration(){
-        IqviaOrder order = this.orderParseService.parseOrder(new RawOrderInputDto()
-                .setRawText(IqviaTestOrderInput.IOS_DEVICES_ORDER));
+        MedableOrder order = this.orderParseService.parseOrder(new RawOrderInputDto()
+                .setRawText(MedableTestOrderInput.AFW_DEVICES_ORDER));
 
         order.setDestination(SPECIAL_REQUIREMENTS_DESTINATION);
 
-        IqviaOrderNotesDto notesFromService = this
+        MedableOrderNotesDto notesFromService = this
                 .noteGenerationService.generateNotes(order);
 
         List<String> expectedNotes = new ArrayList<>();
@@ -140,43 +116,18 @@ public class IqviaNoteGenerationTests {
     }
 
     @Test
-    public void testLabelDocsStudyNoteGeneration(){
-        IqviaOrder order = this.orderParseService.parseOrder(new RawOrderInputDto()
-                .setRawText(IqviaTestOrderInput.AFW_DEVICES_AND_MULTIPLE_DOC_COPIES_ORDER));
-
-        order.setStudy(SPECIAL_DOCS_STUDY);
-
-        IqviaOrderNotesDto notesFromService = this
-                .noteGenerationService.generateNotes(order);
-
-        List<String> expectedNotesTexts = new ArrayList<>();
-        expectedNotesTexts.add(NoteText.CONTAINS_TRANSLATED_LABELS);
-        expectedNotesTexts.add(NoteText.SITE_PATIENT_SEP_LABELS);
-        expectedNotesTexts.add(NoteText.VERIFY_STUDY_GSG);
-        expectedNotesTexts.add(NoteText.VERIFY_PHONE_GSG);
-        expectedNotesTexts.add(NoteText.MULTIPLE_COPIES_DOCS_REQ);
-
-
-        filterNotes(notesFromService.getShellCheckNotes(), expectedNotesTexts);
-        filterNotes(notesFromService.getDocumentationNotes(), expectedNotesTexts);
-        filterNotes(notesFromService.getAndroidNotes(), expectedNotesTexts);
-        filterNotes(notesFromService.getIosNotes(), expectedNotesTexts);
-
-        Assertions.assertEquals(0, expectedNotesTexts.size(),
-                String.join(", ", expectedNotesTexts));
-    }
-
-    @Test
-    public void testEnvStudyNoteGeneration(){
-        IqviaOrder order = this.orderParseService.parseOrder(new RawOrderInputDto()
-                .setRawText(IqviaTestOrderInput.IOS_DEVICES_ORDER   ));
+    public void testMedicalDevicesAndSpecialEnvironmentOrder(){
+        MedableOrder order = this.orderParseService.parseOrder(new RawOrderInputDto()
+                .setRawText(MedableTestOrderInput.EVERIONS_PLUS_ENGLISH_REQ_ORDER));
 
         order.setStudy(SPECIAL_ENV_STUDY);
 
-        IqviaOrderNotesDto notesFromService = this
+        MedableOrderNotesDto notesFromService = this
                 .noteGenerationService.generateNotes(order);
 
         List<String> expectedNotesTexts = new ArrayList<>();
+        expectedNotesTexts.add(NoteText.BUILD_DOCS_BY_HAND);
+        expectedNotesTexts.add(NoteText.MEDICAL_DVCS_TL_QC);
         expectedNotesTexts.add(NoteText.IS_OS_SEPARATED);
         expectedNotesTexts.add(NoteText.IS_SITE_PATIENT_SEPARATED);
         expectedNotesTexts.add(NoteText.IS_DESTINATION_SEPARATED);

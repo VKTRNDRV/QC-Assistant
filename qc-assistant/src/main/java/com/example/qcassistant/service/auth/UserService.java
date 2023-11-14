@@ -143,4 +143,16 @@ public class UserService {
         }
     }
 
+    public int getCountOfAdmins() {
+        return this.userRepository.findAllByRolesContaining(
+                roleRepository.findRoleEntityByRole(RoleEnum.ADMINISTRATOR).get())
+                .size();
+    }
+
+    public String getLastAdminUsername() {
+        return this.userRepository.findAllByRolesContaining(roleRepository
+                .findRoleEntityByRole(RoleEnum.ADMINISTRATOR).get())
+                .get(0)
+                .getUsername();
+    }
 }

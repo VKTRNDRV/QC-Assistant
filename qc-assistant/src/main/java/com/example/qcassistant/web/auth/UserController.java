@@ -35,9 +35,8 @@ public class UserController {
         return "users-edit";
     }
 
-    @PostMapping("/users/{id}")
-    public String editUserRoles(@PathVariable Long id,
-                                UserRoleEditDto userRoleEditDto,
+    @PostMapping("/users/edit")
+    public String editUserRoles(UserRoleEditDto userRoleEditDto,
                                 RedirectAttributes redirectAttributes){
         this.userService.editUserRoles(userRoleEditDto);
 

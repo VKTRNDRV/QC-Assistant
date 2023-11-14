@@ -39,7 +39,7 @@ public class IqviaAppServiceTests {
     @Test
     public void testAddAppWithExistingName() {
         AppAddDto appAddDto = new AppAddDto()
-                .setName(MedidataApp.PATIENT_CLOUD);
+                .setName(IqviaAppService.SCRIBE_APP_NAME);
 
 
         Assertions.assertThrows(RuntimeException.class, () ->

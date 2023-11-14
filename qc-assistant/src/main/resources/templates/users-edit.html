@@ -28,7 +28,7 @@
 <!--</nav>-->
 
 <div class="container" style="max-width: 500px; padding-top: 100px;">
-    <form th:method="POST" th:action="@{'/users/' + ${user.id}}">
+    <form th:method="POST" th:action="@{'/users/edit'}">
         <div class="input-group mb-3">
             <span class="input-group-text">Username</span>
             <input type="text" class="form-control" th:value="${user.username}" name="username" readonly>

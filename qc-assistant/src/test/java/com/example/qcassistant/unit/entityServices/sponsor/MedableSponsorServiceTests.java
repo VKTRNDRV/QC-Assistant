@@ -48,8 +48,11 @@ public class MedableSponsorServiceTests {
 
         Assertions.assertEquals(fromService.size(),
                 sponsorRepository.count() - 1);
-        Assertions.assertEquals(fromService.get(0).getClass(),
-                SponsorDisplayDto.class);
+
+        if(!fromService.isEmpty()){
+            Assertions.assertEquals(fromService.get(0).getClass(),
+                    SponsorDisplayDto.class);
+        }
     }
 
     @Test

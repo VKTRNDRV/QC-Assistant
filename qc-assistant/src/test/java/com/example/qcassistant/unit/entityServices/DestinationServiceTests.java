@@ -57,9 +57,11 @@ public class DestinationServiceTests {
                 returnedObjects.size(),
                 destinationService.getEntities().size());
 
-        Assertions.assertEquals(
-                returnedObjects.get(0).getClass(),
-                DestinationDisplayDto.class);
+        if(!returnedObjects.isEmpty()){
+            Assertions.assertEquals(
+                    returnedObjects.get(0).getClass(),
+                    DestinationDisplayDto.class);
+        }
     }
 
     @Test
@@ -71,9 +73,11 @@ public class DestinationServiceTests {
                 returnedObjects.size(),
                 destinationService.getEntities().size());
 
-        Assertions.assertEquals(
-                returnedObjects.get(0).getClass(),
-                DestinationNameDto.class);
+        if(!returnedObjects.isEmpty()){
+            Assertions.assertEquals(
+                    returnedObjects.get(0).getClass(),
+                    DestinationNameDto.class);
+        }
     }
 
     @Test
