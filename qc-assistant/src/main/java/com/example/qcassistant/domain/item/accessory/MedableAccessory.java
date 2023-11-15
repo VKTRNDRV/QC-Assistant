@@ -4,8 +4,6 @@ public enum MedableAccessory {
 
     MOTOROLA_HEADPHONES("Medable Motorola Headphones", "Motorola Headphones"),
     SCREEN_PROTECTOR("Screen Protector", "Screen Protector"),
-
-    // TODO: add arm bands
     ;
 
     private String regexPattern;

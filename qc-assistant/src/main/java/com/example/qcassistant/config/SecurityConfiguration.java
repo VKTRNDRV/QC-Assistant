@@ -69,7 +69,9 @@ public class SecurityConfiguration {
                 )
                 .securityContext(security -> security
                         .securityContextRepository(securityContextRepository())
-                );
+                )
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedPage("/access-denied"));
 
         return httpSecurity.build();
     }

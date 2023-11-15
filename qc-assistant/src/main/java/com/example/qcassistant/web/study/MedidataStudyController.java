@@ -72,10 +72,7 @@ public class MedidataStudyController {
         model.addAttribute("studyEditDto", this.studyService.getStudyEditById(id));
         return "medidata-studies-edit";
     }
-
-
-    //TODO: change to @PutMapping
-
+    
     @PostMapping("/edit")
     public String editStudy(@ModelAttribute MedidataStudyEditDto studyEditDto,
                             Model model, RedirectAttributes redirectAttributes){
