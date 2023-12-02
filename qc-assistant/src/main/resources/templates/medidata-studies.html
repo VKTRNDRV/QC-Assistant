@@ -150,6 +150,7 @@
                         if (!response.ok) {
                             throw new Error("Error fetching Study data");
                         }
+                        
                         return response.json();
                     })
                     .then(function (data) {
