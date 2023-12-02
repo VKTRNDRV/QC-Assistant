@@ -133,7 +133,7 @@
             link.addEventListener("click", function (e) {
                 e.preventDefault();
 
-                var studyId = link.dataset.id;
+                var studyId = link.getAttribute("data-id");
 
                 fetch("/iqvia/studies/info/" + studyId)
                     .then(function (response) {

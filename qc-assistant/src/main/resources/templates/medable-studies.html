@@ -120,7 +120,7 @@
             link.addEventListener("click", function (e) {
                 e.preventDefault();
 
-                var studyId = this.dataset.id;
+                var studyId = link.getAttribute("data-id");
 
                 // Make a fetch request to the server with the studyId
                 fetch("/medable/studies/info/" + studyId)
