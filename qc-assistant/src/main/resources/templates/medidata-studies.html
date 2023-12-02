@@ -136,33 +136,40 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $(".view-details-link").on("click", function (e) {
-            e.preventDefault();
+    document.addEventListener("DOMContentLoaded", function () {
+        var viewDetailsLinks = document.querySelectorAll(".view-details-link");
 
-            var studyId = $(this).data("id");
-            // Make a REST request to the server with the studyId
-            $.ajax({
-                type: "GET",
-                url: "/medidata/studies/info/" + studyId, // Replace with your REST endpoint
-                success: function (data) {
-                    $("#name").val(data.name);
-                    $("#folderURL").val(data.folderURL);
-                    $("#isLegacy").val(data.environment.isLegacy);
-                    $("#isSitePatientSeparated").val(data.environment.isSitePatientSeparated);
-                    $("#isDestinationSeparated").val(data.environment.isDestinationSeparated);
-                    $("#isOsSeparated").val(data.environment.isOsSeparated);
-                    $("#siteApps").val(data.environment.siteApps);
-                    $("#patientApps").val(data.environment.patientApps);
-                    $("#containsTranslatedLabels").val(data.containsTranslatedLabels);
-                    $("#containsTranslatedDocs").val(data.containsTranslatedDocs);
-                    $("#containsEditableWelcomeLetter").val(data.containsEditableWelcomeLetter);
-                    $("#isPatientDeviceIpad").val(data.isPatientDeviceIpad);
-                    $("#includesHeadphonesStyluses").val(data.includesHeadphonesStyluses);
-                },
-                error: function (error) {
-                    alert("Error fetching Study data");
-                }
+        viewDetailsLinks.forEach(function (link) {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                var studyId = link.getAttribute("data-id");
+
+                fetch("/medidata/studies/info/" + studyId)
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error("Error fetching Study data");
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        document.getElementById("name").value = data.name;
+                        document.getElementById("folderURL").value = data.folderURL;
+                        document.getElementById("isLegacy").value = data.environment.isLegacy;
+                        document.getElementById("isSitePatientSeparated").value = data.environment.isSitePatientSeparated;
+                        document.getElementById("isDestinationSeparated").value = data.environment.isDestinationSeparated;
+                        document.getElementById("isOsSeparated").value = data.environment.isOsSeparated;
+                        document.getElementById("siteApps").value = data.environment.siteApps;
+                        document.getElementById("patientApps").value = data.environment.patientApps;
+                        document.getElementById("containsTranslatedLabels").value = data.containsTranslatedLabels;
+                        document.getElementById("containsTranslatedDocs").value = data.containsTranslatedDocs;
+                        document.getElementById("containsEditableWelcomeLetter").value = data.containsEditableWelcomeLetter;
+                        document.getElementById("isPatientDeviceIpad").value = data.isPatientDeviceIpad;
+                        document.getElementById("includesHeadphonesStyluses").value = data.includesHeadphonesStyluses;
+                    })
+                    .catch(function (error) {
+                        alert(error.message);
+                    });
             });
         });
     });

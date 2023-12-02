@@ -115,28 +115,34 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $(".view-details-link").on("click", function (e) {
-            e.preventDefault();
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".view-details-link").forEach(function (link) {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
 
-            var studyId = $(this).data("id");
-            // Make a REST request to the server with the studyId
-            $.ajax({
-                type: "GET",
-                url: "/medable/studies/info/" + studyId, // Replace with your REST endpoint
-                success: function (data) {
-                    $("#name").val(data.name);
-                    $("#folderURL").val(data.folderURL);
-                    $("#isSitePatientSeparated").val(data.environment.isSitePatientSeparated);
-                    $("#isDestinationSeparated").val(data.environment.isDestinationSeparated);
-                    $("#isOsSeparated").val(data.environment.isOsSeparated);
-                    $("#containsChinaGroup").val(data.environment.containsChinaGroup);
-                    $("#siteApps").val(data.environment.siteApps);
-                    $("#patientApps").val(data.environment.patientApps);
-                },
-                error: function (error) {
-                    alert("Error fetching Study data");
-                }
+                var studyId = this.dataset.id;
+
+                // Make a fetch request to the server with the studyId
+                fetch("/medable/studies/info/" + studyId)
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error("Error fetching Study data");
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        document.getElementById("name").value = data.name;
+                        document.getElementById("folderURL").value = data.folderURL;
+                        document.getElementById("isSitePatientSeparated").value = data.environment.isSitePatientSeparated;
+                        document.getElementById("isDestinationSeparated").value = data.environment.isDestinationSeparated;
+                        document.getElementById("isOsSeparated").value = data.environment.isOsSeparated;
+                        document.getElementById("containsChinaGroup").value = data.environment.containsChinaGroup;
+                        document.getElementById("siteApps").value = data.environment.siteApps;
+                        document.getElementById("patientApps").value = data.environment.patientApps;
+                    })
+                    .catch(function (error) {
+                        alert(error.message);
+                    });
             });
         });
     });

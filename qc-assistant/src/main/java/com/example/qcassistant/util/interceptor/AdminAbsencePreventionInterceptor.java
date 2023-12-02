@@ -30,12 +30,9 @@ public class AdminAbsencePreventionInterceptor implements HandlerInterceptor {
                              HttpServletResponse response, Object handler) throws Exception {
 
         if(!request.getMethod().equals(TARGET_METHOD) ||
-                !request.getRequestURI().equals(TARGET_URI)){
+                !request.getRequestURI().equals(TARGET_URI) ||
+                userService.getCountOfAdmins() > 1){
 
-            return true;
-        }
-
-        if(userService.getCountOfAdmins() > 1){
             return true;
         }
 
