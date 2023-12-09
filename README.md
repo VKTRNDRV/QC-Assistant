@@ -3,7 +3,7 @@
 ## Overview
 
 The 'QC Assistant' application is a tool for assisting the task of performing Quality Control (QC) on configured orders that are at stage 'QC'. 
-It automatically generates and displays to the user a selection of 'notes' on details/tasks that need to be verified/performed as per the relevant business logic considering the provided order's specifics. 
+It automatically generates and displays to the user a selection of 'notes' on details/tasks that need to be verified/performed as per the business logic relevant to the order provided. 
 This saves the user time, ensures any special cases covered by the application's logic are not missed/overlooked, and allows them to focus more on troubleshooting technical issues, _ad hoc_ cases and other points not covered by the 'QC Assistant'.
 
 ## Functionalities
