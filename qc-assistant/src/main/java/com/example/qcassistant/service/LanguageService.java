@@ -1,6 +1,6 @@
 package com.example.qcassistant.service;
 
-import com.example.qcassistant.domain.dto.LanguageDto;
+import com.example.qcassistant.domain.dto.language.LanguageDto;
 import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.regex.OrderInputRegex;
 import com.example.qcassistant.repository.LanguageRepository;

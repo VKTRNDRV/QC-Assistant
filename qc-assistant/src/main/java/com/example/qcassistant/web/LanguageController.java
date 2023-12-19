@@ -1,6 +1,6 @@
 package com.example.qcassistant.web;
 
-import com.example.qcassistant.domain.dto.LanguageDto;
+import com.example.qcassistant.domain.dto.language.LanguageDto;
 import com.example.qcassistant.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                 .requestMatchers(
                         "/languages/edit/**", "/languages/add/**",
                         "/destinations/edit/**", "/destinations/add/**",
+                        "/destinations/import",
 
                         "/medidata/studies/add/**", "/medidata/studies/edit/**",
                         "/medidata/sponsors/add/**", "/medidata/sponsors/edit/**",

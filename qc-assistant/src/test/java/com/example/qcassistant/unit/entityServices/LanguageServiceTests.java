@@ -1,6 +1,6 @@
 package com.example.qcassistant.unit.entityServices;
 
-import com.example.qcassistant.domain.dto.LanguageDto;
+import com.example.qcassistant.domain.dto.language.LanguageDto;
 import com.example.qcassistant.domain.entity.destination.Language;
 import com.example.qcassistant.repository.LanguageRepository;
 import com.example.qcassistant.service.LanguageService;

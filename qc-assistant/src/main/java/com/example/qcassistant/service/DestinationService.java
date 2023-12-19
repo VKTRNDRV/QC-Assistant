@@ -1,9 +1,7 @@
 package com.example.qcassistant.service;
 
-import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
-import com.example.qcassistant.domain.dto.destination.DestinationDisplayDto;
-import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
-import com.example.qcassistant.domain.dto.destination.DestinationNameDto;
+import com.example.qcassistant.domain.dto.destination.*;
+import com.example.qcassistant.domain.dto.language.LanguageTransferDTO;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
@@ -12,12 +10,14 @@ import com.example.qcassistant.domain.enums.item.SimType;
 import com.example.qcassistant.repository.DestinationRepository;
 import com.example.qcassistant.repository.LanguageRepository;
 import com.example.qcassistant.util.TrinaryBoolean;
+import com.google.gson.Gson;
 import jakarta.annotation.PostConstruct;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +31,57 @@ public class DestinationService {
 
     private ModelMapper modelMapper;
 
+    private Gson gson;
+
     @Autowired
-    public DestinationService(DestinationRepository destinationRepository, LanguageRepository languageRepository, ModelMapper modelMapper) {
+    public DestinationService(DestinationRepository destinationRepository, LanguageRepository languageRepository, ModelMapper modelMapper, Gson gson) {
         this.destinationRepository = destinationRepository;
         this.languageRepository = languageRepository;
         this.modelMapper = modelMapper;
+        this.gson = gson;
     }
 
     @PostConstruct
     public void initUnknown(){
         if(this.destinationRepository.findFirstByName(
-                BaseEntity.UNKNOWN).isEmpty()){
-
-            Destination destination = new Destination()
-                    .setName(BaseEntity.UNKNOWN)
-                    .setLanguages(new ArrayList<>())
-                    .setSimType(SimType.NONE)
-                    .setPlugType(PlugType.C)
-                    .setRequiresInvoice(TrinaryBoolean.UNKNOWN)
-                    .setRequiresSpecialModels(TrinaryBoolean.UNKNOWN)
-                    .setRequiresUnusedDevices(TrinaryBoolean.UNKNOWN);
-
-            this.destinationRepository.save(destination);
+                BaseEntity.UNKNOWN).isPresent()){
+            return;
         }
+
+        Destination destination = new Destination()
+                .setName(BaseEntity.UNKNOWN)
+                .setLanguages(new ArrayList<>())
+                .setSimType(SimType.NONE)
+                .setPlugType(PlugType.C)
+                .setRequiresInvoice(TrinaryBoolean.UNKNOWN)
+                .setRequiresSpecialModels(TrinaryBoolean.UNKNOWN)
+                .setRequiresUnusedDevices(TrinaryBoolean.UNKNOWN);
+
+        this.destinationRepository.save(destination);
+    }
+
+    public DestinationLangsTransferDTO exportDestinationsAndLangs(){
+        return new DestinationLangsTransferDTO()
+                .setDestinations(this.gson.toJson(exportDestinations()))
+                .setLanguages(this.gson.toJson(exportLanguages()));
+    }
+
+    public List<DestinationTransferDTO> exportDestinations(){
+        List<DestinationTransferDTO> destinations = this.getEntities()
+                .stream()
+                .map(d -> this.modelMapper.map(d, DestinationTransferDTO.class))
+                .collect(Collectors.toList());
+
+        return destinations;
+    }
+
+    public List<LanguageTransferDTO> exportLanguages(){
+        List<LanguageTransferDTO> languages = this.languageRepository.findAll()
+                .stream()
+                .map(l -> this.modelMapper.map(l, LanguageTransferDTO.class))
+                .collect(Collectors.toList());
+
+        return languages;
     }
 
     public void addDestination(DestinationAddDto destinationAddDto) {
@@ -159,5 +187,58 @@ public class DestinationService {
                 .collect(Collectors.toList());
 
         return destinationDTOs;
+    }
+
+    public void importDestinationsAndLangs(DestinationLangsTransferDTO importDTO) {
+        String langsJson = importDTO.getLanguages();
+        String destinationsJson = importDTO.getDestinations();
+        if(!langsJson.trim().isEmpty()){
+            this.importLanguages(importDTO.getLanguages());
+        }
+
+        if(!destinationsJson.trim().isEmpty()){
+            this.importDestinations(importDTO.getDestinations());
+        }
+    }
+
+    private void importLanguages(String json) {
+        LanguageTransferDTO[] transferDTOs = this.gson
+                .fromJson(json, LanguageTransferDTO[].class);
+
+        for(LanguageTransferDTO transferDTO : transferDTOs){
+            if(this.languageRepository
+                    .findFirstByName(transferDTO.getName())
+                    .isPresent()){
+                continue;
+            }
+
+            Language language = this.modelMapper.map(transferDTO, Language.class);
+            this.languageRepository.save(language);
+        }
+    }
+
+    private void importDestinations(String json) {
+        DestinationTransferDTO[] importDTOs = this.gson
+                .fromJson(json, DestinationTransferDTO[].class);
+
+        for(DestinationTransferDTO importDTO : importDTOs){
+            if(importDTO.getLanguages().isEmpty() ||
+                    this.destinationRepository
+                    .findFirstByName(importDTO.getName())
+                    .isPresent()){
+                continue;
+            }
+
+            Destination destination = this.modelMapper
+                    .map(importDTO, Destination.class);
+
+            destination.setLanguages(this.getLanguagesByName(
+                    importDTO.getLanguages()
+                            .stream()
+                            .map(LanguageTransferDTO::getName)
+                            .collect(Collectors.toList())));
+
+            this.destinationRepository.save(destination);
+        }
     }
 }

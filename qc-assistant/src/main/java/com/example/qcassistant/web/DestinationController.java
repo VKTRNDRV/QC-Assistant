@@ -2,6 +2,7 @@ package com.example.qcassistant.web;
 
 import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
 import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
+import com.example.qcassistant.domain.dto.destination.DestinationLangsTransferDTO;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.LanguageService;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,7 @@ public class DestinationController {
             model.addAttribute("allLanguages", this.languageService.getAllLanguages());
             model.addAttribute("error", true);
             model.addAttribute("message", exc.getMessage());
+            model.addAttribute("destinationAddDto", destinationAddDto);
             return "destinations-add";
         }
 
@@ -76,6 +78,42 @@ public class DestinationController {
                     this.languageService.getAllLanguages());
             model.addAttribute("error", true);
             model.addAttribute("message", exc.getMessage());
+            model.addAttribute("destinationUpdated", editDto);
+            return "destination-edit";
+        }
+
+        redirectAttributes.addFlashAttribute("success", true);
+        return "redirect:/";
+    }
+
+    @GetMapping("/export")
+    public String exportDestinationsAndLangs(Model model){
+        model.addAttribute("json", this
+                .destinationService
+                .exportDestinationsAndLangs());
+
+        return "destinations-export";
+    }
+
+    @GetMapping("/import")
+    public String getImportDestinationsAndLangs(Model model){
+        model.addAttribute("json", new DestinationLangsTransferDTO());
+
+        return "destinations-import";
+    }
+
+    @PostMapping("/import")
+    public String importDestinationsAndLangs(@ModelAttribute DestinationLangsTransferDTO importDTO,
+                                             Model model,
+                                             RedirectAttributes redirectAttributes){
+
+        try {
+            this.destinationService.importDestinationsAndLangs(importDTO);
+        }catch (RuntimeException exc){
+            model.addAttribute("json", importDTO);
+            model.addAttribute("error", true);
+            model.addAttribute("message", exc.getMessage());
+            return "destinations-import";
         }
 
         redirectAttributes.addFlashAttribute("success", true);
