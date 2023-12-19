@@ -106,7 +106,6 @@ public class DestinationController {
     public String importDestinationsAndLangs(@ModelAttribute DestinationLangsTransferDTO importDTO,
                                              Model model,
                                              RedirectAttributes redirectAttributes){
-
         try {
             this.destinationService.importDestinationsAndLangs(importDTO);
         }catch (RuntimeException exc){
