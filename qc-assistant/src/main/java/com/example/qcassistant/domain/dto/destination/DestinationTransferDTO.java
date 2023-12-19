@@ -28,6 +28,7 @@ public class DestinationTransferDTO {
     private String requiresInvoice;
 
 
+    
     public String getName() {
         return name;
     }
