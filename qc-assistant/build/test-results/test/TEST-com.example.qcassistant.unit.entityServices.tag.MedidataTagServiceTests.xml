@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.qcassistant.unit.entityServices.tag.MedidataTagServiceTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-12-10T08:53:02" hostname="VKTRNDRV" time="0.052">
+  <properties/>
+  <testcase name="editTag_BlankTextThrowsException()" classname="com.example.qcassistant.unit.entityServices.tag.MedidataTagServiceTests" time="0.004"/>
+  <testcase name="addTag_TooLongTextThrowsException()" classname="com.example.qcassistant.unit.entityServices.tag.MedidataTagServiceTests" time="0.005"/>
+  <testcase name="addTag_BlankTextThrowsException()" classname="com.example.qcassistant.unit.entityServices.tag.MedidataTagServiceTests" time="0.01"/>
+  <testcase name="editTag_TooLongTextThrowsException()" classname="com.example.qcassistant.unit.entityServices.tag.MedidataTagServiceTests" time="0.003"/>
+  <testcase name="getDisplayTags_ReturnsCorrectCount()" classname="com.example.qcassistant.unit.entityServices.tag.MedidataTagServiceTests" time="0.023"/>
+  <system-out><![CDATA[2023-12-10T10:53:02.124+02:00  INFO 15696 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.qcassistant.unit.entityServices.tag.MedidataTagServiceTests]: MedidataTagServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-10T10:53:02.126+02:00  INFO 15696 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.unit.entityServices.tag.MedidataTagServiceTests
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.operating_system,
+        m1_0.order_type,
+        m1_0.severity,
+        m1_0.shell_type,
+        m1_0.text,
+        m1_0.type 
+    from
+        medidata_tags m1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        medidata_tags m1_0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

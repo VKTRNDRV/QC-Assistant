@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - MedableStudyServiceTests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>MedableStudyServiceTests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.qcassistant.unit.entityServices.study.html">com.example.qcassistant.unit.entityServices.study</a> &gt; MedableStudyServiceTests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">12</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.249s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">addStudy_BlankName()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addStudy_NoApps()</td>
+<td class="success">0.011s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">addStudy_UniqueName()</td>
+<td class="success">0.030s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">displayAllStudies_DoesNotReturnUnknownPlusCorrectCount()</td>
+<td class="success">0.035s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">editStudy_BlankName()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">editStudy_NoApps()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">editStudy_UniqueName()</td>
+<td class="success">0.008s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getEntities_DoesNotReturnUNKNOWN()</td>
+<td class="success">0.017s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getStudyEditById_ReturnsCorrectStudy()</td>
+<td class="success">0.048s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getStudyInfoById_ReturnsCorrectStudy()</td>
+<td class="success">0.030s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getTagStudies_DoesNotReturnUNKNOWN()</td>
+<td class="success">0.022s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getUnknownStudy_ReturnsUnknown()</td>
+<td class="success">0.023s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2023-12-10T10:53:01.339+02:00  INFO 15696 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests]: MedableStudyServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-10T10:53:01.342+02:00  INFO 15696 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        e1_0.id,
+        e1_0.contains_china_group,
+        e1_0.is_destination_separated,
+        e1_0.is_os_separated,
+        e1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera,
+        m1_0.folder_url,
+        m1_0.name,
+        s1_0.id,
+        s1_0.are_study_names_similar,
+        s1_0.name 
+    from
+        medable_studies m1_0 
+    left join
+        medable_environments e1_0 
+            on e1_0.id=m1_0.environment_id 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on e1_0.id=p1_0.environment_id 
+        left join
+            medable_sponsors s1_0 
+                on s1_0.id=m1_0.sponsor_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        count(*) 
+    from
+        medable_studies m1_0
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        e1_0.id,
+        e1_0.contains_china_group,
+        e1_0.is_destination_separated,
+        e1_0.is_os_separated,
+        e1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera,
+        m1_0.folder_url,
+        m1_0.name,
+        s1_0.id,
+        s1_0.are_study_names_similar,
+        s1_0.name 
+    from
+        medable_studies m1_0 
+    left join
+        medable_environments e1_0 
+            on e1_0.id=m1_0.environment_id 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on e1_0.id=p1_0.environment_id 
+        left join
+            medable_sponsors s1_0 
+                on s1_0.id=m1_0.sponsor_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.2.1</a> at Dec 10, 2023, 10:53:04 AM</p>
+</div>
+</div>
+</body>
+</html>

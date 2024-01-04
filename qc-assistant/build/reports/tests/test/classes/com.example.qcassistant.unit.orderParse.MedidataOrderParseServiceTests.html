@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - MedidataOrderParseServiceTests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>MedidataOrderParseServiceTests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.example.qcassistant.unit.orderParse.html">com.example.qcassistant.unit.orderParse</a> &gt; MedidataOrderParseServiceTests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">8</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.485s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testDetectAFWDevices()</td>
+<td class="success">0.060s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDetectDocuments()</td>
+<td class="success">0.090s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDetectHeadphonesAndStyluses()</td>
+<td class="success">0.089s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDetectIOSDevices()</td>
+<td class="success">0.051s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDetectLanguage()</td>
+<td class="success">0.081s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDetectOrderType()</td>
+<td class="success">0.058s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testDetectSimType()</td>
+<td class="success">0.051s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWrongClientThrowsException()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2023-12-10T10:53:03.144+02:00  INFO 15696 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.qcassistant.unit.orderParse.MedidataOrderParseServiceTests]: MedidataOrderParseServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-10T10:53:03.148+02:00  INFO 15696 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.unit.orderParse.MedidataOrderParseServiceTests
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name&lt;&gt;?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.2.1</a> at Dec 10, 2023, 10:53:04 AM</p>
+</div>
+</div>
+</body>
+</html>

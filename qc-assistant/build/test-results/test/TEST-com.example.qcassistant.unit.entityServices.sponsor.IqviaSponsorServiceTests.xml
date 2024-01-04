@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-12-10T08:53:00" hostname="VKTRNDRV" time="0.127">
+  <properties/>
+  <testcase name="testAddSponsorWithExistingName()" classname="com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests" time="0.012"/>
+  <testcase name="getSponsorEditById_ReturnsCorrectSponsor()" classname="com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests" time="0.036"/>
+  <testcase name="testEditSponsorWithBlankName()" classname="com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests" time="0.01"/>
+  <testcase name="getEntities_DoesNotReturnUNKNOWN()" classname="com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests" time="0.014"/>
+  <testcase name="testAddSponsorWithBlankName()" classname="com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests" time="0.013"/>
+  <testcase name="displayAllSponsors_ReturnsCorrectTypeAndCount()" classname="com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests" time="0.03"/>
+  <system-out><![CDATA[2023-12-10T10:53:00.572+02:00  INFO 15696 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests]: IqviaSponsorServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-10T10:53:00.591+02:00  INFO 15696 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.unit.entityServices.sponsor.IqviaSponsorServiceTests
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.name<>?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.name<>?
+Hibernate: 
+    select
+        count(*) 
+    from
+        iqvia_sponsors i1_0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

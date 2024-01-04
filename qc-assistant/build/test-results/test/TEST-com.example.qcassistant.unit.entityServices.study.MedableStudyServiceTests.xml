@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-12-10T08:53:01" hostname="VKTRNDRV" time="0.273">
+  <properties/>
+  <testcase name="editStudy_BlankName()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.005"/>
+  <testcase name="editStudy_NoApps()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.01"/>
+  <testcase name="editStudy_UniqueName()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.008"/>
+  <testcase name="getTagStudies_DoesNotReturnUNKNOWN()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.022"/>
+  <testcase name="addStudy_UniqueName()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.03"/>
+  <testcase name="getStudyEditById_ReturnsCorrectStudy()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.048"/>
+  <testcase name="displayAllStudies_DoesNotReturnUnknownPlusCorrectCount()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.035"/>
+  <testcase name="getEntities_DoesNotReturnUNKNOWN()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.017"/>
+  <testcase name="getUnknownStudy_ReturnsUnknown()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.023"/>
+  <testcase name="addStudy_NoApps()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.011"/>
+  <testcase name="getStudyInfoById_ReturnsCorrectStudy()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.03"/>
+  <testcase name="addStudy_BlankName()" classname="com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests" time="0.01"/>
+  <system-out><![CDATA[2023-12-10T10:53:01.339+02:00  INFO 15696 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests]: MedableStudyServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-10T10:53:01.342+02:00  INFO 15696 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.unit.entityServices.study.MedableStudyServiceTests
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name<>?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        e1_0.id,
+        e1_0.contains_china_group,
+        e1_0.is_destination_separated,
+        e1_0.is_os_separated,
+        e1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera,
+        m1_0.folder_url,
+        m1_0.name,
+        s1_0.id,
+        s1_0.are_study_names_similar,
+        s1_0.name 
+    from
+        medable_studies m1_0 
+    left join
+        medable_environments e1_0 
+            on e1_0.id=m1_0.environment_id 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on e1_0.id=p1_0.environment_id 
+        left join
+            medable_sponsors s1_0 
+                on s1_0.id=m1_0.sponsor_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name<>?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        count(*) 
+    from
+        medable_studies m1_0
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name<>?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        e1_0.id,
+        e1_0.contains_china_group,
+        e1_0.is_destination_separated,
+        e1_0.is_os_separated,
+        e1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera,
+        m1_0.folder_url,
+        m1_0.name,
+        s1_0.id,
+        s1_0.are_study_names_similar,
+        s1_0.name 
+    from
+        medable_studies m1_0 
+    left join
+        medable_environments e1_0 
+            on e1_0.id=m1_0.environment_id 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on e1_0.id=p1_0.environment_id 
+        left join
+            medable_sponsors s1_0 
+                on s1_0.id=m1_0.sponsor_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

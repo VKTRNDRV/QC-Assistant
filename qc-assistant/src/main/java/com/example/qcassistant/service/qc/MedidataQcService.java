@@ -17,7 +17,7 @@ public class MedidataQcService {
     private MedidataOrderParseService orderParseService;
     private MedidataNoteGenerationService noteGenerationService;
 
-    private int requestsCount;
+    private static int requestsCount = 0;
     private static final String FORMAT = "Medidata: %d%n";
 
     @Autowired
@@ -25,14 +25,17 @@ public class MedidataQcService {
                              MedidataNoteGenerationService noteGenerationService) {
         this.orderParseService = orderParseService;
         this.noteGenerationService = noteGenerationService;
-        this.requestsCount = 0;
     }
 
     public MedidataOrderNotesDto generateOrderNotes(RawOrderInputDto inputDto){
         MedidataOrder order = this.orderParseService.parseOrder(inputDto);
         MedidataOrderNotesDto notes = this.noteGenerationService.generateNotes(order);
-        requestsCount++;
+        incrementOrderCount();
         return notes;
+    }
+
+    private synchronized void incrementOrderCount(){
+        requestsCount++;
     }
 
     @Scheduled(cron = "0 0 0 * * ?")

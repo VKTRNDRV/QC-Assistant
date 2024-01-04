@@ -18,7 +18,7 @@ public class IqviaQcService {
 
     private IqviaNoteGenerationService noteGenerationService;
 
-    private int requestsCount;
+    private static int requestsCount = 0;
     private static final String FORMAT = "IQVIA: %d%n";
 
     @Autowired
@@ -26,14 +26,17 @@ public class IqviaQcService {
                           IqviaNoteGenerationService noteGenerationService) {
         this.orderParseService = orderParseService;
         this.noteGenerationService = noteGenerationService;
-        this.requestsCount = 0;
     }
 
     public IqviaOrderNotesDto generateOrderNotes(RawOrderInputDto inputDto){
         IqviaOrder order = this.orderParseService.parseOrder(inputDto);
         IqviaOrderNotesDto notes = this.noteGenerationService.generateNotes(order);
-        requestsCount++;
+        incrementOrderCount();
         return notes;
+    }
+
+    private synchronized void incrementOrderCount(){
+        requestsCount++;
     }
 
     @Scheduled(cron = "0 0 0 * * ?")

@@ -1,0 +1,1168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.qcassistant.integration.IqviaNoteGenerationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-12-10T08:52:57" hostname="VKTRNDRV" time="1.399">
+  <properties/>
+  <testcase name="testLabelDocsStudyNoteGeneration()" classname="com.example.qcassistant.integration.IqviaNoteGenerationTests" time="1.142"/>
+  <testcase name="testDestinationNoteGeneration()" classname="com.example.qcassistant.integration.IqviaNoteGenerationTests" time="0.134"/>
+  <testcase name="testEnvStudyNoteGeneration()" classname="com.example.qcassistant.integration.IqviaNoteGenerationTests" time="0.108"/>
+  <system-out><![CDATA[10:52:41.331 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.qcassistant.integration.IqviaNoteGenerationTests]: IqviaNoteGenerationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+10:52:41.684 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.integration.IqviaNoteGenerationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.5)
+
+2023-12-10T10:52:43.028+02:00  INFO 15696 --- [    Test worker] c.e.q.i.IqviaNoteGenerationTests         : Starting IqviaNoteGenerationTests using Java 17.0.5 with PID 15696 (started by Viktor_Androv in F:\QC_Assistant\QC-Assistant\qc-assistant)
+2023-12-10T10:52:43.031+02:00  INFO 15696 --- [    Test worker] c.e.q.i.IqviaNoteGenerationTests         : No active profile set, falling back to 1 default profile: "default"
+2023-12-10T10:52:44.977+02:00  INFO 15696 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-10T10:52:45.269+02:00  INFO 15696 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 265 ms. Found 19 JPA repository interfaces.
+2023-12-10T10:52:46.600+02:00  INFO 15696 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-10T10:52:46.860+02:00  INFO 15696 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2023-12-10T10:52:46.868+02:00  INFO 15696 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-12-10T10:52:47.750+02:00  INFO 15696 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-10T10:52:47.834+02:00  INFO 15696 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-10T10:52:48.607+02:00  INFO 15696 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@61d09475
+2023-12-10T10:52:48.613+02:00  INFO 15696 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-10T10:52:48.769+02:00  WARN 15696 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2023-12-10T10:52:48.776+02:00  WARN 15696 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-12-10T10:52:52.344+02:00  INFO 15696 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-10T10:52:53.071+02:00  INFO 15696 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: 
+    select
+        count(*) 
+    from
+        roles r1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        users u1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        iqvia_apps i1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        medable_apps m1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        medidata_apps m1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        count(*) 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medable_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_china_group,
+        m1_0.is_destination_separated,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medable_environments m1_0 
+    left join
+        (medable_environments_patient_apps p1_0 
+    join
+        medable_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medable_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medable_environments_site_apps s1_0 
+    join
+        medable_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.contains_editable_welcome_letter,
+        m1_0.contains_translated_docs,
+        m1_0.contains_translated_labels,
+        m1_0.environment_id,
+        m1_0.folder_url,
+        m1_0.includes_headphones_styluses,
+        m1_0.is_patient_device_ipad,
+        m1_0.name,
+        m1_0.sponsor_id 
+    from
+        medidata_studies m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.is_destination_separated,
+        m1_0.is_legacy,
+        m1_0.is_os_separated,
+        m1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        medidata_environments m1_0 
+    left join
+        (medidata_environments_patient_apps p1_0 
+    join
+        medidata_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on m1_0.id=p1_0.environment_id 
+        where
+            m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        medidata_environments_site_apps s1_0 
+    join
+        medidata_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+2023-12-10T10:52:56.391+02:00  INFO 15696 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1419f703, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@268215b3, org.springframework.security.web.context.SecurityContextHolderFilter@67dc8aa8, org.springframework.security.web.header.HeaderWriterFilter@55aadbf2, org.springframework.security.web.csrf.CsrfFilter@33606f4b, org.springframework.security.web.authentication.logout.LogoutFilter@7194f5b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@50588ef6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5de769c8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@47ffce5d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e31229f, org.springframework.security.web.access.ExceptionTranslationFilter@5d685156, org.springframework.security.web.access.intercept.AuthorizationFilter@7f2d681a]
+2023-12-10T10:52:57.065+02:00  INFO 15696 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-12-10T10:52:57.618+02:00  INFO 15696 --- [    Test worker] c.e.q.i.IqviaNoteGenerationTests         : Started IqviaNoteGenerationTests in 15.496 seconds (process running for 19.484)
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name<>?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name<>?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.operating_system,
+        i1_0.order_type,
+        i1_0.severity,
+        i1_0.shell_type,
+        i1_0.text,
+        i1_0.type 
+    from
+        iqvia_tags i1_0
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        e1_0.id,
+        e1_0.is_destination_separated,
+        e1_0.is_os_separated,
+        e1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        s1_0.id,
+        s1_0.are_study_names_similar,
+        s1_0.name 
+    from
+        iqvia_studies i1_0 
+    left join
+        iqvia_environments e1_0 
+            on e1_0.id=i1_0.environment_id 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on e1_0.id=p1_0.environment_id 
+        left join
+            iqvia_sponsors s1_0 
+                on s1_0.id=i1_0.sponsor_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name<>?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name<>?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.operating_system,
+        i1_0.order_type,
+        i1_0.severity,
+        i1_0.shell_type,
+        i1_0.text,
+        i1_0.type 
+    from
+        iqvia_tags i1_0
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        l1_0.id,
+        l1_0.name 
+    from
+        languages l1_0
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name<>?
+Hibernate: 
+    select
+        d1_0.id,
+        d1_0.name,
+        d1_0.plug_type,
+        d1_0.requires_invoice,
+        d1_0.requires_special_model,
+        d1_0.requires_unused_devices,
+        d1_0.sim_type 
+    from
+        destinations d1_0 
+    where
+        d1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        l1_0.destination_id,
+        l1_1.id,
+        l1_1.name 
+    from
+        destinations_languages l1_0 
+    join
+        languages l1_1 
+            on l1_1.id=l1_0.language_id 
+    where
+        l1_0.destination_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name<>?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        i1_0.environment_id,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        i1_0.sponsor_id 
+    from
+        iqvia_studies i1_0 
+    where
+        i1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.is_destination_separated,
+        i1_0.is_os_separated,
+        i1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera 
+    from
+        iqvia_environments i1_0 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on i1_0.id=p1_0.environment_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.are_study_names_similar,
+        i1_0.name 
+    from
+        iqvia_sponsors i1_0 
+    where
+        i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.operating_system,
+        i1_0.order_type,
+        i1_0.severity,
+        i1_0.shell_type,
+        i1_0.text,
+        i1_0.type 
+    from
+        iqvia_tags i1_0
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.contains_sep_site_patient_labels,
+        i1_0.contains_translated_docs,
+        i1_0.contains_translated_labels,
+        e1_0.id,
+        e1_0.is_destination_separated,
+        e1_0.is_os_separated,
+        e1_0.is_site_patient_separated,
+        p1_0.environment_id,
+        p1_1.id,
+        p1_1.name,
+        p1_1.requires_camera,
+        i1_0.folder_url,
+        i1_0.is_gsg_plain,
+        i1_0.name,
+        s1_0.id,
+        s1_0.are_study_names_similar,
+        s1_0.name 
+    from
+        iqvia_studies i1_0 
+    left join
+        iqvia_environments e1_0 
+            on e1_0.id=i1_0.environment_id 
+    left join
+        (iqvia_environments_patient_apps p1_0 
+    join
+        iqvia_apps p1_1 
+            on p1_1.id=p1_0.app_id) 
+                on e1_0.id=p1_0.environment_id 
+        left join
+            iqvia_sponsors s1_0 
+                on s1_0.id=i1_0.sponsor_id 
+        where
+            i1_0.id=?
+Hibernate: 
+    select
+        s1_0.environment_id,
+        s1_1.id,
+        s1_1.name,
+        s1_1.requires_camera 
+    from
+        iqvia_environments_site_apps s1_0 
+    join
+        iqvia_apps s1_1 
+            on s1_1.id=s1_0.app_id 
+    where
+        s1_0.environment_id=?
+]]></system-out>
+  <system-err><![CDATA[[2023.12.10 10:52:42] (Coverage): Error during class instrumentation: org.springframework.boot.logging.log4j2.Log4J2LoggingSystem: java.lang.RuntimeException: java.io.IOException: Class org/apache/logging/log4j/core/config/composite/CompositeConfiguration not found
+[2023.12.10 10:52:56] (Coverage): Error during class instrumentation: org.springframework.security.config.annotation.authentication.configurers.ldap.LdapAuthenticationProviderConfigurer: java.lang.RuntimeException: java.io.IOException: Class org/springframework/security/ldap/authentication/PasswordComparisonAuthenticator not found
+[2023.12.10 10:52:56] (Coverage): Error during class instrumentation: org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer: java.lang.RuntimeException: java.io.IOException: Class org/springframework/security/oauth2/client/endpoint/DefaultAuthorizationCodeTokenResponseClient not found
+[2023.12.10 10:52:56] (Coverage): Error during class instrumentation: org.springframework.core.ReactiveAdapterRegistry$ReactorAdapter: java.lang.RuntimeException: java.io.IOException: Class reactor/core/publisher/Flux not found
+]]></system-err>
+</testsuite>

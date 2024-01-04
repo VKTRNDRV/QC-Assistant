@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-12-10T08:53:00" hostname="VKTRNDRV" time="0.109">
+  <properties/>
+  <testcase name="testAddSponsorWithExistingName()" classname="com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests" time="0.015"/>
+  <testcase name="getSponsorEditById_ReturnsCorrectSponsor()" classname="com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests" time="0.018"/>
+  <testcase name="testEditSponsorWithBlankName()" classname="com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests" time="0.01"/>
+  <testcase name="getEntities_DoesNotReturnUNKNOWN()" classname="com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests" time="0.016"/>
+  <testcase name="testAddSponsorWithBlankName()" classname="com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests" time="0.008"/>
+  <testcase name="displayAllSponsors_ReturnsCorrectTypeAndCount()" classname="com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests" time="0.024"/>
+  <system-out><![CDATA[2023-12-10T10:53:00.868+02:00  INFO 15696 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests]: MedidataSponsorServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-10T10:53:00.871+02:00  INFO 15696 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.unit.entityServices.sponsor.MedidataSponsorServiceTests
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.id=?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.name<>?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.are_study_names_similar,
+        m1_0.name 
+    from
+        medidata_sponsors m1_0 
+    where
+        m1_0.name<>?
+Hibernate: 
+    select
+        count(*) 
+    from
+        medidata_sponsors m1_0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

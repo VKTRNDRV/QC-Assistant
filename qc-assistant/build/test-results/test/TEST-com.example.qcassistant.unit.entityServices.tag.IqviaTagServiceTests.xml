@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.qcassistant.unit.entityServices.tag.IqviaTagServiceTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-12-10T08:53:01" hostname="VKTRNDRV" time="0.105">
+  <properties/>
+  <testcase name="editTag_BlankTextThrowsException()" classname="com.example.qcassistant.unit.entityServices.tag.IqviaTagServiceTests" time="0.009"/>
+  <testcase name="addTag_TooLongTextThrowsException()" classname="com.example.qcassistant.unit.entityServices.tag.IqviaTagServiceTests" time="0.011"/>
+  <testcase name="addTag_BlankTextThrowsException()" classname="com.example.qcassistant.unit.entityServices.tag.IqviaTagServiceTests" time="0.005"/>
+  <testcase name="editTag_TooLongTextThrowsException()" classname="com.example.qcassistant.unit.entityServices.tag.IqviaTagServiceTests" time="0.013"/>
+  <testcase name="getDisplayTags_ReturnsCorrectCount()" classname="com.example.qcassistant.unit.entityServices.tag.IqviaTagServiceTests" time="0.048"/>
+  <system-out><![CDATA[2023-12-10T10:53:01.880+02:00  INFO 15696 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.qcassistant.unit.entityServices.tag.IqviaTagServiceTests]: IqviaTagServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-10T10:53:01.897+02:00  INFO 15696 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.unit.entityServices.tag.IqviaTagServiceTests
+Hibernate: 
+    select
+        i1_0.id,
+        i1_0.operating_system,
+        i1_0.order_type,
+        i1_0.severity,
+        i1_0.shell_type,
+        i1_0.text,
+        i1_0.type 
+    from
+        iqvia_tags i1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        iqvia_tags i1_0
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

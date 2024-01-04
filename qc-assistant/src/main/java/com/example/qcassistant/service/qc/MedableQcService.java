@@ -18,7 +18,7 @@ public class MedableQcService {
 
     private MedableNoteGenerationService noteGenerationService;
 
-    private int requestsCount;
+    private static int requestsCount = 0;
     private static final String FORMAT = "Medable: %d%n";
 
     @Autowired
@@ -26,14 +26,17 @@ public class MedableQcService {
                             MedableNoteGenerationService noteGenerationService) {
         this.orderParseService = orderParseService;
         this.noteGenerationService = noteGenerationService;
-        this.requestsCount = 0;
     }
 
     public MedableOrderNotesDto generateOrderNotes(RawOrderInputDto rawOrderInputDto) {
         MedableOrder order = this.orderParseService.parseOrder(rawOrderInputDto);
         MedableOrderNotesDto notes = this.noteGenerationService.generateNotes(order);
-        requestsCount++;
+        incrementOrderCount();
         return notes;
+    }
+
+    private synchronized void incrementOrderCount(){
+        requestsCount++;
     }
 
     @Scheduled(cron = "0 0 0 * * ?")

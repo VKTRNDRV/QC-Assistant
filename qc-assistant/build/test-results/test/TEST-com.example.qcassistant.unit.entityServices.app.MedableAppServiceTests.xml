@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.qcassistant.unit.entityServices.app.MedableAppServiceTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-12-10T08:53:00" hostname="VKTRNDRV" time="0.09">
+  <properties/>
+  <testcase name="testEditAppWithBlankName()" classname="com.example.qcassistant.unit.entityServices.app.MedableAppServiceTests" time="0.007"/>
+  <testcase name="getAllEditApps_ReturnsCorrectCountAndType()" classname="com.example.qcassistant.unit.entityServices.app.MedableAppServiceTests" time="0.026"/>
+  <testcase name="testAddAppWithExistingName()" classname="com.example.qcassistant.unit.entityServices.app.MedableAppServiceTests" time="0.014"/>
+  <testcase name="testAddAppWithBlankName()" classname="com.example.qcassistant.unit.entityServices.app.MedableAppServiceTests" time="0.006"/>
+  <testcase name="getEditAppById_ReturnsCorrectApp()" classname="com.example.qcassistant.unit.entityServices.app.MedableAppServiceTests" time="0.029"/>
+  <system-out><![CDATA[2023-12-10T10:53:00.370+02:00  INFO 15696 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.qcassistant.unit.entityServices.app.MedableAppServiceTests]: MedableAppServiceTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-12-10T10:53:00.373+02:00  INFO 15696 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.qcassistant.Main for test class com.example.qcassistant.unit.entityServices.app.MedableAppServiceTests
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.name,
+        m1_0.requires_camera 
+    from
+        medable_apps m1_0
+Hibernate: 
+    select
+        count(*) 
+    from
+        medable_apps m1_0
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.name,
+        m1_0.requires_camera 
+    from
+        medable_apps m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.name,
+        m1_0.requires_camera 
+    from
+        medable_apps m1_0 
+    where
+        m1_0.name=? 
+    limit
+        ?
+Hibernate: 
+    select
+        m1_0.id,
+        m1_0.name,
+        m1_0.requires_camera 
+    from
+        medable_apps m1_0 
+    where
+        m1_0.id=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
