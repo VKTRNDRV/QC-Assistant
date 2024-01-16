@@ -76,7 +76,7 @@ public class MedidataAppService extends BaseAppService{
 
 
     @Override
-    protected List<MedidataApp> getEntities() {
+    public List<MedidataApp> getEntities() {
         return getAppRepository().findAll();
     }
 

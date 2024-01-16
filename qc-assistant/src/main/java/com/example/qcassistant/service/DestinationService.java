@@ -2,6 +2,7 @@ package com.example.qcassistant.service;
 
 import com.example.qcassistant.domain.dto.destination.*;
 import com.example.qcassistant.domain.dto.language.LanguageTransferDTO;
+import com.example.qcassistant.domain.dto.transfer.DestinationLangsTransferDTO;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.destination.Language;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

@@ -1,23 +1,33 @@
 package com.example.qcassistant.domain.dto.tag;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 public class TagTransferDTO {
 
+    @Expose
     private String severity;
 
+    @Expose
     private String text;
 
+    @Expose
     private String type;
 
+    @Expose
     private String orderType;
 
+    @Expose
     private String shellType;
 
+    @Expose
     private String operatingSystem;
 
+    @Expose
     private List<String> destinations;
 
+    @Expose
     private List<String> studies;
 
 

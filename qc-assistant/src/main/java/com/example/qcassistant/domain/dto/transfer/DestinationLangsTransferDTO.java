@@ -1,4 +1,4 @@
-package com.example.qcassistant.domain.dto.destination;
+package com.example.qcassistant.domain.dto.transfer;
 
 public class DestinationLangsTransferDTO {
 

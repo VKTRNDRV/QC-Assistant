@@ -2,7 +2,7 @@ package com.example.qcassistant.web;
 
 import com.example.qcassistant.domain.dto.destination.DestinationAddDto;
 import com.example.qcassistant.domain.dto.destination.DestinationEditDto;
-import com.example.qcassistant.domain.dto.destination.DestinationLangsTransferDTO;
+import com.example.qcassistant.domain.dto.transfer.DestinationLangsTransferDTO;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.LanguageService;
 import org.springframework.stereotype.Controller;
