@@ -48,16 +48,21 @@ public class IqviaSponsorService extends BaseSponsorService{
     }
 
     @Override
+    public Optional<IqviaSponsor> findFirstByName(String name) {
+        return this.sponsorRepository.findFirstByName(name);
+    }
+
+    @Override
     public void editSponsor(SponsorEditDto sponsorEditDto) {
         validateEditSponsor(sponsorEditDto);
         IqviaSponsor sponsor = this.modelMapper.map(sponsorEditDto, IqviaSponsor.class);
         this.sponsorRepository.save(sponsor);
     }
 
-    @Override
-    public Optional<IqviaSponsor> getSponsorByName(String name) {
-        return this.sponsorRepository.findFirstByName(name);
-    }
+//    @Override
+//    public Optional<IqviaSponsor> getSponsorByName(String name) {
+//        return this.sponsorRepository.findFirstByName(name);
+//    }
 
     @Override
     public <T extends BaseSponsor> void saveAll(Collection<T> sponsors) {
@@ -65,9 +70,11 @@ public class IqviaSponsorService extends BaseSponsorService{
     }
 
     @Override
-    protected Optional<IqviaSponsor> findFirstByName(String name) {
-        return getSponsorRepository().findFirstByName(name);
+    public IqviaSponsor getUnknownSponsor() {
+        return this.sponsorRepository.findFirstByName(BaseEntity.UNKNOWN).get();
     }
+
+
 
     @Override
     protected IqviaSponsorRepository getSponsorRepository() {

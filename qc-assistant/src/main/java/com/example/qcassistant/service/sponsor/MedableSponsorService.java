@@ -4,6 +4,7 @@ import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
+import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
 import com.example.qcassistant.repository.sponsor.MedableSponsorRepository;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,12 @@ public class MedableSponsorService extends BaseSponsorService{
     }
 
     @Override
+    public Optional<MedableSponsor> findFirstByName(String name) {
+        return this.sponsorRepository.findFirstByName(name);
+    }
+
+
+    @Override
     public void addSponsor(SponsorAddDto sponsorAddDto) {
         validateAddSponsor(sponsorAddDto);
         MedableSponsor sponsor = this.modelMapper.map(
@@ -40,10 +47,10 @@ public class MedableSponsorService extends BaseSponsorService{
         this.sponsorRepository.save(sponsor);
     }
 
-    @Override
-    public Optional<MedableSponsor> getSponsorByName(String name) {
-        return this.sponsorRepository.findFirstByName(name);
-    }
+//    @Override
+//    public Optional<MedableSponsor> getSponsorByName(String name) {
+//        return this.sponsorRepository.findFirstByName(name);
+//    }
 
     @Override
     public <T extends BaseSponsor> void saveAll(Collection<T> sponsors) {
@@ -51,8 +58,8 @@ public class MedableSponsorService extends BaseSponsorService{
     }
 
     @Override
-    protected Optional<MedableSponsor> findFirstByName(String name) {
-        return getSponsorRepository().findFirstByName(name);
+    public MedableSponsor getUnknownSponsor() {
+        return this.sponsorRepository.findFirstByName(BaseEntity.UNKNOWN).get();
     }
 
     @Override

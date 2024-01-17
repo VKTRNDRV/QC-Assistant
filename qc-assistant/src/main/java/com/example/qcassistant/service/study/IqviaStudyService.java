@@ -7,8 +7,10 @@ import com.example.qcassistant.domain.dto.study.info.IqviaStudyInfoDto;
 import com.example.qcassistant.domain.dto.study.info.MedidataStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.IqviaApp;
+import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
+import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.study.IqviaStudy;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.study.environment.IqviaEnvironment;
@@ -224,5 +226,10 @@ public class IqviaStudyService extends BaseStudyService{
     @Override
     public List<StudyDisplayDto> getTagStudies() {
         return this.displayAllStudies();
+    }
+
+    @Override
+    public Optional<IqviaSponsor> findFirstByName(String name) {
+        return this.sponsorRepository.findFirstByName(name);
     }
 }

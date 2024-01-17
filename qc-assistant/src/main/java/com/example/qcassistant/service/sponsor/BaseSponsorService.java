@@ -87,6 +87,5 @@ public abstract class BaseSponsorService {
     }
 
     public abstract  <T extends BaseSponsor> T getUnknownSponsor();
-    }
 }
 

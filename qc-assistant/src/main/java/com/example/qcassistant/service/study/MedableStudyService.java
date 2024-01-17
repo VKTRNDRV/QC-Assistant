@@ -7,6 +7,7 @@ import com.example.qcassistant.domain.dto.study.info.MedableStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.MedableApp;
 import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
+import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.study.MedableStudy;
 import com.example.qcassistant.domain.entity.study.environment.MedableEnvironment;
 import com.example.qcassistant.repository.app.MedableAppRepository;
@@ -214,5 +215,10 @@ public class MedableStudyService extends BaseStudyService{
     @Override
     public List<StudyDisplayDto> getTagStudies() {
         return this.displayAllStudies();
+    }
+
+    @Override
+    public Optional<MedableStudy> findFirstByName(String name) {
+        return this.studyRepository.findFirstByName(name);
     }
 }
