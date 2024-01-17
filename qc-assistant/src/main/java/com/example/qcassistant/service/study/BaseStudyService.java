@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,4 +57,6 @@ public abstract class BaseStudyService {
     public abstract <T extends BaseStudy> T getUnknownStudy();
 
     public abstract List<StudyDisplayDto> getTagStudies();
+
+    public abstract <T extends BaseStudy> Optional<T> findFirstByName(String name);
 }

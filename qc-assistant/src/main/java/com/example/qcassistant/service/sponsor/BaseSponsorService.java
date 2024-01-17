@@ -4,11 +4,13 @@ import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorDisplayDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
+import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,12 +21,12 @@ public abstract class BaseSponsorService {
     protected ModelMapper modelMapper;
 
     @Autowired
-    public BaseSponsorService(ModelMapper modelMapper){
+    public BaseSponsorService(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
-    protected void validateNameNotBlank(String name){
-        if(name == null || name.trim().isEmpty()){
+    protected void validateNameNotBlank(String name) {
+        if (name == null || name.trim().isEmpty()) {
             throw new RuntimeException("Name cannot be blank");
         }
     }
@@ -42,7 +44,7 @@ public abstract class BaseSponsorService {
         return this.getEntities().stream()
                 .map(s -> this.modelMapper
                         .map(s, SponsorDisplayDto.class))
-                .sorted((s1,s2) -> s1.getName().compareTo(s2.getName()))
+                .sorted((s1, s2) -> s1.getName().compareTo(s2.getName()))
                 .collect(Collectors.toList());
     }
 
@@ -59,24 +61,32 @@ public abstract class BaseSponsorService {
         this.validateNameNotBlank(name);
 
         // if name changed - validate unique
-        if(!getSponsorRepository().findById(sponsorEditDto.getId()).get()
+        if (!getSponsorRepository().findById(sponsorEditDto.getId()).get()
                 .getName().trim()
-                .equals(sponsorEditDto.getName())){
+                .equals(sponsorEditDto.getName())) {
             validateUniqueName(name);
         }
     }
 
-    protected void validateUniqueName(String name){
-        if(findFirstByName(name).isPresent()){
+    protected void validateUniqueName(String name) {
+        if (findFirstByName(name).isPresent()) {
             throw new RuntimeException("Sponsor \"" + name + "\" already present");
         }
     }
 
-    protected abstract  <T extends BaseSponsor> Optional<T> findFirstByName(String name);
+    public abstract <T extends BaseSponsor> Optional<T> findFirstByName(String name);
 
     protected abstract <T extends BaseSponsor> CrudRepository<T, Long> getSponsorRepository();
 
     public abstract void addSponsor(SponsorAddDto sponsorAddDto);
 
     public abstract void editSponsor(SponsorEditDto sponsorEditDto);
+
+    public <T extends BaseSponsor> void saveAll(Collection<T> sponsors){
+        getSponsorRepository().saveAll(sponsors);
+    }
+
+    public abstract  <T extends BaseSponsor> T getUnknownSponsor();
+    }
 }
+

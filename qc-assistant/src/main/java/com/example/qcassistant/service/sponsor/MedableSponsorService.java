@@ -3,12 +3,14 @@ package com.example.qcassistant.service.sponsor;
 import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
+import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
 import com.example.qcassistant.repository.sponsor.MedableSponsorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,16 @@ public class MedableSponsorService extends BaseSponsorService{
         validateEditSponsor(sponsorEditDto);
         MedableSponsor sponsor = this.modelMapper.map(sponsorEditDto, MedableSponsor.class);
         this.sponsorRepository.save(sponsor);
+    }
+
+    @Override
+    public Optional<MedableSponsor> getSponsorByName(String name) {
+        return this.sponsorRepository.findFirstByName(name);
+    }
+
+    @Override
+    public <T extends BaseSponsor> void saveAll(Collection<T> sponsors) {
+        this.sponsorRepository.saveAll((Collection<MedableSponsor>) sponsors);
     }
 
     @Override

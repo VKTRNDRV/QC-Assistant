@@ -3,12 +3,14 @@ package com.example.qcassistant.service.app;
 import com.example.qcassistant.domain.dto.app.AppAddDto;
 import com.example.qcassistant.domain.dto.app.AppEditDto;
 import com.example.qcassistant.domain.entity.app.BaseApp;
+import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.repository.DestinationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,4 +79,8 @@ public abstract class BaseAppService {
     protected abstract <T extends BaseApp> List<T> getEntities();
 
     protected abstract <T extends BaseApp> Optional<T> findFirstByName(String name);
+
+    public <T extends BaseApp> void saveAll(Collection<T> apps){
+        getAppRepository().saveAll(apps);
+    }
 }

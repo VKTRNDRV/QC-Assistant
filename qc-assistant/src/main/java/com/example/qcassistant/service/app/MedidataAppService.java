@@ -2,7 +2,6 @@ package com.example.qcassistant.service.app;
 
 import com.example.qcassistant.domain.dto.app.AppAddDto;
 import com.example.qcassistant.domain.dto.app.AppEditDto;
-import com.example.qcassistant.domain.entity.app.IqviaApp;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.repository.app.MedidataAppRepository;
 import com.example.qcassistant.util.TrinaryBoolean;
@@ -11,9 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class MedidataAppService extends BaseAppService{
@@ -81,7 +80,7 @@ public class MedidataAppService extends BaseAppService{
     }
 
     @Override
-    protected Optional<MedidataApp> findFirstByName(String name) {
+    public Optional<MedidataApp> findFirstByName(String name) {
         return getAppRepository().findFirstByName(name);
     }
 }

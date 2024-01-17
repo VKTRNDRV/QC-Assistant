@@ -7,6 +7,7 @@ import com.example.qcassistant.domain.dto.study.info.MedidataStudyInfoDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
+import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.repository.app.MedidataAppRepository;
@@ -206,5 +207,10 @@ public class MedidataStudyService extends BaseStudyService{
     @Override
     public List<StudyDisplayDto> getTagStudies() {
         return this.displayAllStudies();
+    }
+
+    @Override
+    public Optional<MedidataStudy> findFirstByName(String name) {
+        return this.studyRepository.findFirstByName(name);
     }
 }

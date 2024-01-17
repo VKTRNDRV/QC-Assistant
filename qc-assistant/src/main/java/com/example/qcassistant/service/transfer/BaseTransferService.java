@@ -3,13 +3,12 @@ package com.example.qcassistant.service.transfer;
 import com.example.qcassistant.domain.dto.app.AppTransferDTO;
 import com.example.qcassistant.domain.dto.sponsor.SponsorTransferDTO;
 import com.example.qcassistant.domain.dto.tag.TagTransferDTO;
+import com.example.qcassistant.domain.dto.transfer.ClinicalEntitiesTransferDTO;
 import com.example.qcassistant.domain.entity.app.BaseApp;
-import com.example.qcassistant.domain.entity.app.MedidataApp;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.tag.BaseTag;
-import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.service.DestinationService;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
@@ -31,9 +30,10 @@ public abstract class BaseTransferService {
     protected Gson gson;
 
     @Autowired
-    public BaseTransferService(DestinationService destinationService, ModelMapper modelMapper) {
+    public BaseTransferService(DestinationService destinationService, ModelMapper modelMapper, Gson gson) {
         this.destinationService = destinationService;
         this.modelMapper = modelMapper;
+        this.gson = gson;
     }
 
     protected <T extends BaseSponsor> List<SponsorTransferDTO> mapSponsorsToTransferDTO(Collection<T> sponsors) {
@@ -73,4 +73,7 @@ public abstract class BaseTransferService {
 
         return transferDTOs;
     }
+
+
+    public abstract void importEntities(ClinicalEntitiesTransferDTO entitiesJSON);
 }

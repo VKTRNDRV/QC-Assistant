@@ -3,12 +3,15 @@ package com.example.qcassistant.service.sponsor;
 import com.example.qcassistant.domain.dto.sponsor.SponsorAddDto;
 import com.example.qcassistant.domain.dto.sponsor.SponsorEditDto;
 import com.example.qcassistant.domain.entity.BaseEntity;
+import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
+import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.repository.sponsor.IqviaSponsorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +52,16 @@ public class IqviaSponsorService extends BaseSponsorService{
         validateEditSponsor(sponsorEditDto);
         IqviaSponsor sponsor = this.modelMapper.map(sponsorEditDto, IqviaSponsor.class);
         this.sponsorRepository.save(sponsor);
+    }
+
+    @Override
+    public Optional<IqviaSponsor> getSponsorByName(String name) {
+        return this.sponsorRepository.findFirstByName(name);
+    }
+
+    @Override
+    public <T extends BaseSponsor> void saveAll(Collection<T> sponsors) {
+        this.sponsorRepository.saveAll((Collection<IqviaSponsor>) sponsors);
     }
 
     @Override
