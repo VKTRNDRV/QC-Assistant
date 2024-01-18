@@ -6,12 +6,14 @@ import com.example.qcassistant.domain.dto.tag.TagEditDto;
 import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.tag.BaseTag;
+import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.domain.enums.OrderType;
 import com.example.qcassistant.domain.enums.item.OperatingSystem;
 import com.example.qcassistant.domain.enums.item.ShellType;
 import com.example.qcassistant.repository.DestinationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -143,4 +145,5 @@ public abstract class BaseTagService {
 
         return editDto;
     }
+    public abstract  <T extends BaseTag> void saveAll(Collection<T> tags);
 }

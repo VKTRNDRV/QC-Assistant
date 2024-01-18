@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -212,5 +213,12 @@ public class MedidataStudyService extends BaseStudyService{
     @Override
     public Optional<MedidataStudy> findFirstByName(String name) {
         return this.studyRepository.findFirstByName(name);
+    }
+
+    public void saveAll(Collection<MedidataStudy> studies) {
+        this.environmentRepository.saveAll(studies.stream()
+                .map(s -> s.getEnvironment())
+                .collect(Collectors.toList()));
+        this.studyRepository.saveAll(studies);
     }
 }

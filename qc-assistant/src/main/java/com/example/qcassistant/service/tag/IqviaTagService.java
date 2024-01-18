@@ -4,6 +4,7 @@ import com.example.qcassistant.domain.dto.tag.TagAddDto;
 import com.example.qcassistant.domain.dto.tag.TagDisplayDto;
 import com.example.qcassistant.domain.dto.tag.TagEditDto;
 import com.example.qcassistant.domain.entity.study.IqviaStudy;
+import com.example.qcassistant.domain.entity.tag.BaseTag;
 import com.example.qcassistant.domain.entity.tag.IqviaTag;
 import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.repository.DestinationRepository;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,5 +99,10 @@ public class IqviaTagService extends BaseTagService{
     public TagEditDto getTagEdit(Long id) {
         return super.mapToTagEditDto(this.tagRepository
                 .findById(id).orElseThrow());
+    }
+
+    @Override
+    public <T extends BaseTag> void saveAll(Collection<T> tags) {
+        this.tagRepository.saveAll((Collection<IqviaTag>) tags);
     }
 }

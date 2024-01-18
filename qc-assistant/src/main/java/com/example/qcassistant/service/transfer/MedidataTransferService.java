@@ -3,11 +3,14 @@ package com.example.qcassistant.service.transfer;
 import com.example.qcassistant.domain.dto.app.AppTransferDTO;
 import com.example.qcassistant.domain.dto.sponsor.SponsorTransferDTO;
 import com.example.qcassistant.domain.dto.study.transfer.MedidataStudyTransferDTO;
+import com.example.qcassistant.domain.dto.tag.TagTransferDTO;
 import com.example.qcassistant.domain.dto.transfer.ClinicalEntitiesTransferDTO;
 import com.example.qcassistant.domain.entity.app.BaseApp;
 import com.example.qcassistant.domain.entity.app.MedidataApp;
+import com.example.qcassistant.domain.entity.destination.Destination;
 import com.example.qcassistant.domain.entity.sponsor.MedidataSponsor;
 import com.example.qcassistant.domain.entity.study.MedidataStudy;
+import com.example.qcassistant.domain.entity.study.environment.MedidataEnvironment;
 import com.example.qcassistant.domain.entity.tag.MedidataTag;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.app.MedidataAppService;
@@ -72,14 +75,17 @@ public class MedidataTransferService extends BaseTransferService {
             MedidataStudyTransferDTO studyTransferDTO = this.modelMapper
                     .map(study, MedidataStudyTransferDTO.class);
 
+            MedidataEnvironment env = study.getEnvironment();
+
             studyTransferDTO
                     .setSponsor(study.getSponsor().getName()).getEnvironment()
-                    .setPatientApps(study.getEnvironment().getPatientApps()
+                    .setPatientApps(env.getPatientApps()
                             .stream().map(BaseApp::getName)
                             .collect(Collectors.toList()))
-                    .setSiteApps(study.getEnvironment().getSiteApps()
+                    .setSiteApps(env.getSiteApps()
                             .stream().map(BaseApp::getName)
-                            .collect(Collectors.toList()));
+                            .collect(Collectors.toList()))
+                    .setIsLegacy(env.getIsLegacy().name());
 
             transferDTOs.add(studyTransferDTO);
         }
@@ -100,20 +106,56 @@ public class MedidataTransferService extends BaseTransferService {
         if(!entitiesJSON.getStudies().trim().isEmpty()){
             this.importStudies(entitiesJSON.getStudies());
         }
+
+        if(!entitiesJSON.getTags().trim().isEmpty()){
+            this.importTags(entitiesJSON.getTags());
+        }
+    }
+
+    private void importTags(String json) {
+        TagTransferDTO[] dtos = this.gson.fromJson(json, TagTransferDTO[].class);
+        List<MedidataTag> tags = new ArrayList<>();
+        List<Destination> destinations = this.destinationService.getEntities();
+        List<MedidataStudy> studies = this.studyService.getEntities();
+        for(TagTransferDTO tagDTO : dtos){
+            MedidataTag tag = this.modelMapper.map(tagDTO, MedidataTag.class);
+
+            List<Destination> tagDestinations = new ArrayList<>();
+            for(String name : tagDTO.getDestinations()){
+                for(Destination destination : destinations){
+                    if(destination.getName().equals(name)){
+                        tagDestinations.add(destination);
+                        break;
+                    }
+                }
+            }
+
+            List<MedidataStudy> tagStudies = new ArrayList<>();
+            for(String name : tagDTO.getStudies()){
+                for(MedidataStudy study : studies){
+                    if(study.getName().equals(name)){
+                        tagStudies.add(study);
+                        break;
+                    }
+                }
+            }
+
+            tag.setDestinations(destinations);
+            tag.setStudies(studies);
+
+            tags.add(tag);
+        }
+
+        this.tagService.saveAll(tags);
     }
 
     private void importStudies(String json) {
         MedidataStudyTransferDTO[] dtos = this.gson
                 .fromJson(json, MedidataStudyTransferDTO[].class);
-        MedidataSponsor unknownSponsor = this.sponsorService.getUnknownSponsor();
-        List<MedidataApp> apps = this.appService.getEntities();
-        List<MedidataStudy> studies = this.mapToEntities(List.of(dtos));
-
-        // TODO: FINISH AND TEST >>>>>>>>>>>>>>>>>>>>>>
-
-//        this.studyService.saveAll(studies);
+        List<MedidataStudy> studies = this.mapStudyDTOsToEntities(List.of(dtos));
+        this.studyService.saveAll(studies);
     }
-    public List<MedidataStudy> mapToEntities(Iterable <MedidataStudyTransferDTO> dtos){
+    public List<MedidataStudy> mapStudyDTOsToEntities(Iterable <MedidataStudyTransferDTO> dtos){
         MedidataSponsor unknownSponsor = this.sponsorService.getUnknownSponsor();
         List<MedidataApp> apps = this.appService.getEntities();
         List<MedidataStudy> studies = new ArrayList<>();

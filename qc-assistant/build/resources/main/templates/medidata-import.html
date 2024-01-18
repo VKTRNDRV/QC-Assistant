@@ -48,6 +48,11 @@
                 </div>
             </div>
         </div>
+        <hr class="my-4">
+        <p th:if="${error}"
+           class="errors alert alert-danger" th:text="${message}">
+        </p>
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Import Medidata Entities</button>
     </form>
 </div>
 
