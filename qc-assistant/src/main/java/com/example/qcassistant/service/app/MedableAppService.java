@@ -78,7 +78,7 @@ public class MedableAppService extends BaseAppService{
     }
 
     @Override
-    protected Optional<MedableApp> findFirstByName(String name) {
+    public Optional<MedableApp> findFirstByName(String name) {
         return getAppRepository().findFirstByName(name);
     }
 }

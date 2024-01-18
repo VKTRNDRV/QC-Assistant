@@ -78,7 +78,7 @@ public abstract class BaseAppService {
 
     protected abstract <T extends BaseApp> List<T> getEntities();
 
-    protected abstract <T extends BaseApp> Optional<T> findFirstByName(String name);
+    public abstract <T extends BaseApp> Optional<T> findFirstByName(String name);
 
     public <T extends BaseApp> void saveAll(Collection<T> apps){
         getAppRepository().saveAll(apps);

@@ -1,7 +1,5 @@
 package com.example.qcassistant.service.transfer;
 
-import com.example.qcassistant.domain.dto.app.AppTransferDTO;
-import com.example.qcassistant.domain.dto.sponsor.SponsorTransferDTO;
 import com.example.qcassistant.domain.dto.study.transfer.MedidataStudyTransferDTO;
 import com.example.qcassistant.domain.dto.tag.TagTransferDTO;
 import com.example.qcassistant.domain.dto.transfer.ClinicalEntitiesTransferDTO;
@@ -96,11 +94,11 @@ public class MedidataTransferService extends BaseTransferService {
     @Override
     public void importEntities(ClinicalEntitiesTransferDTO entitiesJSON) {
         if(!entitiesJSON.getSponsors().trim().isEmpty()){
-            this.importSponsors(entitiesJSON.getSponsors());
+            super.importSponsors(entitiesJSON.getSponsors(), MedidataSponsor.class);
         }
 
         if(!entitiesJSON.getApps().trim().isEmpty()){
-            this.importApps(entitiesJSON.getApps());
+            super.importApps(entitiesJSON.getApps(), MedidataApp.class);
         }
 
         if(!entitiesJSON.getStudies().trim().isEmpty()){
@@ -112,17 +110,27 @@ public class MedidataTransferService extends BaseTransferService {
         }
     }
 
+    @Override
+    protected MedidataAppService getAppService() {
+        return this.appService;
+    }
+
+    @Override
+    protected MedidataSponsorService getSponsorService() {
+        return this.sponsorService;
+    }
+
     private void importTags(String json) {
         TagTransferDTO[] dtos = this.gson.fromJson(json, TagTransferDTO[].class);
         List<MedidataTag> tags = new ArrayList<>();
-        List<Destination> destinations = this.destinationService.getEntities();
-        List<MedidataStudy> studies = this.studyService.getEntities();
+        List<Destination> allDestinations = this.destinationService.getEntities();
+        List<MedidataStudy> allStudies = this.studyService.getEntities();
         for(TagTransferDTO tagDTO : dtos){
             MedidataTag tag = this.modelMapper.map(tagDTO, MedidataTag.class);
 
             List<Destination> tagDestinations = new ArrayList<>();
             for(String name : tagDTO.getDestinations()){
-                for(Destination destination : destinations){
+                for(Destination destination : allDestinations){
                     if(destination.getName().equals(name)){
                         tagDestinations.add(destination);
                         break;
@@ -132,7 +140,7 @@ public class MedidataTransferService extends BaseTransferService {
 
             List<MedidataStudy> tagStudies = new ArrayList<>();
             for(String name : tagDTO.getStudies()){
-                for(MedidataStudy study : studies){
+                for(MedidataStudy study : allStudies){
                     if(study.getName().equals(name)){
                         tagStudies.add(study);
                         break;
@@ -140,8 +148,8 @@ public class MedidataTransferService extends BaseTransferService {
                 }
             }
 
-            tag.setDestinations(destinations);
-            tag.setStudies(studies);
+            tag.setDestinations(tagDestinations);
+            tag.setStudies(tagStudies);
 
             tags.add(tag);
         }
@@ -205,33 +213,34 @@ public class MedidataTransferService extends BaseTransferService {
 
 
 
-    private void importSponsors(String json) {
-        SponsorTransferDTO[] dtos = this.gson
-                .fromJson(json, SponsorTransferDTO[].class);
-        List<MedidataSponsor> sponsors = new ArrayList<>();
-        for(SponsorTransferDTO sponsorDTO : dtos){
-            if(this.sponsorService.findFirstByName(
-                    sponsorDTO.getName()).isPresent()) continue;
-            MedidataSponsor sponsor = this.modelMapper
-                    .map(sponsorDTO, MedidataSponsor.class);
-            sponsors.add(sponsor);
-        }
+//    private void importSponsors(String json) {
+//        SponsorTransferDTO[] dtos = this.gson
+//                .fromJson(json, SponsorTransferDTO[].class);
+//        List<MedidataSponsor> sponsors = new ArrayList<>();
+//        for(SponsorTransferDTO sponsorDTO : dtos){
+//            if(this.sponsorService.findFirstByName(
+//                    sponsorDTO.getName()).isPresent()) continue;
+//            MedidataSponsor sponsor = this.modelMapper
+//                    .map(sponsorDTO, MedidataSponsor.class);
+//            sponsors.add(sponsor);
+//        }
+//
+//        this.sponsorService.saveAll(sponsors);
+//    }
 
-        this.sponsorService.saveAll(sponsors);
-    }
+//    private void importApps(String json) {
+//        AppTransferDTO[] dtos = this.gson
+//                .fromJson(json, AppTransferDTO[].class);
+//        List<MedidataApp> apps = new ArrayList<>();
+//        for(AppTransferDTO appDTO : dtos){
+//            if(this.appService.findFirstByName(
+//                    appDTO.getName()).isPresent()) continue;
+//            MedidataApp app = this.modelMapper
+//                    .map(appDTO, MedidataApp.class);
+//            apps.add(app);
+//        }
+//
+//        this.appService.saveAll(apps);
+//    }
 
-    private void importApps(String json) {
-        AppTransferDTO[] dtos = this.gson
-                .fromJson(json, AppTransferDTO[].class);
-        List<MedidataApp> apps = new ArrayList<>();
-        for(AppTransferDTO appDTO : dtos){
-            if(this.appService.findFirstByName(
-                    appDTO.getName()).isPresent()) continue;
-            MedidataApp app = this.modelMapper
-                    .map(appDTO, MedidataApp.class);
-            apps.add(app);
-        }
-
-        this.appService.saveAll(apps);
-    }
 }

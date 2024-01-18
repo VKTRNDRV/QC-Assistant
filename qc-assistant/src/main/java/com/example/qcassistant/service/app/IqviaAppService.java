@@ -80,7 +80,7 @@ public class IqviaAppService extends BaseAppService{
     }
 
     @Override
-    protected Optional<IqviaApp> findFirstByName(String name) {
+    public Optional<IqviaApp> findFirstByName(String name) {
         return getAppRepository().findFirstByName(name);
     }
 }

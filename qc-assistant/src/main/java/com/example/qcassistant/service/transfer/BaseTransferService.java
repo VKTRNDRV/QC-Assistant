@@ -10,6 +10,8 @@ import com.example.qcassistant.domain.entity.sponsor.BaseSponsor;
 import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.tag.BaseTag;
 import com.example.qcassistant.service.DestinationService;
+import com.example.qcassistant.service.app.BaseAppService;
+import com.example.qcassistant.service.sponsor.BaseSponsorService;
 import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +75,40 @@ public abstract class BaseTransferService {
 
         return transferDTOs;
     }
-
-
     public abstract void importEntities(ClinicalEntitiesTransferDTO entitiesJSON);
+
+    protected abstract <T extends BaseSponsorService> T getSponsorService();
+
+    protected abstract <T extends BaseAppService> T getAppService();
+
+
+    protected <T extends BaseSponsor> void importSponsors(String json, Class<T> sponsorClass) {
+        SponsorTransferDTO[] dtos = this.gson
+                .fromJson(json, SponsorTransferDTO[].class);
+        List<T> sponsors = new ArrayList<>();
+        for(SponsorTransferDTO sponsorDTO : dtos){
+            if(getSponsorService().findFirstByName(
+                    sponsorDTO.getName()).isPresent()) continue;
+            T sponsor = this.modelMapper
+                    .map(sponsorDTO, sponsorClass);
+            sponsors.add(sponsor);
+        }
+
+        getSponsorService().saveAll(sponsors);
+    }
+
+    protected <T extends BaseApp> void importApps(String json, Class<T> appClass) {
+        AppTransferDTO[] dtos = this.gson
+                .fromJson(json, AppTransferDTO[].class);
+        List<T> apps = new ArrayList<>();
+        for(AppTransferDTO appDTO : dtos){
+            if(getAppService().findFirstByName(
+                    appDTO.getName()).isPresent()) continue;
+            T app = this.modelMapper
+                    .map(appDTO, appClass);
+            apps.add(app);
+        }
+
+        getAppService().saveAll(apps);
+    }
 }
