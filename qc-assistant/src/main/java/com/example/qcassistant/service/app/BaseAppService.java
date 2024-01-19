@@ -76,7 +76,7 @@ public abstract class BaseAppService {
 
     protected abstract <T extends BaseApp> CrudRepository<T, Long> getAppRepository();
 
-    protected abstract <T extends BaseApp> List<T> getEntities();
+    public abstract <T extends BaseApp> List<T> getEntities();
 
     public abstract <T extends BaseApp> Optional<T> findFirstByName(String name);
 

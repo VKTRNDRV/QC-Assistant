@@ -75,7 +75,7 @@ public class IqviaAppService extends BaseAppService{
 
 
     @Override
-    protected List<IqviaApp> getEntities() {
+    public List<IqviaApp> getEntities() {
         return getAppRepository().findAll();
     }
 

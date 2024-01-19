@@ -73,7 +73,7 @@ public class MedableAppService extends BaseAppService{
 
 
     @Override
-    protected List<MedableApp> getEntities() {
+    public List<MedableApp> getEntities() {
         return getAppRepository().findAll();
     }
 

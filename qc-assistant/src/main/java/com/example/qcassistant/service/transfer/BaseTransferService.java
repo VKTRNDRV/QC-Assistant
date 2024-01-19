@@ -75,6 +75,9 @@ public abstract class BaseTransferService {
 
         return transferDTOs;
     }
+
+    public abstract ClinicalEntitiesTransferDTO exportEntities();
+
     public abstract void importEntities(ClinicalEntitiesTransferDTO entitiesJSON);
 
     protected abstract <T extends BaseSponsorService> T getSponsorService();

@@ -52,6 +52,7 @@ public class MedidataTransferService extends BaseTransferService {
         this.studyService = studyService;
     }
 
+    @Override
     public ClinicalEntitiesTransferDTO exportEntities(){
         List<MedidataSponsor> sponsors = this.sponsorService.getEntities();
         List<MedidataApp> apps = this.appService.getEntities();
