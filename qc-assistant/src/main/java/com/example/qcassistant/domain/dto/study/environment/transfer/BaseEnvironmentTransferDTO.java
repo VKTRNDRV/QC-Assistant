@@ -2,6 +2,8 @@ package com.example.qcassistant.domain.dto.study.environment.transfer;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.List;
+
 public class BaseEnvironmentTransferDTO {
 
     @Expose
@@ -12,6 +14,12 @@ public class BaseEnvironmentTransferDTO {
 
     @Expose
     private String isOsSeparated;
+
+    @Expose
+    private List<String> patientApps;
+
+    @Expose
+    private List<String> siteApps;
 
 
 
@@ -39,6 +47,24 @@ public class BaseEnvironmentTransferDTO {
 
     public BaseEnvironmentTransferDTO setIsOsSeparated(String isOsSeparated) {
         this.isOsSeparated = isOsSeparated;
+        return this;
+    }
+
+    public List<String> getPatientApps() {
+        return patientApps;
+    }
+
+    public BaseEnvironmentTransferDTO setPatientApps(List<String> patientApps) {
+        this.patientApps = patientApps;
+        return this;
+    }
+
+    public List<String> getSiteApps() {
+        return siteApps;
+    }
+
+    public BaseEnvironmentTransferDTO setSiteApps(List<String> siteApps) {
+        this.siteApps = siteApps;
         return this;
     }
 }

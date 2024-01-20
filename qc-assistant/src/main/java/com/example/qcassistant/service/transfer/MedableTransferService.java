@@ -1,9 +1,21 @@
 package com.example.qcassistant.service.transfer;
 
+import com.example.qcassistant.domain.dto.study.transfer.IqviaStudyTransferDTO;
+import com.example.qcassistant.domain.dto.study.transfer.MedableStudyTransferDTO;
+import com.example.qcassistant.domain.dto.tag.TagTransferDTO;
 import com.example.qcassistant.domain.dto.transfer.ClinicalEntitiesTransferDTO;
+import com.example.qcassistant.domain.entity.app.BaseApp;
+import com.example.qcassistant.domain.entity.app.IqviaApp;
 import com.example.qcassistant.domain.entity.app.MedableApp;
+import com.example.qcassistant.domain.entity.destination.Destination;
+import com.example.qcassistant.domain.entity.sponsor.IqviaSponsor;
 import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
+import com.example.qcassistant.domain.entity.study.IqviaStudy;
 import com.example.qcassistant.domain.entity.study.MedableStudy;
+import com.example.qcassistant.domain.entity.study.MedidataStudy;
+import com.example.qcassistant.domain.entity.study.environment.IqviaEnvironment;
+import com.example.qcassistant.domain.entity.study.environment.MedableEnvironment;
+import com.example.qcassistant.domain.entity.tag.IqviaTag;
 import com.example.qcassistant.domain.entity.tag.MedableTag;
 import com.example.qcassistant.service.DestinationService;
 import com.example.qcassistant.service.app.MedableAppService;
@@ -14,7 +26,11 @@ import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MedableTransferService extends BaseTransferService{
@@ -52,17 +68,144 @@ public class MedableTransferService extends BaseTransferService{
         entities.setSponsors(this.gson.toJson(super.mapSponsorsToTransferDTO(sponsors)))
                 .setApps(this.gson.toJson(super.mapAppsToTransferDTO(apps)))
                 .setTags(this.gson.toJson(super.mapTagsToTransferDTO(tags)))
-//                .setStudies(this.gson.toJson(this.mapStudiesToTransferDTO(studies)))
-        ;
-
-        //TODO: FINISH STUDY MAPPING
+                .setStudies(this.gson.toJson(this.mapStudiesToTransferDTO(studies)));
 
         return entities;
     }
 
+    private List<MedableStudyTransferDTO> mapStudiesToTransferDTO(List<MedableStudy> studies) {
+        List<MedableStudyTransferDTO> transferDTOs = new ArrayList<>();
+        for(MedableStudy study : studies){
+            MedableStudyTransferDTO studyTransferDTO = this.modelMapper
+                    .map(study, MedableStudyTransferDTO.class);
+
+            MedableEnvironment env = study.getEnvironment();
+
+            studyTransferDTO
+                    .setSponsor(study.getSponsor().getName());
+            studyTransferDTO.getEnvironment()
+                    .setPatientApps(env.getPatientApps()
+                            .stream().map(BaseApp::getName)
+                            .collect(Collectors.toList()))
+                    .setSiteApps(env.getSiteApps()
+                            .stream().map(BaseApp::getName)
+                            .collect(Collectors.toList()));
+
+            transferDTOs.add(studyTransferDTO);
+        }
+
+        return transferDTOs;
+    }
+
     @Override
     public void importEntities(ClinicalEntitiesTransferDTO entitiesJSON) {
+        if(!entitiesJSON.getSponsors().trim().isEmpty()){
+            super.importSponsors(entitiesJSON.getSponsors(), MedableSponsor.class);
+        }
 
+        if(!entitiesJSON.getApps().trim().isEmpty()){
+            super.importApps(entitiesJSON.getApps(), MedableApp.class);
+        }
+
+        if(!entitiesJSON.getStudies().trim().isEmpty()){
+            this.importStudies(entitiesJSON.getStudies());
+        }
+
+        if(!entitiesJSON.getTags().trim().isEmpty()){
+            this.importTags(entitiesJSON.getTags());
+        }
+    }
+
+    private void importTags(String json) {
+        TagTransferDTO[] dtos = this.gson.fromJson(json, TagTransferDTO[].class);
+        List<MedableTag> tags = new ArrayList<>();
+        List<Destination> allDestinations = this.destinationService.getEntities();
+        List<MedableStudy> allStudies = this.studyService.getEntities();
+        for(TagTransferDTO tagDTO : dtos){
+            MedableTag tag = this.modelMapper.map(tagDTO, MedableTag.class);
+
+            List<Destination> tagDestinations = new ArrayList<>();
+            for(String name : tagDTO.getDestinations()){
+                for(Destination destination : allDestinations){
+                    if(Objects.equals(name, destination.getName())){
+                        tagDestinations.add(destination);
+                        break;
+                    }
+                }
+            }
+
+            List<MedableStudy> tagStudies = new ArrayList<>();
+            for(String name : tagDTO.getStudies()){
+                for(MedableStudy study : allStudies){
+                    if(study.getName().equals(name)){
+                        tagStudies.add(study);
+                        break;
+                    }
+                }
+            }
+
+            tag.setDestinations(tagDestinations);
+            tag.setStudies(tagStudies);
+
+            tags.add(tag);
+        }
+
+        this.tagService.saveAll(tags);
+    }
+
+    private void importStudies(String json) {
+        MedableStudyTransferDTO[] dtos = this.gson
+                .fromJson(json, MedableStudyTransferDTO[].class);
+        List<MedableStudy> studies = this.mapStudyDTOsToEntities(List.of(dtos));
+        this.studyService.saveAll(studies);
+    }
+
+    public List<MedableStudy> mapStudyDTOsToEntities(Iterable <MedableStudyTransferDTO> dtos){
+        MedableSponsor unknownSponsor = this.sponsorService.getUnknownSponsor();
+        List<MedableApp> apps = this.appService.getEntities();
+        List<MedableStudy> studies = new ArrayList<>();
+
+        for(MedableStudyTransferDTO studyDTO : dtos){
+            if(this.studyService.findFirstByName(
+                    studyDTO.getName()).isPresent()) continue;
+
+            MedableStudy study = this.modelMapper.map(studyDTO, MedableStudy.class);
+            Optional<MedableSponsor> sponsor = this.sponsorService
+                    .findFirstByName(studyDTO.getSponsor());
+            if(sponsor.isPresent()){
+                study.setSponsor(sponsor.get());
+            }else{
+                study.setSponsor(unknownSponsor);
+            }
+
+            List<MedableApp> siteApps = new ArrayList<>();
+            List<MedableApp> patientApps = new ArrayList<>();
+
+            for(String appName : studyDTO.getEnvironment().getSiteApps()){
+                for(MedableApp app : apps){
+                    if(app.getName().equals(appName)){
+                        siteApps.add(app);
+                        break;
+                    }
+                }
+            }
+
+            for(String appName : studyDTO.getEnvironment().getPatientApps()){
+                for(MedableApp app : apps){
+                    if(app.getName().equals(appName)){
+                        patientApps.add(app);
+                        break;
+                    }
+                }
+            }
+
+            study.getEnvironment().setSiteApps(siteApps);
+            study.getEnvironment().setPatientApps(patientApps);
+
+            studies.add(study);
+        }
+
+        return studies;
     }
 
     @Override

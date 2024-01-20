@@ -215,10 +215,12 @@ public class MedidataStudyService extends BaseStudyService{
         return this.studyRepository.findFirstByName(name);
     }
 
-    public void saveAll(Collection<MedidataStudy> studies) {
-        this.environmentRepository.saveAll(studies.stream()
-                .map(s -> s.getEnvironment())
+    @Override
+    public <T extends BaseStudy> void saveAll(Collection<T> studies) {
+        Collection<MedidataStudy> casted = (Collection<MedidataStudy>) studies;
+        this.environmentRepository.saveAll(casted.stream()
+                .map(MedidataStudy::getEnvironment)
                 .collect(Collectors.toList()));
-        this.studyRepository.saveAll(studies);
+        this.studyRepository.saveAll(casted);
     }
 }

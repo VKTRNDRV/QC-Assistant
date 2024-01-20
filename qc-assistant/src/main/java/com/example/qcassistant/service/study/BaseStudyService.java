@@ -3,10 +3,12 @@ package com.example.qcassistant.service.study;
 import com.example.qcassistant.domain.dto.study.StudyDisplayDto;
 import com.example.qcassistant.domain.entity.study.BaseStudy;
 import com.example.qcassistant.domain.entity.study.MedableStudy;
+import com.example.qcassistant.domain.entity.study.MedidataStudy;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,4 +61,6 @@ public abstract class BaseStudyService {
     public abstract List<StudyDisplayDto> getTagStudies();
 
     public abstract <T extends BaseStudy> Optional<T> findFirstByName(String name);
+
+    public abstract <T extends BaseStudy> void saveAll(Collection<T> studies);
 }

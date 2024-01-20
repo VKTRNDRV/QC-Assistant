@@ -1,13 +1,9 @@
 package com.example.qcassistant.domain.dto.study.transfer;
 
 import com.example.qcassistant.domain.dto.study.environment.transfer.MedidataEnvironmentTransferDTO;
-import com.example.qcassistant.util.TrinaryBoolean;
 import com.google.gson.annotations.Expose;
 
 public class MedidataStudyTransferDTO extends BaseStudyTransferDTO{
-
-    @Expose
-    private String sponsor;
 
     @Expose
     private MedidataEnvironmentTransferDTO environment;
@@ -28,14 +24,6 @@ public class MedidataStudyTransferDTO extends BaseStudyTransferDTO{
     private String includesHeadphonesStyluses;
 
 
-    public String getSponsor() {
-        return sponsor;
-    }
-
-    public MedidataStudyTransferDTO setSponsor(String sponsor) {
-        this.sponsor = sponsor;
-        return this;
-    }
 
     public MedidataEnvironmentTransferDTO getEnvironment() {
         return environment;

@@ -1,15 +1,27 @@
 package com.example.qcassistant.domain.dto.study.transfer;
 
 import com.google.gson.annotations.Expose;
-import jakarta.persistence.Column;
 
 public class BaseStudyTransferDTO {
+
+    @Expose
+    private String sponsor;
 
     @Expose
     private String name;
 
     @Expose
     private String folderURL;
+
+
+    public String getSponsor() {
+        return sponsor;
+    }
+
+    public BaseStudyTransferDTO setSponsor(String sponsor) {
+        this.sponsor = sponsor;
+        return this;
+    }
 
     public String getName() {
         return name;

@@ -8,6 +8,7 @@ import com.example.qcassistant.domain.entity.BaseEntity;
 import com.example.qcassistant.domain.entity.app.MedableApp;
 import com.example.qcassistant.domain.entity.sponsor.MedableSponsor;
 import com.example.qcassistant.domain.entity.study.BaseStudy;
+import com.example.qcassistant.domain.entity.study.IqviaStudy;
 import com.example.qcassistant.domain.entity.study.MedableStudy;
 import com.example.qcassistant.domain.entity.study.environment.MedableEnvironment;
 import com.example.qcassistant.repository.app.MedableAppRepository;
@@ -21,8 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MedableStudyService extends BaseStudyService{
@@ -215,6 +218,15 @@ public class MedableStudyService extends BaseStudyService{
     @Override
     public List<StudyDisplayDto> getTagStudies() {
         return this.displayAllStudies();
+    }
+
+    @Override
+    public <T extends BaseStudy> void saveAll(Collection<T> studies) {
+        Collection<MedableStudy> casted = (Collection<MedableStudy>) studies;
+        this.environmentRepository.saveAll(casted.stream()
+                .map(MedableStudy::getEnvironment)
+                .collect(Collectors.toList()));
+        this.studyRepository.saveAll(casted);
     }
 
     @Override

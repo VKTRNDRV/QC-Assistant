@@ -19,39 +19,41 @@
 <nav th:replace="index :: fullNavbar"></nav>
 <div class="container" style="max-width: 1600px; padding-top: 33px; padding-bottom: 66px;">
     <form th:method="POST" th:action="@{/medidata/import}" th:object="${json}">
-        <div class="row">
-            <div class="col-6">
-                <h4>Apps JSON:</h4>
-                <div class="col-md-12">
-                    <textarea class="form-control" id="apps" rows="9" th:field="${json.apps}"></textarea>
+        <div th:fragment="entitiesImport">
+            <div class="row">
+                <div class="col-6">
+                    <h4>Apps JSON:</h4>
+                    <div class="col-md-12">
+                        <textarea class="form-control" id="apps" rows="9" th:field="${json.apps}"></textarea>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h4>Sponsors JSON:</h4>
+                    <div class="col-md-12">
+                        <textarea class="form-control" id="sponsors" rows="9" th:field="${json.sponsors}"></textarea>
+                    </div>
                 </div>
             </div>
-            <div class="col-6">
-                <h4>Sponsors JSON:</h4>
-                <div class="col-md-12">
-                    <textarea class="form-control" id="sponsors" rows="9" th:field="${json.sponsors}"></textarea>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-6">
+                    <h4>Tags JSON:</h4>
+                    <div class="col-md-12">
+                        <textarea class="form-control" id="tags" rows="16" th:field="${json.tags}"></textarea>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h4>Studies JSON:</h4>
+                    <div class="col-md-12">
+                        <textarea class="form-control" id="studies" rows="16" th:field="${json.studies}"></textarea>
+                    </div>
                 </div>
             </div>
+            <hr class="my-4">
+            <p th:if="${error}"
+               class="errors alert alert-danger" th:text="${message}">
+            </p>
         </div>
-        <hr class="my-4">
-        <div class="row">
-            <div class="col-6">
-                <h4>Tags JSON:</h4>
-                <div class="col-md-12">
-                    <textarea class="form-control" id="tags" rows="16" th:field="${json.tags}"></textarea>
-                </div>
-            </div>
-            <div class="col-6">
-                <h4>Studies JSON:</h4>
-                <div class="col-md-12">
-                    <textarea class="form-control" id="studies" rows="16" th:field="${json.studies}"></textarea>
-                </div>
-            </div>
-        </div>
-        <hr class="my-4">
-        <p th:if="${error}"
-           class="errors alert alert-danger" th:text="${message}">
-        </p>
         <button type="submit" class="w-100 btn btn-lg btn-primary">Import Medidata Entities</button>
     </form>
 </div>

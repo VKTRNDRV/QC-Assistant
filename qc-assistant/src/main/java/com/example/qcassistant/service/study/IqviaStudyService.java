@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -226,6 +227,15 @@ public class IqviaStudyService extends BaseStudyService{
     @Override
     public List<StudyDisplayDto> getTagStudies() {
         return this.displayAllStudies();
+    }
+
+    @Override
+    public <T extends BaseStudy> void saveAll(Collection<T> studies) {
+        Collection<IqviaStudy> casted = (Collection<IqviaStudy>) studies;
+        this.environmentRepository.saveAll(casted.stream()
+                .map(IqviaStudy::getEnvironment)
+                .collect(Collectors.toList()));
+        this.studyRepository.saveAll(casted);
     }
 
     @Override

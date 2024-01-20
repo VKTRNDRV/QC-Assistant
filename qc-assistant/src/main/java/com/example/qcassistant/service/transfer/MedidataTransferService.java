@@ -77,14 +77,15 @@ public class MedidataTransferService extends BaseTransferService {
             MedidataEnvironment env = study.getEnvironment();
 
             studyTransferDTO
-                    .setSponsor(study.getSponsor().getName()).getEnvironment()
+                    .setSponsor(study.getSponsor().getName());
+            studyTransferDTO.getEnvironment()
+                    .setIsLegacy(env.getIsLegacy().name())
                     .setPatientApps(env.getPatientApps()
                             .stream().map(BaseApp::getName)
                             .collect(Collectors.toList()))
                     .setSiteApps(env.getSiteApps()
                             .stream().map(BaseApp::getName)
-                            .collect(Collectors.toList()))
-                    .setIsLegacy(env.getIsLegacy().name());
+                            .collect(Collectors.toList()));
 
             transferDTOs.add(studyTransferDTO);
         }
@@ -211,37 +212,4 @@ public class MedidataTransferService extends BaseTransferService {
 
         return studies;
     }
-
-
-
-//    private void importSponsors(String json) {
-//        SponsorTransferDTO[] dtos = this.gson
-//                .fromJson(json, SponsorTransferDTO[].class);
-//        List<MedidataSponsor> sponsors = new ArrayList<>();
-//        for(SponsorTransferDTO sponsorDTO : dtos){
-//            if(this.sponsorService.findFirstByName(
-//                    sponsorDTO.getName()).isPresent()) continue;
-//            MedidataSponsor sponsor = this.modelMapper
-//                    .map(sponsorDTO, MedidataSponsor.class);
-//            sponsors.add(sponsor);
-//        }
-//
-//        this.sponsorService.saveAll(sponsors);
-//    }
-
-//    private void importApps(String json) {
-//        AppTransferDTO[] dtos = this.gson
-//                .fromJson(json, AppTransferDTO[].class);
-//        List<MedidataApp> apps = new ArrayList<>();
-//        for(AppTransferDTO appDTO : dtos){
-//            if(this.appService.findFirstByName(
-//                    appDTO.getName()).isPresent()) continue;
-//            MedidataApp app = this.modelMapper
-//                    .map(appDTO, MedidataApp.class);
-//            apps.add(app);
-//        }
-//
-//        this.appService.saveAll(apps);
-//    }
-
 }
