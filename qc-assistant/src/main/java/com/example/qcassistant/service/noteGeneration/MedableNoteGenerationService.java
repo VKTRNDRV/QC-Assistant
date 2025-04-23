@@ -190,12 +190,16 @@ public class MedableNoteGenerationService extends NoteGenerationService{
 
         notes.add(new Note(Severity.LOW, NoteText.CONFIRM_ASSET_LABEL));
         notes.add(new Note(Severity.LOW, NoteText.CONFIRM_ASSET_NUM_ON_LABEL));
-        if(order.containsSiteDevices()){
-            notes.add(new Note(Severity.MEDIUM, NoteText.CONFIRM_MEDABLE_SITE_CARTONS));
-        }
-        if(order.getDeviceRepository().containsShellType(ShellType.MEDICAL)){
-            notes.add(new Note(Severity.MEDIUM, NoteText.BUILD_DOCS_BY_HAND));
-        }
+
+//        NO MORE CARTONS FOR MEDABLE SITE DEVICES
+//        if(order.containsSiteDevices()){
+//            notes.add(new Note(Severity.MEDIUM, NoteText.CONFIRM_MEDABLE_SITE_CARTONS));
+//        }
+
+//        NO MORE PAPER BUILD DOCS FOR MEDABLE
+//        if(order.getDeviceRepository().containsShellType(ShellType.MEDICAL)){
+//            notes.add(new Note(Severity.MEDIUM, NoteText.BUILD_DOCS_BY_HAND));
+//        }
 
         notes.addAll(super.genCommentNotes(order));
 
@@ -249,7 +253,9 @@ public class MedableNoteGenerationService extends NoteGenerationService{
         }
 
         if(devices.containsShellType(ShellType.MEDICAL)){
-            notes.add(new Note(Severity.MEDIUM, NoteText.MEDICAL_DVCS_TL_QC));
+
+//            NONE OF THAT ANYMORE
+//            notes.add(new Note(Severity.MEDIUM, NoteText.MEDICAL_DVCS_TL_QC));
 
             if(devices.containsAnyOfTheFollowing(List.of(
                     MedableMedicalDevice.IWATCH_SERIES_5.getShortName(),

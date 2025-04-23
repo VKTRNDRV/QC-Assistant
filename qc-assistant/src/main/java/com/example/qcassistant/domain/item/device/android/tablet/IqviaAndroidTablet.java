@@ -10,6 +10,8 @@ public enum IqviaAndroidTablet {
             "Galaxy Tab A7", ConnectorType.TYPE_C),
     GALAXY_TAB_A8("IQVIA\\s*Samsung\\s*Galaxy\\s*Tab\\s*A8\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Galaxy Tab A8", ConnectorType.TYPE_C),
+    GALAXY_TAB_A9("IQVIA\\s*Samsung\\s*Galaxy\\s*Tab\\s*A9\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
+            "Galaxy Tab A9", ConnectorType.TYPE_C),
     GALAXY_TAB_S4("IQVIA\\s*Samsung\\s*Galaxy\\s*Tab\\s*S4\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Galaxy Tab S4", ConnectorType.TYPE_C)
     ;

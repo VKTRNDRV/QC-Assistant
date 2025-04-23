@@ -4,12 +4,14 @@ import com.example.qcassistant.domain.enums.item.ConnectorType;
 
 public enum MedidataIPhone {
 
+    IPHONE_7("Medidata\\s*Apple\\s*iPhone\\s*7\\s*S.{0,16}(?<serial>[A-Z0-9]{12})",
+            "iPhone 7", ConnectorType.LIGHTNING),
     IPHONE_8("Medidata\\s*Apple\\s*iPhone\\s*8\\s*S.{0,16}(?<serial>[A-Z0-9]{12})",
             "iPhone 8", ConnectorType.LIGHTNING),
     IPHONE_8_PLUS("Medidata\\s*Apple\\s*iPhone\\s*8\\s*P.{0,16}(?<serial>[A-Z0-9]{12})",
             "iPhone 8 Plus", ConnectorType.LIGHTNING),
     IPHONE_SE("Medidata\\s*Apple\\s*iPhone\\s*[A0-9]{4}.{0,16}\\s*(?<serial>[A-Z0-9]{12})",
-            "iPhone SE 2nd Gen", ConnectorType.LIGHTNING),
+            "iPhone SE Gen", ConnectorType.LIGHTNING),
     IPHONE_SE_2ND_GEN("Medidata\\s*Apple\\s*iPhone\\s*SE.{0,16}\\s*2nd.{0,16}(?<serial>[A-Z0-9]{12})",
             "iPhone SE 2nd Gen", ConnectorType.LIGHTNING),
     IPHONE_SE_3RD_GEN("Medidata\\s*Apple\\s*iPhone\\s*SE.{0,16}\\s*3rd.{0,16}(?<serial>[A-Z0-9]{10})",

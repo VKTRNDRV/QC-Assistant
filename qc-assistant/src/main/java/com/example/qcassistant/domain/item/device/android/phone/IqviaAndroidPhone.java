@@ -22,6 +22,8 @@ public enum IqviaAndroidPhone {
             "Samsung A13", ConnectorType.TYPE_C),
     A_14("IQVIA\\s*Samsung\\s*.{0,16}A14\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
             "Samsung A14", ConnectorType.TYPE_C),
+    A_15("IQVIA\\s*Samsung\\s*.{0,16}A15\\s*.{0,32}(?<serial>[A-Z0-9]{11})",
+            "Samsung A15", ConnectorType.TYPE_C),
 
     ;
     public static final String SERIAL_GROUP_NAME = "serial";
